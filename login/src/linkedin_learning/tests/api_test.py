@@ -1,33 +1,17 @@
 #!/usr/bin/env python3
 import sys
-from api.course import fetchCourseUrl, getCourseInfo, fetchCourseTocUrl, getCourseToc,getVideoMeta
+sys.path.append('..')
+
 from robots.fn import errors, log, lang,  pq, dict2htmTable, RED,GREEN,BLUE,RESET,BLACK,WHITE
-from robots.json_config import JsonConfig
-import logging
-
-import logging
-import dicttoxml
 from robots.datasource import DataSource
+from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
+from api.course import fetchCourseUrl, getCourseInfo, fetchCourseTocUrl, getCourseToc,getVideoMeta
 
-db_path="my.db"
+
+
 ds = DataSource(db_path)
+db_config=ds.mConfig
 if __name__ == '__main__':
-    
-
-    # logger.disabled = True
-    # logging.disable(1)
-
-    # logging.basicConfig(
-    # format="%(levelname) -10s %(asctime)s %(filename)s:%(lineno)s  %(message)s",
-    # level=logging.NOTSET)
-
-    # logging.getLogger().disabled = True  # True, False
-
-    # logging.critical("Critical")
-    # logging.error("Error")
-    # logging.warning("Warning")
-    # logging.info("Info")
-    # logging.debug("Debug")
 
     course_url="https://www.linkedin.com/learning/learning-next-js?u=95231473"
     # course_url="https://www.linkedin.com/learning/creating-fun-and-engaging-video-training-the-how"
@@ -37,7 +21,7 @@ if __name__ == '__main__':
         errors('could_not_fetch_course_url',e)
         sys.exit(1)
     if xml_doc:    
-        course_info=getCourseInfo(xml_doc,ds.mConfig)
+        course_info=getCourseInfo(xml_doc,db_config)
     else:
         errors('could_not_parse_xml_doc')
         sys.exit(1)
@@ -72,7 +56,7 @@ if __name__ == '__main__':
                                 xml_doc = fetchCourseTocUrl(toc['url'])
                                 # json_config = JsonConfig(path=f"{course_slug}.json")
 
-                                stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], xml_doc,ds.mConfig)
+                                stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], xml_doc,db_config)
                                 if stream_locations:
                                     toc["stream_locations"]=stream_locations
                                 else:

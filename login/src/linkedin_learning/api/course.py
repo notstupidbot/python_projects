@@ -6,7 +6,7 @@ import xmltodict
 from robots.fn import errors, log, lang, cleanQueryString, pq, writeFile,slugify
 from robots.config import linkedin_learning_url
 from bs4 import BeautifulSoup
-from robots.json_config import JsonConfig
+from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
 
 def parseJson(code_id,code_nd):
     code_content=""
@@ -24,7 +24,7 @@ def convert2Xml(data, page_name):
     xml_data = xml_data.replace('<*','<star_').replace('</*','</star_')
 
     # page_name = 'course_data'
-    xml_path = 'html_cache/%s.xml' % page_name
+    xml_path = '%s/%s.xml' % (browser_cache_dir,page_name)
     writeFile(xml_path, xml_data)
     data = open(xml_path, 'rb')
 

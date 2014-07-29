@@ -1,6 +1,8 @@
 from robots import  JsonConfig
-
-cli_config_path="config/myconfig.json"
+import os
+base_path=f"{os.path.realpath(os.path.dirname(__file__)+'/..')}"
+# print(script_path)
+cli_config_path="%s/config/myconfig.json" % (base_path)
 cli_config=JsonConfig(path=cli_config_path)
 
 browser_cache_dir_setting_key,default_browser_cache_dir=["browser_cache_dir","storage/browser_cache"]
@@ -20,3 +22,7 @@ if not db_path:
 if not cookie_path:
     cookie_path = default_cookie_path
     cli_config.set(cookie_setting_key, cookie_path)
+
+db_path = "%s/%s" % (base_path, db_path)
+cookie_path = "%s/%s" % (base_path, cookie_path)
+browser_cache_dir = "%s/%s" % (base_path,browser_cache_dir)
