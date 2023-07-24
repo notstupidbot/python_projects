@@ -6,6 +6,9 @@ import json
 import requests
 from pyquery import PyQuery as pquery
 import sys
+from datetime import datetime
+import time
+import math
 
 def getCookiePath(cookie_name, cookie_jar):
     for cookie in cookie_jar:
@@ -33,7 +36,7 @@ def log(str, t="log",verbose=False):
     if print_log:    
         print("[%s]%s" % (t.upper(),str))
 
-def errors(msg, exception, exit_progs=False,verbose=False):
+def errors(msg, exception=None, exit_progs=False,verbose=False):
     if exception:
         log(exception,'ERR',verbose=True)
 
@@ -149,3 +152,27 @@ def pq(html):
             errors(lang("pquery_error", path),exception) 
             pq_obj = dummyFn
     return pq_obj
+
+def waitForCaptcha(json_config, last_run_timeout_max=7):
+    current_dt=datetime.now()
+    if not json_config.get('last_run_timestamp'):
+        json_config.set('last_run_timestamp', current_dt.timestamp())
+
+    last_run_dt = datetime.fromtimestamp(json_config.get('last_run_timestamp'))
+    last_run_rest = current_dt - last_run_dt
+    last_run_timeout = math.ceil(last_run_rest.total_seconds())
+    
+    need_to_wait = last_run_timeout < last_run_timeout_max
+    sleep_timeout = last_run_timeout_max - last_run_timeout
+    if sleep_timeout < 0:
+        sleep_timeout = 0
+    need_to_wait_message= "need to wait for %s second" % (sleep_timeout)
+
+    print("Last run %s second ago %s" %(last_run_timeout, need_to_wait_message))
+    
+    if need_to_wait:
+        print("waiting for %s second " % (sleep_timeout))
+        time.sleep(sleep_timeout)
+
+    current_dt=datetime.now()
+    json_config.set('last_run_timestamp',current_dt.timestamp())

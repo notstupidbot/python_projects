@@ -35,6 +35,7 @@ write_file_success="Write file %s success"
 
 #Paga
 page_name_doesnt_have_form_object="Page doesnt have form named %s"
+cant_continue_server_send_checkpoint="Cant continue login process, client receive checkpoint, please try to login with your browser"
 # Human
 human_doesnt_have_page="Human doesnt have page named %s"
 human_start_browsing="Human start browsing this url:%s"
@@ -43,3 +44,7 @@ human_browsing_resp_code="Resp Code %s"
 form_post_payload="Form post payload:%s"
 form_start_post="Form start post this action url:%s"
 form_post_resp_code="Resp Code %s"
+
+cant_continue_next_step_because_prev_errors="Cant continue next step because of previous errors"
+could_not_load_json_file="Couldnt load json file:%s"
+could_not_write_json_file="Couldnt write json file:%s"

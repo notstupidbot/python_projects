@@ -1,4 +1,4 @@
-from robots.fn import log,lang,parseFormPayload,writeResp
+from robots.fn import log,lang,parseFormPayload,writeResp,matchUrl
 class Form:
     def __init__(self,name, selector=None,filter=None):
         self.name = name
@@ -10,10 +10,37 @@ class Form:
         self.human=None
         self.page=None
         self.last_resp=None
-        pass
+        self.url_success_pattern=None
+        self.url_not_success_pattern=None
+        self.url_checkpoint_pattern=None
+    
+    def setUrlCheckPointPattern(self, pattern):
+        self.url_checkpoint_pattern = pattern
+
+    def setUrlSuccessPattern(self, pattern):
+        self.url_success_pattern = pattern
+
+    def setUrlNotSuccessPattern(self, pattern):
+        self.url_not_success_pattern = pattern
+    
+    def postValidationSuccess(self):
+        if self.url_success_pattern:
+            return matchUrl(self.url_success_pattern, self.last_resp.url)
+        return False
+    
+    def postValidationNotSuccess(self):
+        if self.url_not_success_pattern:
+            return matchUrl(self.url_not_success_pattern, self.last_resp.url)
+        return False
+
+    def postValidationCheckPoint(self):
+        if self.url_checkpoint_pattern:
+            return matchUrl(self.url_checkpoint_pattern, self.last_resp.url)
+        return False
     
     def getLastResp(self):
         return self.last_resp
+    
     def setPage(self, page):
         self.page=page
         self.human=page.getHuman()
@@ -41,6 +68,7 @@ class Form:
     def exists(self, doc):
         form = doc(self.selector)
         return form
+    
     #set data based on current form input nodes
     def setPayload(self, doc):
         self.data= parseFormPayload(doc, self.selector) 
@@ -52,7 +80,7 @@ class Form:
         log(lang('form_start_post',self.action))
         log(lang('form_post_payload',self.data))
 
-        resp = self.browser.post(self.action, data=self.data)
+        resp = self.browser.post(self.action, data=self.data,allow_redirects=True)
         self.last_resp=resp
 
         log(lang('form_post_resp_code',resp.status_code))

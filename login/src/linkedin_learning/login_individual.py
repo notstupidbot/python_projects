@@ -23,11 +23,14 @@ class LoginIndividual:
         else:
             errors(lang('could_not_find_login_url'),exit_progs=True)
         return self.linkedin_learning_login_url
+    
     def start(self):
         account_setting={
-            "email" : "sutoyocutexz@gmail.com",
+            "email" : "sutoyocutez@gmail.com",
             "password" : "Sejati86*#"
         }
+        continue_next_step=False
+
         log(lang('using_account',"individual"))
         login_url=self.getLoginUrl()
         page_name='login_email_page'
@@ -42,13 +45,26 @@ class LoginIndividual:
                     current_form.setAction(form_action)
                     current_form.setPayload(current_page.getDoc())
                     current_form.setData('email', account_setting["email"])
+                    current_form.browser.setReferer('https://www.google.com/')
                     content = current_form.post()
                     # log(content)
+                    if current_form.postValidationCheckPoint():
+                        errors(lang("cant_continue_server_send_checkpoint"),exit_progs=True)
+                    elif not current_form.postValidationSuccess():
+                        errors(lang("cant_continue_with_provided_email",account_setting["email"]),exit_progs=True)
+                    else:
+                        continue_next_step=True
                 else:
                     errors(lang('page_name_doesnt_have_form_object', page_name),exit_progs=True)
             pass
         else:
             errors(lang('cant_login_email_page'),exit_progs=True)
+        
+        # exit if cant continue next step
+        if not continue_next_step:
+            errors(lang('cant_continue_next_step_because_prev_errors'),exit_progs=True)
+        
+        
 
 
 def login(human):

@@ -11,6 +11,9 @@ class LoginEmailPage(Page):
         self.form = Form(page_name, self.form_selector)
         self.form.setPage(self)
 
+        self.form.setUrlSuccessPattern(r"uas/login\?session_key=")
+        self.form.setUrlCheckPointPattern(r"checkpoint/challenge")
+
     def getForm(self):
         return self.form
     

@@ -1,28 +1,32 @@
 #!/usr/bin/env python3
 
-from robots import Page, Human
+from robots import Page, Human, JsonConfig
 from robots.pages import unauthenticated_page,login_email_page, login_passwd_page
-from robots.fn import log, lang
+from robots.fn import log, lang, waitForCaptcha
 from robots.config import linkedin_learning_url
 import login_individual
 import login_library
+import sys
 
+######################################################
+#JsonConfig
+######################################################
+json_config=JsonConfig(path="myconfig.json")
+waitForCaptcha(json_config)
+sys.exit()
+######################################################
 already_loged_in=False
-
 login_type="individual"
 ######################################################
 # MIMIC HUMAN
 ######################################################
 human = Human()
 human.addPage(unauthenticated_page).addPage(login_email_page).addPage(login_passwd_page)
-print(login_email_page)
-
 ######################################################
 # STEP 1 BROWSE THE LINKEDIN LEARNING WEBSITE
 ######################################################
 # human try to browse linkedin learning website
 content = human.browse(linkedin_learning_url, 'linkedin_learning_homepage')
-# print(content)
 
 # human try to guess page by name
 if human.guessPage('unauthenticated_page',content):

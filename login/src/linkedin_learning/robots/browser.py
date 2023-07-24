@@ -13,6 +13,9 @@ class Browser:
         loadCookies(self.session)
         self.url = ""
         self.last_resp=None
+    
+    def setReferer(self, referer):
+        self.session.headers.update({"referer": referer})
 
     def setUserAgent(self,UA):
         self.session.headers.update({"User-Agent": UA})
