@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from robots import Page, Human
-from robots.pages import unauthenticated_page
+from robots.pages import unauthenticated_page,login_email_page, login_passwd_page
 from robots.fn import log, lang
 from robots.config import linkedin_learning_url
 import login_individual
@@ -14,8 +14,8 @@ login_type="individual"
 # MIMIC HUMAN
 ######################################################
 human = Human()
-human.addPage(unauthenticated_page)
-# print(unauthenticated_page)
+human.addPage(unauthenticated_page).addPage(login_email_page).addPage(login_passwd_page)
+print(login_email_page)
 
 ######################################################
 # STEP 1 BROWSE THE LINKEDIN LEARNING WEBSITE

@@ -1,4 +1,5 @@
 using_account="Using %s account"
+could_not_find_login_url="Could not find login url"
 checking_login_credential="Checking login  credentials..."
 sign_in_btn_not_found="Sign in btn found"
 you_are_not_login="You are not loged in"
@@ -32,7 +33,13 @@ could_not_write_file="Could not write file %s"
 could_not_open_file="Could not open file %s"
 write_file_success="Write file %s success"
 
+#Paga
+page_name_doesnt_have_form_object="Page doesnt have form named %s"
 # Human
 human_doesnt_have_page="Human doesnt have page named %s"
 human_start_browsing="Human start browsing this url:%s"
 human_browsing_resp_code="Resp Code %s"
+
+form_post_payload="Form post payload:%s"
+form_start_post="Form start post this action url:%s"
+form_post_resp_code="Resp Code %s"

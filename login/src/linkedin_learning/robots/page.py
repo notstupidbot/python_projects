@@ -7,10 +7,17 @@ class Page:
         self.content=""
         self.human=None
         self.guess_callback_fn=guess_callback_fn
+        self.form=None
 
     def setHuman(self, human):
-        self.human = human    
+        self.human = human
+        if self.form:
+            self.form.setHuman(human)  
 
+    def getHuman(self):
+        return self.human    
+    def getDoc(self):
+        return self.doc
     def getName(self):
         return self.name
     
@@ -38,5 +45,13 @@ class Page:
             elif filter:
                 return node.filter(filter)
         return None
-    def hasForm(self, form_name):
-        return self.human.getForm(form_name).exists(self.doc)
+    # return form node if exists or None
+    def hasForm(self, form_name=None):
+        if not form_name:
+            if self.form:
+                form = self.doc(self.form_selector)
+                return form
+        else:
+            return self.human.getForm(form_name).exists(self.doc)
+
+        return False
