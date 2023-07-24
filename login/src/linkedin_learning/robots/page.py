@@ -9,6 +9,13 @@ class Page:
         self.guess_callback_fn=guess_callback_fn
         self.form=None
 
+    def setForm(self, form):
+        self.form = form
+        self.form.setPage(self)
+
+    def getForm(self):
+        return self.form
+        
     def setHuman(self, human):
         self.human = human
         if self.form:
@@ -45,13 +52,13 @@ class Page:
             elif filter:
                 return node.filter(filter)
         return None
-    # return form node if exists or None
-    def hasForm(self, form_name=None):
+    # return form node if exists or []
+    def getFormNd(self, form_name=None):
         if not form_name:
             if self.form:
-                form = self.doc(self.form_selector)
-                return form
+                formNd = self.form.getNd(self.doc)
+                return formNd
         else:
-            return self.human.getForm(form_name).exists(self.doc)
+            return self.human.getForm(form_name).getNd(self.doc)
 
-        return False
+        return []

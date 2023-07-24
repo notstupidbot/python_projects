@@ -24,14 +24,19 @@ class Form:
         self.url_not_success_pattern = pattern
     
     def postValidationSuccess(self):
+        print(self.url_success_pattern)
+        print(self.last_resp.url)
         if self.url_success_pattern:
             return matchUrl(self.url_success_pattern, self.last_resp.url)
         return False
     
     def postValidationNotSuccess(self):
+        
         if self.url_not_success_pattern:
             return matchUrl(self.url_not_success_pattern, self.last_resp.url)
         return False
+    def postValidationPattern(self,pattern):
+        return matchUrl(pattern, self.last_resp.url)
 
     def postValidationCheckPoint(self):
         if self.url_checkpoint_pattern:
@@ -65,16 +70,21 @@ class Form:
         else:        
             self.data = key_or_data
     
-    def exists(self, doc):
-        form = doc(self.selector)
-        return form
+    def exists(self, doc=None):
+        return len(self.getNd(doc)) > 0
     
+    def getNd(self, doc=None):
+        if not doc:
+            doc = self.page.getDoc()
+        if doc:    
+            return doc(self.selector)
+        return []
     #set data based on current form input nodes
     def setPayload(self, doc):
         self.data= parseFormPayload(doc, self.selector) 
 
-    def existsInContent(self, content):
-        pass
+    # def existsInContent(self, content):
+    #     pass
     
     def post(self):
         log(lang('form_start_post',self.action))

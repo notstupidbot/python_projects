@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from robots import Page, Human, JsonConfig
-from robots.pages import unauthenticated_page,login_email_page, login_passwd_page
+from robots.pages import unauthenticated_page,login_email_page, login_passwd_page, login_pin_page
 from robots.fn import log, lang, waitForCaptcha
 from robots.config import linkedin_learning_url
 import login_individual
@@ -13,7 +13,7 @@ import sys
 ######################################################
 json_config=JsonConfig(path="myconfig.json")
 waitForCaptcha(json_config)
-sys.exit()
+# sys.exit()
 ######################################################
 already_loged_in=False
 login_type="individual"
@@ -22,6 +22,7 @@ login_type="individual"
 ######################################################
 human = Human()
 human.addPage(unauthenticated_page).addPage(login_email_page).addPage(login_passwd_page)
+human.addPage(login_pin_page)
 ######################################################
 # STEP 1 BROWSE THE LINKEDIN LEARNING WEBSITE
 ######################################################
@@ -36,7 +37,8 @@ if human.guessPage('unauthenticated_page',content):
         already_loged_in = login_individual.login(human)
     else:
         already_loged_in = login_library.login(human)
-
+else:
+    already_loged_in=True
 # entry point after login process
 if already_loged_in:
     log(lang('already_loged_in'))

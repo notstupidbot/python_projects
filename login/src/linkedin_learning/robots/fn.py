@@ -164,9 +164,14 @@ def waitForCaptcha(json_config, last_run_timeout_max=7):
     
     need_to_wait = last_run_timeout < last_run_timeout_max
     sleep_timeout = last_run_timeout_max - last_run_timeout
+
     if sleep_timeout < 0:
         sleep_timeout = 0
-    need_to_wait_message= "need to wait for %s second" % (sleep_timeout)
+    
+    need_to_wait_message= ""
+
+    if need_to_wait:
+        need_to_wait_message= "need to wait for %s second" % (sleep_timeout)
 
     print("Last run %s second ago %s" %(last_run_timeout, need_to_wait_message))
     

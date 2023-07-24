@@ -13,7 +13,7 @@ class UnAuthenticatedPage(Page):
         valid_page = False
         if self.content:
             sign_in_btn = self.getSignInBtn()
-            if len(sign_in_btn)>0:
+            if sign_in_btn:
                 log(lang("sign_in_btn_not_found"),'nd')
         
                 valid_page =  True
