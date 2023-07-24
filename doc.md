@@ -3,13 +3,13 @@ pwd
 /Volumes/STORAGE/Python_Projects
 
 # Create project dir
-mkdir -p login
+mkdir -p .venv
 
 # Create virtual environment
-python3 -m venv login
+python3 -m venv .venv
 
 # Activate virtualenv
-source login/bin/activate
+source .venv/bin/activate
 
 
 ```

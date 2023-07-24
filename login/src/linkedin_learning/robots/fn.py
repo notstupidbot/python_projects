@@ -9,6 +9,8 @@ import sys
 from datetime import datetime
 import time
 import math
+import html
+from urllib.parse import unquote
 
 def getCookiePath(cookie_name, cookie_jar):
     for cookie in cookie_jar:
@@ -181,3 +183,32 @@ def waitForCaptcha(json_config, last_run_timeout_max=7):
 
     current_dt=datetime.now()
     json_config.set('last_run_timestamp',current_dt.timestamp())
+
+
+# convert data to desired format
+def convertData(src, c_type):
+    if c_type == "unquote":
+        return unquote(src)
+    elif c_type == "unescape":
+        return html.unescape(src)
+    elif c_type == "dict" or c_type == "json.loads":
+        return json.loads(src)
+    return src
+# get html meta data
+def getMeta(name,doc,meta_config={}):
+    selector="meta[name='%s']" % (name)
+    metaNd=doc(selector)
+    # print(metaNd)
+    if len(metaNd) > 0:
+        content = metaNd.attr("content")
+        if name in meta_config:
+            parser_type = meta_config[name]
+            match_pipe=re.findall(r"\|",parser_type)
+            if len(match_pipe)>0:
+                parser_list = parser_type.split("|")
+                for c_type in parser_list:
+                    content = convertData(content, c_type)
+            else:
+                content=convertData(content, parser_type)
+        return content    
+    return None

@@ -21,8 +21,7 @@ login_type="individual"
 # MIMIC HUMAN
 ######################################################
 human = Human()
-human.addPage(unauthenticated_page).addPage(login_email_page).addPage(login_passwd_page)
-human.addPage(login_pin_page)
+human.addPage(unauthenticated_page).addPage(login_email_page).addPage(login_passwd_page).addPage(login_pin_page)
 ######################################################
 # STEP 1 BROWSE THE LINKEDIN LEARNING WEBSITE
 ######################################################
