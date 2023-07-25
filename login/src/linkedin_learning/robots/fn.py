@@ -11,6 +11,13 @@ import time
 import math
 import html
 from urllib.parse import unquote
+from urllib.parse import urlparse, parse_qs
+#get query string value from url
+def getQueryStringValue(param_name,url):
+    parsed_url = urlparse(url)
+    query_string = parsed_url.query
+    query_params = parse_qs(query_string)
+    return query_params.get(param_name, [''])[0]
 
 def getCookiePath(cookie_name, cookie_jar):
     for cookie in cookie_jar:

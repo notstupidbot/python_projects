@@ -51,6 +51,8 @@ class Page:
                 return node.filter(lambda i: pq(this).text().startswith((startsWith)))
             elif filter:
                 return node.filter(filter)
+            else:
+                return node
         return []
     # return form node if exists or []
     def getFormNd(self, form_name=None):

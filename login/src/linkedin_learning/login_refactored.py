@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from robots import Page, Human, JsonConfig
-from robots.pages import unauthenticated_page,login_email_page, login_passwd_page, login_pin_page
+from robots.pages import unauthenticated_page,login_email_page, login_passwd_page, login_pin_page, login_library_page, login_library_card_page
 from robots.fn import log, lang, waitForCaptcha
 from robots.config import linkedin_learning_url
 import login_individual
@@ -16,11 +16,13 @@ waitForCaptcha(json_config)
 # sys.exit()
 ######################################################
 already_loged_in=False
-login_type="individual"
+# login_type="individual"
+login_type="library"
 ######################################################
 # MIMIC HUMAN
 ######################################################
 human = Human()
+human.addPage(login_library_page).addPage(login_library_card_page)
 human.addPage(unauthenticated_page).addPage(login_email_page).addPage(login_passwd_page).addPage(login_pin_page)
 ######################################################
 # STEP 1 BROWSE THE LINKEDIN LEARNING WEBSITE

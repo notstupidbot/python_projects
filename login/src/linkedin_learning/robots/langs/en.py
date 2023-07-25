@@ -20,7 +20,11 @@ cant_continue_with_provided_passwd="Canot continue login with provided password 
 cant_continue_with_provided_email="Canot continue login with provided email %s"
 send_passwd_login_post="Sending password login post"
 continue_login_page="Continue login page"
-
+could_not_get_enterprise_login_result_key="Could not get Enterprise login resut key:%s"
+enterprise_card_login_not_passed="Enterprise card login not passed"
+enterprise_card_login_passed="Enterprise card login passed"
+could_not_get_enterprise_card_login_result="Could not get Enterprise card login result"
+could_not_get_enterprise_card_login_url="Could not get enterprise card login url"
 # Url Related
 next_url="Next url:%s"
 
@@ -35,7 +39,7 @@ could_not_clear_cookie_file="Could not clear cookie file %s"
 human_clear_cookies="Human is clearing cookie"
 
 # Step Related
-cant_continue_util_setup_complete="Canot continue to the next step till your account profile setup complete"
+cant_continue_util_profile_setup_complete="Canot continue to the next step till your account profile setup complete"
 please_fix_this_problem_by_with_your_browser="Please fix this problem by log in with your browser"
 cant_continue_next_step_because_prev_errors="Cant continue next step because of previous errors"
 

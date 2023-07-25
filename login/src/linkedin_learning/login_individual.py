@@ -1,30 +1,10 @@
+from robots import Login
 from robots.fn import log,lang,errors
 from robots.config import linkedin_url, linkedin_learning_url
 import sys
 
-class LoginIndividual:
-    def __init__(self, human):
-        self.human=human
-        self.linkedin_learning_login_url =""
-        self.continue_next_step=False
-        self.login_request_challenge=False
-        self.next_url=""
-        self.already_loged_in=False
-    
-    def alreadyLogedIn(self):
-        return self.already_loged_in
-    
-    def getLoginUrl(self):
-        unauth_page=self.human.getPage('unauthenticated_page')
-        sign_in_btn=unauth_page.getSignInBtn()
-        if sign_in_btn:
-            self.linkedin_learning_login_url=sign_in_btn.attr('href')
-            log(lang("login_url",self.linkedin_learning_login_url))
-        else:
-            errors(lang('could_not_find_login_url'),exit_progs=True)
-        return self.linkedin_learning_login_url
-    
-    def start(self):
+class LoginIndividual(Login):
+    def start(self):    
         account_setting={
             "email" : "sutoyocutez@gmail.com",
             "password" : "Sejati86"
@@ -116,7 +96,7 @@ class LoginIndividual:
                         if current_form.postValidationPattern(r"check/add-phone"):
                             log(lang("login_requested_add_phone"))
                             log(lang("please_fix_this_problem_by_with_your_browser"))
-                            log(lang("cant_continue_util_setup_complete"))
+                            log(lang("cant_continue_util_profile_setup_complete"))
                         
                     else:
                         errors(lang('page_name_doesnt_have_form_object', page_name),exit_progs=True)
