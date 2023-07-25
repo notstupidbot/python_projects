@@ -14,7 +14,7 @@ class UnAuthenticatedPage(Page):
         if self.content:
             sign_in_btn = self.getSignInBtn()
             if len(sign_in_btn)>0:
-                log(lang("sign_in_btn_found"),'nd')
+                log(lang("sign_in_btn_found"),'nd',verbose=True)
         
                 valid_page =  True
 

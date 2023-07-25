@@ -1,5 +1,5 @@
 from robots import Login
-from robots.fn import log,lang,errors,getQueryStringValue
+from robots.fn import log,lang,errors,getQueryStringValue,matchUrl
 from robots.config import linkedin_url, linkedin_learning_url
 import sys
 import json
@@ -25,7 +25,7 @@ class LoginLibrary(Login):
             errors(lang('cant_get_login_page'),exit_progs=True)
 
     def loginLibrary(self, library_login_url):        
-        log(lang("login_url",library_login_url))
+        log(lang("login_url",library_login_url),verbose=True)
         page_name='login_library_page'
         content=self.human.browse(library_login_url,page_name)
         if self.human.guessPage(page_name,content):
@@ -56,8 +56,12 @@ class LoginLibrary(Login):
                         library_card_login_url = content_json["url"]
                     except Exception as e:
                         errors(lang("could_not_get_enterprise_login_url"),e,exit_progs=True)
-                    
-                    if library_card_login_url:
+
+                    if matchUrl(r"learning-login/go/no-access",library_card_login_url):
+                        errors(lang('you_have_no_access_on_this_library_id',self.account_setting["library_id"]))
+                        errors(lang('make_sure_you_have_valid_library_account_setting'))
+
+                    elif library_card_login_url:
                         content = self.human.browse(library_card_login_url,'library_card_login_url')
                         page_name="login_library_card_page"
                         if self.human.guessPage(page_name,content):
@@ -109,7 +113,7 @@ class LoginLibrary(Login):
                                         redirectUri=results[result_key]["redirectUri"]  
                                         status=results[result_key]["status"]
                                         if status == "PASS":
-                                            log(lang("enterprise_card_login_passed"))
+                                            log(lang("enterprise_card_login_passed"),'info')
                                             self.already_loged_in=True
 
                                         else:
@@ -134,9 +138,9 @@ class LoginLibrary(Login):
         log(lang('using_account',"library"))
 
         self.account_setting={
-            "library_id" : "***",
-            "card_number" : "*****",
-            "pin" : "****"
+            "library_id" : "**",
+            "card_number" : "**",
+            "pin" : "***"
         }
         
         continue_next_step=False

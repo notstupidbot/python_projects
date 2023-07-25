@@ -6,12 +6,39 @@ import json
 import requests
 from pyquery import PyQuery as pquery
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 import math
 import html
 from urllib.parse import unquote
 from urllib.parse import urlparse, parse_qs
+
+BLACK = '\033[30m'
+RED = '\033[31m'
+GREEN = '\033[32m'
+YELLOW = '\033[33m'
+BLUE = '\033[34m'
+MAGENTA = '\033[35m'
+CYAN = '\033[36m'
+WHITE = '\033[37m'
+RESET = '\033[0m'
+
+def timeAgo(seconds):
+    current_time = datetime.now()
+    time_ago = current_time - timedelta(seconds=seconds)
+
+    if seconds < 60:
+        return f"{seconds} seconds"
+    elif seconds < 3600:
+        minutes = seconds // 60
+        return f"{minutes} minutes"
+    elif seconds < 86400:
+        hours = seconds // 3600
+        return f"{hours} hours"
+    else:
+        days = seconds // 86400
+        return f"{days} days"
+
 #get query string value from url
 def getQueryStringValue(param_name,url):
     parsed_url = urlparse(url)
@@ -28,13 +55,19 @@ def getCookiePath(cookie_name, cookie_jar):
 def log(str, t="log",verbose=False):
     log_type = t.lower()
     print_log=False
+    log_color=CYAN
     if config.enable_loging:
         if log_type == "err":
             print_log = config.log_errors
+            log_color=RED
         elif log_type == "info":
             print_log = config.log_info
+            log_color=GREEN
+
         elif log_type == "nd":
             print_log = config.log_nd
+            log_color=YELLOW
+
         else:
             print_log = True
         
@@ -42,8 +75,9 @@ def log(str, t="log",verbose=False):
             print_log = print_log and config.log_verbose
 
 
-    if print_log:    
-        print("[%s]%s" % (t.upper(),str))
+    if print_log: 
+        log_message= "[%s]%s" % (t.upper(),str)
+        print(log_color + "[%s]%s" % (t.upper(),str) + RESET)
 
 def errors(msg, exception=None, exit_progs=False,verbose=False):
     if exception:
@@ -53,11 +87,14 @@ def errors(msg, exception=None, exit_progs=False,verbose=False):
     if exit_progs:
         sys.exit()
 
-def inputLoginType(defaultValue="individual"):
+def inputLoginType(defaultValue,human):
     print("Please Select Login type:")
 
     print("1: Individual Account")
     print("2: Library Account")
+    print("3: Clear Cookies(Logout)")
+    print("4: Account Settings")
+    print("5: Exit")
     login_type = defaultValue
     defaultCode=2
     if defaultValue=="individual":
@@ -65,14 +102,21 @@ def inputLoginType(defaultValue="individual"):
     user_choice = input("Enter your choice (1,2)[%i]:" % (defaultCode))
     # Process the user's choice
     if user_choice.lower() == '1':
-        # login_type="individual"
-        pass
+        login_type="individual"
+    
     elif user_choice.lower() == '2':
         login_type="library"
+
+    elif user_choice.lower() == '3':
+        human.clearCookies()
+        login_type=inputLoginType(defaultValue,human)
+
+    elif user_choice.lower() == '5':
+        sys.exit()
+
     else:
-        # print("Invalid choice. exit")
-        # sys.exit()
-        pass
+        login_type=user_choice.lower()
+
     return login_type
 
 def parseFormPayload(doc, form_selector):
@@ -182,7 +226,7 @@ def waitForCaptcha(json_config, last_run_timeout_max=7):
     if need_to_wait:
         need_to_wait_message= "need to wait for %s second" % (sleep_timeout)
 
-    print("Last run %s second ago %s" %(last_run_timeout, need_to_wait_message))
+    print("Last run %s ago %s" %(timeAgo(last_run_timeout), need_to_wait_message))
     
     if need_to_wait:
         print("waiting for %s second " % (sleep_timeout))

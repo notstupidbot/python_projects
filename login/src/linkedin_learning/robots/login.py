@@ -17,7 +17,7 @@ class Login:
         sign_in_btn=unauth_page.getSignInBtn()
         if sign_in_btn:
             self.linkedin_learning_login_url=sign_in_btn.attr('href')
-            log(lang("login_url",self.linkedin_learning_login_url))
+            log(lang("login_url",self.linkedin_learning_login_url),verbose=True)
         else:
             errors(lang('could_not_find_login_url'),exit_progs=True)
         return self.linkedin_learning_login_url

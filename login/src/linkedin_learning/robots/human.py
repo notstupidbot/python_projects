@@ -41,10 +41,10 @@ class Human:
         return self.getPage(page_name).guess(content)
     
     def browse(self, url, page_name):
-        log(lang('human_start_browsing',url))
+        log(lang('human_start_browsing',url),verbose=True)
         resp= self.browser.get(url)
         
-        log(lang('human_browsing_resp_code',resp.status_code))
+        log(lang('human_browsing_resp_code',resp.status_code),verbose=True)
         writeResp(resp, page_name, self.getBrowseCount(page_name))
         return resp.text
         
@@ -57,7 +57,7 @@ class Human:
         self.forms[form_name].setDataItem(key, value)
 
     def clearCookies(self):
-        log(lang('human_clear_cookies'))
+        log(lang('human_clear_cookies'),verbose=True)
         clearCookies()
 
     

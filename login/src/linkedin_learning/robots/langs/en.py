@@ -62,3 +62,6 @@ human_browsing_resp_code="Resp Code %s"
 form_post_payload="Form post payload:%s"
 form_start_post="Form start post this action url:%s"
 form_post_resp_code="Resp Code %s"
+
+you_have_no_access_on_this_library_id="You have no access on this library id: \"%s\""
+make_sure_you_have_valid_library_account_setting="Please make sure you have valid library account settings"

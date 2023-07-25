@@ -87,13 +87,13 @@ class Form:
     #     pass
     
     def post(self):
-        log(lang('form_start_post',self.action))
-        log(lang('form_post_payload',self.data))
+        log(lang('form_start_post',self.action),verbose=True)
+        log(lang('form_post_payload',self.data),verbose=True)
 
         resp = self.browser.post(self.action, data=self.data,allow_redirects=True)
         self.last_resp=resp
 
-        log(lang('form_post_resp_code',resp.status_code))
+        log(lang('form_post_resp_code',resp.status_code),verbose=True)
         
         writeResp(resp, "%s_form" % (self.name), 1)
         return resp.text
