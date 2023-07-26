@@ -13,7 +13,9 @@ class DataSource:
 
         Session = sessionmaker(bind=engine)
         self.session = Session()
-
-        new_user = User(name='John Doe', email='john@example.com')
-        self.session.add(new_user)
-        self.session.commit()
+        # try:
+        #     new_user = User(name='John Doe', email='john@example.com')
+        #     self.session.add(new_user)
+        #     self.session.commit()
+        # except Exception as e:
+        #     print(e)

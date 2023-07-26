@@ -2,6 +2,7 @@
 using_account="Using %s account"
 
 #Login Related
+you_are_loged_in="You are loged in"
 could_not_find_login_url="Could not find login url"
 checking_login_credential="Checking login  credentials..."
 sign_in_btn_found="Sign in btn found"
@@ -68,3 +69,20 @@ make_sure_you_have_valid_library_account_setting="Please make sure you have vali
 
 is_not_valid_email="%s is not valid Email"
 is_not_valid_password="%s is not valid Password"
+
+please_select_action="Please Select Action:"
+change_email="Change Email"
+change_password="Change Password"
+prnt="Print"
+back="Back"
+enter_your_choice="Enter your choice"
+email="Email"
+password="Password"
+enter_email="Enter email"
+enter_password_min_4_chars="Enter password (min 4 char)"
+change_library_id="Change Library ID"
+library_id="Library ID"
+change_card_number="Change Card Number"
+card_number="Card Number"
+change_pin="Change PIN"
+pin="PIN"

@@ -104,23 +104,23 @@ def inputAccountSettingIndividual(json_config):
     if not json_config.get("password"):
         json_config.set("password","*******")
     
-    print("Please Select Action:")
+    print(lang("please_select_action"))
 
-    print("1: Change Email")
-    print("2: Change Password")
-    print("p: Print")
-    print("0: Back")
+    print("1: %s" % (lang('change_email')))
+    print("2: %s" % (lang('change_password')))
+    print("p: %s" % (lang('prnt')))
+    print("0: %s" % (lang('back')))
 
-    user_choice = input("Enter your choice (1,2,0)[0]:" )
+    user_choice = input("%s (1,2,0)[0]:" % (lang('enter_your_choice')))
     choice = user_choice.lower()
 
     if choice == 'p':
-        print("Email : %s" % json_config.get("email"))
-        print("Password : %s" % json_config.get("password"))
+        print("%s : %s" % (lang('email'),json_config.get("email")))
+        print("%s : %s" % (lang('password'),json_config.get("password")))
         inputAccountSettingIndividual(json_config)
     
     if choice == '1':
-        email = input("Enter email:" )
+        email = input("%s:" % (lang('enter_email')))
         if validEmail(email):
             json_config.set("email",email)
         else:
@@ -129,7 +129,7 @@ def inputAccountSettingIndividual(json_config):
         inputAccountSettingIndividual(json_config)
 
     if choice == '2':
-        password = input("Enter password (min 4 char):" )
+        password = input("%s:" % (lang('enter_password_min_4_chars')))
         if len(password)>=4:
             json_config.set("password",password)
         else:
@@ -149,21 +149,21 @@ def inputAccountSettingLibrary(json_config):
     if not json_config.get("pin"):
         json_config.set("pin","*****")
     
-    print("Please Select Action:")
+    print(lang("please_select_action"))
 
-    print("1: Change Library ID")
-    print("2: Change Card Number")
-    print("3: Change PIN")
-    print("p: Print")
+    print("1: %s" % (lang('change_library_id')))
+    print("2: %s" % (lang('change_card_number')))
+    print("3: %s" % (lang('change_pin')))
+    print("p: %s" % (lang('prnt')))
 
-    print("0: Back")
+    print("0: %s" % (lang('back')))
 
-    user_choice = input("Enter your choice (1,2,3,0)[0]:" )
+    user_choice = input("%s (1,2,3,0)[0]:" % (lang('enter_your_choice')))
     choice= user_choice.lower()
     if choice == 'p':
-        print("Library ID : %s" % json_config.get("library_id"))
-        print("Card Number : %s" % json_config.get("card_number"))
-        print("PIN : %s" % json_config.get("pin"))
+        print("%s : %s" % (lang('library_d'),json_config.get("library_id")))
+        print("%s : %s" % (lang('card_number'),json_config.get("card_number")))
+        print("%s : %s" % (lang('pin'),json_config.get("pin")))
         inputAccountSettingLibrary(json_config)
     
     if choice == '1':

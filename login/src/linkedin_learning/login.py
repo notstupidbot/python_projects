@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from robots import Page, Human, JsonConfig
-from robots.pages import unauthenticated_page,login_email_page, login_passwd_page, login_pin_page, login_library_page, login_library_card_page
+from robots.pages import unauthenticated_page,authenticated_page,login_email_page, login_passwd_page, login_pin_page, login_library_page, login_library_card_page
 from robots.fn import log, lang, waitForCaptcha, inputAction
 from robots.config import linkedin_learning_url
 import login_individual
@@ -28,7 +28,7 @@ ds = DataSource(db_path)
 # MIMIC HUMAN
 ######################################################
 human = Human()
-human.addPage(login_library_page).addPage(login_library_card_page)
+human.addPage(login_library_page).addPage(login_library_card_page).addPage(authenticated_page)
 human.addPage(unauthenticated_page).addPage(login_email_page).addPage(login_passwd_page).addPage(login_pin_page)
 ######################################################
 already_loged_in=False
@@ -49,8 +49,11 @@ if human.guessPage('unauthenticated_page',content):
         already_loged_in = login_individual.login(human, json_config)
     else:
         already_loged_in = login_library.login(human, json_config)
-else:
+
+elif human.guessPage('authenticated_page',content):
+    log(lang("you_are_loged_in"),'info')
     already_loged_in=True
+
 # entry point after login process
 if already_loged_in:
     log(lang('already_loged_in'))
