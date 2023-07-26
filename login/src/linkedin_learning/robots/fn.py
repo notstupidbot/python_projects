@@ -13,15 +13,7 @@ import html
 from urllib.parse import unquote
 from urllib.parse import urlparse, parse_qs
 
-BLACK = '\033[30m'
-RED = '\033[31m'
-GREEN = '\033[32m'
-YELLOW = '\033[33m'
-BLUE = '\033[34m'
-MAGENTA = '\033[35m'
-CYAN = '\033[36m'
-WHITE = '\033[37m'
-RESET = '\033[0m'
+
 
 def timeAgo(seconds):
     current_time = datetime.now()
@@ -53,6 +45,16 @@ def getCookiePath(cookie_name, cookie_jar):
 
     return None
 def log(str, t="log",verbose=False):
+    BLACK = '\033[30m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+    RESET = '\033[0m'
+
     log_type = t.lower()
     print_log=False
     log_color=CYAN
@@ -87,35 +89,168 @@ def errors(msg, exception=None, exit_progs=False,verbose=False):
     if exit_progs:
         sys.exit()
 
-def inputLoginType(defaultValue,human):
+def validEmail(email):
+    # Regular expression pattern for email validation
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    # Use the re.match function to check if the email matches the pattern
+    if re.match(pattern, email):
+        return True
+    else:
+        return False
+
+def inputAccountSettingIndividual(json_config):
+    if not json_config.get("email"):
+        json_config.set("email","you@gmail.com")
+    if not json_config.get("password"):
+        json_config.set("password","*******")
+    
+    print("Please Select Action:")
+
+    print("1: Change Email")
+    print("2: Change Password")
+    print("p: Print")
+    print("0: Back")
+
+    user_choice = input("Enter your choice (1,2,0)[0]:" )
+    choice = user_choice.lower()
+
+    if choice == 'p':
+        print("Email : %s" % json_config.get("email"))
+        print("Password : %s" % json_config.get("password"))
+        inputAccountSettingIndividual(json_config)
+    
+    if choice == '1':
+        email = input("Enter email:" )
+        if validEmail(email):
+            json_config.set("email",email)
+        else:
+            errors(lang('is_not_valid_email',email))
+        
+        inputAccountSettingIndividual(json_config)
+
+    if choice == '2':
+        password = input("Enter password (min 4 char):" )
+        if len(password)>=4:
+            json_config.set("password",password)
+        else:
+            errors(lang('is_not_valid_password',password))
+        
+        inputAccountSettingIndividual(json_config)
+
+
+    
+
+
+def inputAccountSettingLibrary(json_config):
+    if not json_config.get("library_id"):
+        json_config.set("library_id","***")
+    if not json_config.get("card_number"):
+        json_config.set("card_number","*****")
+    if not json_config.get("pin"):
+        json_config.set("pin","*****")
+    
+    print("Please Select Action:")
+
+    print("1: Change Library ID")
+    print("2: Change Card Number")
+    print("3: Change PIN")
+    print("p: Print")
+
+    print("0: Back")
+
+    user_choice = input("Enter your choice (1,2,3,0)[0]:" )
+    choice= user_choice.lower()
+    if choice == 'p':
+        print("Library ID : %s" % json_config.get("library_id"))
+        print("Card Number : %s" % json_config.get("card_number"))
+        print("PIN : %s" % json_config.get("pin"))
+        inputAccountSettingLibrary(json_config)
+    
+    if choice == '1':
+        library_id = input("Enter Library ID (min 2 chars):" )
+        if len(library_id) >=2 :
+            json_config.set("library_id",library_id)
+        else:
+            errors(lang('is_not_valid_library_id',library_id))
+        
+        inputAccountSettingLibrary(json_config)
+
+    if choice == '2':
+        card_number = input("Enter Card Number (min 4 char):" )
+        if len(card_number)>=4:
+            json_config.set("card_number",card_number)
+        else:
+            errors(lang('is_not_valid_card_number',card_number))
+        
+        inputAccountSettingLibrary(json_config)
+    
+    if choice == '3':
+        pin = input("Enter PIN (min 4 char):" )
+        if len(pin)>=4:
+            json_config.set("pin",pin)
+        else:
+            errors(lang('is_not_valid_pin',pin))
+        
+        inputAccountSettingLibrary(json_config)
+        
+
+
+def inputAccountSetting(json_config):
     print("Please Select Login type:")
 
     print("1: Individual Account")
     print("2: Library Account")
-    print("3: Clear Cookies(Logout)")
-    print("4: Account Settings")
-    print("5: Exit")
-    login_type = defaultValue
-    defaultCode=2
-    if defaultValue=="individual":
-        defaultCode=1
-    user_choice = input("Enter your choice (1,2)[%i]:" % (defaultCode))
+    print("0: Back")
+    user_choice = input("Enter your choice (1,2,0):" )
+    choice = user_choice.lower()
     # Process the user's choice
-    if user_choice.lower() == '1':
+    if choice == '1':
+        inputAccountSettingIndividual(json_config)
+    
+    elif choice == '2':
+        inputAccountSettingLibrary(json_config)
+    
+    elif choice == '0':
+        pass
+    else:
+        inputAccountSetting(json_config)
+
+
+
+def inputAction(default_login_type,human,json_config):
+    print("Please Select Action:")
+
+    print("1: Continue using Individual Account")
+    print("2: Continue using Library Account")
+    print("3: Clear Cookies (Logout)")
+    print("4: Account Settings")
+    print("0: Exit")
+
+    login_type = default_login_type
+    default_code=2
+    
+    user_choice = input("Enter your choice (1,2,3,4,0)[%i]:" % (default_code))
+    choice = user_choice.lower()
+    # Process the user's choice
+    if choice == '1':
         login_type="individual"
     
-    elif user_choice.lower() == '2':
+    elif choice == '2':
         login_type="library"
 
-    elif user_choice.lower() == '3':
+    elif choice == '3':
         human.clearCookies()
-        login_type=inputLoginType(defaultValue,human)
+        login_type=inputAction(login_type,human,json_config)
 
-    elif user_choice.lower() == '5':
+    elif choice== '4':
+        inputAccountSetting(json_config)
+        login_type=inputAction(login_type,human,json_config)
+
+    elif choice== '0':
         sys.exit()
 
     else:
-        login_type=user_choice.lower()
+        login_type=choice
 
     return login_type
 

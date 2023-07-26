@@ -137,18 +137,14 @@ class LoginLibrary(Login):
     def start(self):
         log(lang('using_account',"library"))
 
-        self.account_setting={
-            "library_id" : "**",
-            "card_number" : "**",
-            "pin" : "***"
-        }
+        
         
         continue_next_step=False
         library_login_url=self.getLoginUrl()
         self.loginLibrary(library_login_url)
 
 
-def login(human):
-    li = LoginLibrary(human)
+def login(human, json_config):
+    li = LoginLibrary(human, json_config)
     li.start()
     return li.alreadyLogedIn()  

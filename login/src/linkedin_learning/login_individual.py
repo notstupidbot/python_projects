@@ -5,10 +5,7 @@ import sys
 
 class LoginIndividual(Login):
     def start(self):    
-        account_setting={
-            "email" : "sutoyocutez@gmail.com",
-            "password" : "Sejati86"
-        }
+        account_setting=self.account_setting
         continue_next_step=False
 
         log(lang('using_account',"individual"))
@@ -110,7 +107,7 @@ class LoginIndividual(Login):
 
         
 
-def login(human):
-    li = LoginIndividual(human)
+def login(human, json_config):
+    li = LoginIndividual(human, json_config)
     li.start()
     return li.alreadyLogedIn()   

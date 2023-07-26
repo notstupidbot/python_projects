@@ -65,3 +65,6 @@ form_post_resp_code="Resp Code %s"
 
 you_have_no_access_on_this_library_id="You have no access on this library id: \"%s\""
 make_sure_you_have_valid_library_account_setting="Please make sure you have valid library account settings"
+
+is_not_valid_email="%s is not valid Email"
+is_not_valid_password="%s is not valid Password"

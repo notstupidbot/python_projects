@@ -3,11 +3,12 @@ from robots.config import linkedin_url, linkedin_learning_url
 import sys
 
 class Login:
-    def __init__(self, human):
+    def __init__(self, human, json_config):
         self.human=human
         self.linkedin_learning_login_url =""
         self.already_loged_in=False
-        self.account_setting = {}
+        self.account_setting = json_config.getData()
+        
     
     def alreadyLogedIn(self):
         return self.already_loged_in
