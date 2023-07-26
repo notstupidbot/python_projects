@@ -1,0 +1,4 @@
+pyquery                   
+pywebview                 
+requests
+SQLAlchemy

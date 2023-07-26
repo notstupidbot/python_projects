@@ -10,26 +10,40 @@ from datetime import datetime, timedelta
 import time
 import math
 import html
-from urllib.parse import unquote
+from urllib.parse import unquote, urlunparse
 from urllib.parse import urlparse, parse_qs
+import unicodedata
 
-
+def slugify(text):
+    # Normalize the text to remove diacritics and special characters
+    normalized_text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8')
+    # Convert the text to lowercase and replace spaces with dashes
+    slug = re.sub(r'\s+', '-', normalized_text.lower())
+    # Remove any remaining non-alphanumeric characters except for dashes
+    slug = re.sub(r'[^a-z0-9\-]', '', slug)
+    # Remove leading and trailing dashes
+    slug = slug.strip('-')
+    return slug
 
 def timeAgo(seconds):
     current_time = datetime.now()
     time_ago = current_time - timedelta(seconds=seconds)
 
     if seconds < 60:
-        return f"{seconds} seconds"
+        return f"{seconds} %s" % (lang('seconds'))
     elif seconds < 3600:
         minutes = seconds // 60
-        return f"{minutes} minutes"
+        return f"{minutes} %s" % (lang('minutes'))
     elif seconds < 86400:
         hours = seconds // 3600
-        return f"{hours} hours"
+        return f"{hours} %s" % (lang('hours'))
     else:
         days = seconds // 86400
-        return f"{days} days"
+        return f"{days} %s" % (lang('days'))
+def cleanQueryString(url):
+    parsed_url = urlparse(url)
+    cleaned_url = urlunparse(parsed_url._replace(query=''))
+    return cleaned_url
 
 #get query string value from url
 def getQueryStringValue(param_name,url):
@@ -137,10 +151,6 @@ def inputAccountSettingIndividual(json_config):
         
         inputAccountSettingIndividual(json_config)
 
-
-    
-
-
 def inputAccountSettingLibrary(json_config):
     if not json_config.get("library_id"):
         json_config.set("library_id","***")
@@ -167,7 +177,7 @@ def inputAccountSettingLibrary(json_config):
         inputAccountSettingLibrary(json_config)
     
     if choice == '1':
-        library_id = input("Enter Library ID (min 2 chars):" )
+        library_id = input("%s:" % (lang('enter_library_id_min_2_chars')))
         if len(library_id) >=2 :
             json_config.set("library_id",library_id)
         else:
@@ -176,7 +186,7 @@ def inputAccountSettingLibrary(json_config):
         inputAccountSettingLibrary(json_config)
 
     if choice == '2':
-        card_number = input("Enter Card Number (min 4 char):" )
+        card_number = input("%s:" %(lang('enter_card_number_min_4_chars')))
         if len(card_number)>=4:
             json_config.set("card_number",card_number)
         else:
@@ -185,7 +195,7 @@ def inputAccountSettingLibrary(json_config):
         inputAccountSettingLibrary(json_config)
     
     if choice == '3':
-        pin = input("Enter PIN (min 4 char):" )
+        pin = input("%s:" % lang('enter_pin_min_4_chars'))
         if len(pin)>=4:
             json_config.set("pin",pin)
         else:
@@ -196,12 +206,12 @@ def inputAccountSettingLibrary(json_config):
 
 
 def inputAccountSetting(json_config):
-    print("Please Select Login type:")
+    print("%s:" % (lang('please_select_login_type')))
 
-    print("1: Individual Account")
-    print("2: Library Account")
-    print("0: Back")
-    user_choice = input("Enter your choice (1,2,0):" )
+    print("1: %s" % lang('individual_account'))
+    print("2: %s" % lang('library_account'))
+    print("0: %s" % lang('back') )
+    user_choice = input("%s (1,2,0)[0]:" % (lang('enter_your_choice')))
     choice = user_choice.lower()
     # Process the user's choice
     if choice == '1':
@@ -218,18 +228,18 @@ def inputAccountSetting(json_config):
 
 
 def inputAction(default_login_type,human,json_config):
-    print("Please Select Action:")
+    print(lang("please_select_action"))
 
-    print("1: Continue using Individual Account")
-    print("2: Continue using Library Account")
-    print("3: Clear Cookies (Logout)")
-    print("4: Account Settings")
-    print("0: Exit")
+    print("1: %s" % lang('continue_using_individual_account'))
+    print("2: %s" % lang('continue_using_library_account'))
+    print("3: %s" % lang('clear_cookies_logout'))
+    print("4: %s" % lang('account_settings'))
+    print("0: %s" % lang('exit'))
 
     login_type = default_login_type
     default_code=2
     
-    user_choice = input("Enter your choice (1,2,3,4,0)[%i]:" % (default_code))
+    user_choice = input("%s (1,2,3,4,0)[%i]:" % (lang('enter_your_chioce'),default_code))
     choice = user_choice.lower()
     # Process the user's choice
     if choice == '1':
