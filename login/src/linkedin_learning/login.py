@@ -7,12 +7,22 @@ from robots.config import linkedin_learning_url
 import login_individual
 import login_library
 import sys
+from robots.datasource import DataSource
 
 ######################################################
 #JsonConfig
 ######################################################
 json_config=JsonConfig(path="myconfig.json")
 waitForCaptcha(json_config)
+#######################################################
+# Darabase settings
+######################################################
+db_setting_key="db_path"
+db_path="my.db"
+if not json_config.get(db_setting_key):
+    json_config.set(db_setting_key, db_path)
+
+ds = DataSource(db_path)
 # sys.exit()
 ######################################################
 # MIMIC HUMAN
