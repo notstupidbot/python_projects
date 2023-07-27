@@ -29,5 +29,5 @@ class Prx:
                 with open(self.cache_path, 'r') as file:
                     content = file.read()
                     return content
-        else:    
-            return self.human.browse(url, page_name)
+                
+        return self.human.browse(url, self.page_name)

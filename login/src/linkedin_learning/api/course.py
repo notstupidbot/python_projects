@@ -175,7 +175,13 @@ def getCourseSecsTocs(p,doc, course_slug):
                         if toc:
                             tocs[section_slug].append(toc)
 
-    return [sections, tocs]        
+    return [sections, tocs]  
+def getAlternateCourseInfo(root_el,doc):
+    elem_nd=root_el("elements").parent()
+    if elem_nd:
+        pass
+
+
 def getCourseInfo(doc):
     rq_coure_nd=doc('request:contains("/learning-api/courses")')
     match=None
@@ -193,9 +199,14 @@ def getCourseInfo(doc):
     
     item_key='item_%s' % match.group()
     root_el = doc("%s > value > data" % item_key)
+    # log(item_key)
 
     if root_el:
         course_urn=root_el("star_elements")
+        if not course_urn:
+            course_urn=root_el("entityUrn")
+
+
         if course_urn:
             course_urn = course_urn.text()
             entity_urn = doc('entityUrn:contains("%s")' % course_urn)
@@ -256,9 +267,17 @@ def getCourseInfo(doc):
 def fetchCourseUrl(url):
     course_url=cleanQueryString(url)
     prx=Prx()
-    content=prx.get(course_url)
-    page_name=prx.getPageName()
-    doc=pq(content)
-    data=parseRestLiResponse(doc)
-    xml_doc=convert2Xml(data, page_name)
-    return xml_doc
+    # print(course_url)
+    content=prx.get(course_url, no_cache=True)
+    # print(content)
+    if content:
+        page_name=prx.getPageName()
+        doc=pq(content)
+        data=parseRestLiResponse(doc)
+        # print(data)
+        xml_doc=convert2Xml(data, page_name)
+        return xml_doc
+    else:
+        errors('could_not_fetch_course_url')
+        errors('are_you_connected_to_internet')
+    return None

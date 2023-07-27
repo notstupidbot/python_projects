@@ -6,11 +6,22 @@ from robots.fn import errors, log, lang,  pq, dict2htmTable, RED,GREEN,BLUE,RESE
 
 course_url="https://www.linkedin.com/learning/learning-next-js?u=95231473"
 # course_url="https://www.linkedin.com/learning/creating-fun-and-engaging-video-training-the-how"
-
-xml_doc = fetchCourseUrl(course_url)
-course_info=getCourseInfo(xml_doc)
+try:
+    xml_doc = fetchCourseUrl(course_url)
+except Exception as e:
+    errors('could_not_fetch_course_url',e)
+    sys.exit(1)
+if xml_doc:    
+    course_info=getCourseInfo(xml_doc)
+else:
+    errors('could_not_parse_xml_doc')
+    sys.exit(1)
 # course_info_tbl=dict2htmTable(course_info)
 # print(course_info_tbl)
+print(course_info)
+if not course_info:
+    errors('could_not_get_course_info')
+    sys.exit(1)
 print("\n")
 print(course_info["title"]+"\n")
 # print(course_info["slug"])
@@ -41,8 +52,10 @@ if course_info["sections"]:
                         COLOR = GREEN  
                     elif has_transcripts:
                         COLOR = BLUE
+                    elif toc["visibility"]=="LOCKED":
+                        COLOR = WHITE
                     else:
-                        COLOR=WHITE  
+                        COLOR=BLACK  
                     print(COLOR + ("\t%2d. "% index)+toc["title"] + RESET+ stream_location_keys + transcript_keys )
                     index+=1
                     # print("\t"+toc["url"])
