@@ -408,3 +408,33 @@ def getMeta(name,doc,meta_config={}):
                 content=convertData(content, parser_type)
         return content    
     return None
+
+def dict2htmTable(data_dict, root_path=""):
+    style="style='border-collapse: collapse;border:solid 1px #ddd;font-family:JetBrains Mono, Consolas, monospace;padding:0 1em'"
+    table_html = "<table %s>\n" % (style)
+    table_html += "<tr><th %s align='right'>Key</th><th %s align='left'>Value</th></tr>\n" % (style,style)
+    v=""
+    full_path=""
+    try:
+        for key, value in data_dict.items():
+            if root_path == "":
+                full_path = key
+            else:
+                full_path = "%s.%s" % (root_path, key)
+            if type(value) is dict:
+                v= dict2htmTable(value, full_path)
+            elif type(value) is list:
+                v=""
+                i=0
+                for item in value:
+                    full_path_i="%s[%i]" % (full_path,i)
+                    v += dict2htmTable(item, full_path_i)
+                    i += 1
+            else:
+                v=value
+            table_html += f"<tr><td valign='top' align='right' %s><span style='color:brown'>{key}<br/>{full_path}</span></td><td %s>{v}</td></tr>\n" % (style,style)
+    except Exception as e:
+        errors('',e)
+        return data_dict
+    table_html += "</table>"
+    return table_html

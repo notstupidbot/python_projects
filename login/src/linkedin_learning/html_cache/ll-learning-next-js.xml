@@ -702,8 +702,8 @@
 						<learnerHasSelectedCredentialingProgram>false</learnerHasSelectedCredentialingProgram>
 						<type>com.linkedin.learning.api.credentialing.CredentialingProgramSelection</type>
 					</userProgramSelection>
-					<star-activityTransferConsentStatus>ActivityTransferConsentStatus;urn:li:enterpriseProfile:(urn:li:enterpriseAccount:95231473,153712024)</star-activityTransferConsentStatus>
-					<star-videoAutoplayStatus>VideoAutoplayStatus;urn:li:enterpriseProfile:(urn:li:enterpriseAccount:95231473,153712024)</star-videoAutoplayStatus>
+					<star_activityTransferConsentStatus>ActivityTransferConsentStatus;urn:li:enterpriseProfile:(urn:li:enterpriseAccount:95231473,153712024)</star_activityTransferConsentStatus>
+					<star_videoAutoplayStatus>VideoAutoplayStatus;urn:li:enterpriseProfile:(urn:li:enterpriseAccount:95231473,153712024)</star_videoAutoplayStatus>
 					<reactivatedFromLynda>false</reactivatedFromLynda>
 					<shareWatchActivityStatus>DISABLED_BY_ORGANIZATION</shareWatchActivityStatus>
 					<type>com.linkedin.learning.api.common.DetailedLearnerSettings</type>
@@ -757,7 +757,7 @@
 					<count>10</count>
 					<start>0</start>
 				</paging>
-				<star-elements>urn:li:learningApiCourse:44559985</star-elements>
+				<star_elements>urn:li:learningApiCourse:44559985</star_elements>
 				<cachingKey>urn:li:collectionResponse:SStqd5HL79GrIwWG97xbMYzPm0ktwnpWG0jsjmi+BVw=</cachingKey>
 				<type>com.linkedin.restli.common.CollectionResponse</type>
 			</data>
@@ -2541,7 +2541,7 @@
 					<recipeTypes>com.linkedin.learning.api.deco.common.DecoratedAttributedTextModel</recipeTypes>
 					<type>com.linkedin.learning.api.deco.common.AttributedTextModel</type>
 				</biographyV3>
-				<star-identityV2>urn:li:learningApiProfile:urn:li:learningApiExternalIdentity:1490449</star-identityV2>
+				<star_identityV2>urn:li:learningApiProfile:urn:li:learningApiExternalIdentity:1490449</star_identityV2>
 				<influencer>false</influencer>
 				<entityUrn>urn:li:learningApiAuthor:1487604</entityUrn>
 				<identity>urn:li:learningApiProfile:urn:li:learningApiExternalIdentity:1490449</identity>
@@ -2566,7 +2566,7 @@
 				<slug>sandy-ludosky</slug>
 				<trackingId>ji5ZElLfRDSbWia4wdKi7g==</trackingId>
 				<autoPopulateMentionForCertificateShares>false</autoPopulateMentionForCertificateShares>
-				<star-identityResolutionResult>urn:li:learningApiProfile:urn:li:learningApiExternalIdentity:1490449</star-identityResolutionResult>
+				<star_identityResolutionResult>urn:li:learningApiProfile:urn:li:learningApiExternalIdentity:1490449</star_identityResolutionResult>
 				<follow></follow>
 				<recipeTypes>com.linkedin.learning.api.deco.content.DecoratedAuthor</recipeTypes>
 				<type>com.linkedin.learning.api.deco.content.Author</type>
@@ -2861,7 +2861,7 @@
 				</viewerCounts>
 				<lifecycle>ACTIVATED</lifecycle>
 				<authorsV2>
-					<star-urn:li:learningApiAuthor:1487604>urn:li:learningApiAuthor:1487604</star-urn:li:learningApiAuthor:1487604>
+					<star_urn:li:learningApiAuthor:1487604>urn:li:learningApiAuthor:1487604</star_urn:li:learningApiAuthor:1487604>
 				</authorsV2>
 				<skills>urn:li:learningApiSkill:55507</skills>
 				<skills>urn:li:learningApiSkill:55007</skills>
@@ -2869,7 +2869,7 @@
 				<presentation></presentation>
 				<features>
 					<showTakeExamActionOnCourseCompletion>false</showTakeExamActionOnCourseCompletion>
-					<star-contentWatchActivityVisibility>urn:li:learningApiContentWatchActivityVisibility:urn:li:learningApiCourse:44559985</star-contentWatchActivityVisibility>
+					<star_contentWatchActivityVisibility>urn:li:learningApiContentWatchActivityVisibility:urn:li:learningApiCourse:44559985</star_contentWatchActivityVisibility>
 					<audioContent>false</audioContent>
 					<recipeTypes>com.linkedin.learning.api.deco.content.DecoratedFeatures</recipeTypes>
 					<type>com.linkedin.learning.api.deco.content.Features</type>
@@ -2885,46 +2885,46 @@
 				<credentialingPrograms></credentialingPrograms>
 				<eduBriteTest></eduBriteTest>
 				<skillsResolutionResults>
-					<star-urn:li:learningApiSkill:12383>urn:li:learningApiSkill:12383</star-urn:li:learningApiSkill:12383>
-					<star-urn:li:learningApiSkill:55507>urn:li:learningApiSkill:55507</star-urn:li:learningApiSkill:55507>
-					<star-urn:li:learningApiSkill:55007>urn:li:learningApiSkill:55007</star-urn:li:learningApiSkill:55007>
+					<star_urn:li:learningApiSkill:12383>urn:li:learningApiSkill:12383</star_urn:li:learningApiSkill:12383>
+					<star_urn:li:learningApiSkill:55507>urn:li:learningApiSkill:55507</star_urn:li:learningApiSkill:55507>
+					<star_urn:li:learningApiSkill:55007>urn:li:learningApiSkill:55007</star_urn:li:learningApiSkill:55007>
 				</skillsResolutionResults>
 				<slug>learning-next-js</slug>
 				<trackingId>0t9yRmt5QdK0CyOp4EY8Dg==</trackingId>
 				<updatedAt></updatedAt>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiCourse:44559985</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiCourse:44559985</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>COURSE</entityType>
 				<replacedBy></replacedBy>
 				<deletedAt></deletedAt>
 				<contents>
-					<star-section>urn:li:learningApiTocSection:nIK9o2hFs3NA4uymVOoVF5uMQiIpK//B7VSj5lJ5biE=</star-section>
+					<star_section>urn:li:learningApiTocSection:nIK9o2hFs3NA4uymVOoVF5uMQiIpK//B7VSj5lJ5biE=</star_section>
 				</contents>
 				<contents>
-					<star-section>urn:li:learningApiTocSection:Dqg92hWyTdBQIXy+uVMHZAD5h5BcKIS/FiDXgPXa9B4=</star-section>
+					<star_section>urn:li:learningApiTocSection:Dqg92hWyTdBQIXy+uVMHZAD5h5BcKIS/FiDXgPXa9B4=</star_section>
 				</contents>
 				<contents>
-					<star-section>urn:li:learningApiTocSection:iSb34RYw+VQNzyPs2gPwtCWLCURfEKHlTyKdu5jtk2E=</star-section>
+					<star_section>urn:li:learningApiTocSection:iSb34RYw+VQNzyPs2gPwtCWLCURfEKHlTyKdu5jtk2E=</star_section>
 				</contents>
 				<contents>
-					<star-section>urn:li:learningApiTocSection:fixc+z4z0tQX4blYe2dEkCFebPZ6s1KkoMQGqIVljkE=</star-section>
+					<star_section>urn:li:learningApiTocSection:fixc+z4z0tQX4blYe2dEkCFebPZ6s1KkoMQGqIVljkE=</star_section>
 				</contents>
 				<contents>
-					<star-section>urn:li:learningApiTocSection:DM/oAeC78DkCBSdwm/dz7Q6D43OgbgYKa8rGToHHXrE=</star-section>
+					<star_section>urn:li:learningApiTocSection:DM/oAeC78DkCBSdwm/dz7Q6D43OgbgYKa8rGToHHXrE=</star_section>
 				</contents>
 				<contents>
-					<star-section>urn:li:learningApiTocSection:H1S8S2tJzkYbMolbYnDPMpiW7lWdPN3P5QW9qMkDfMM=</star-section>
+					<star_section>urn:li:learningApiTocSection:H1S8S2tJzkYbMolbYnDPMpiW7lWdPN3P5QW9qMkDfMM=</star_section>
 				</contents>
 				<subtitle></subtitle>
 				<authors>urn:li:learningApiAuthor:1487604</authors>
 				<difficultyLevel>Intermediate</difficultyLevel>
 				<activatedAt>1661472000000</activatedAt>
 				<trackingUrn>urn:li:lyndaCourse:2491193</trackingUrn>
-				<star-activityTransferConsentStatus>ActivityTransferConsentStatus;urn:li:enterpriseProfile:(urn:li:enterpriseAccount:95231473,153712024)</star-activityTransferConsentStatus>
+				<star_activityTransferConsentStatus>ActivityTransferConsentStatus;urn:li:enterpriseProfile:(urn:li:enterpriseAccount:95231473,153712024)</star_activityTransferConsentStatus>
 				<replacedByV2Urn></replacedByV2Urn>
 				<title>Learning Next.js</title>
 				<authorsResolutionResults>
-					<star-urn:li:learningApiAuthor:1487604>urn:li:learningApiAuthor:1487604</star-urn:li:learningApiAuthor:1487604>
+					<star_urn:li:learningApiAuthor:1487604>urn:li:learningApiAuthor:1487604</star_urn:li:learningApiAuthor:1487604>
 				</authorsResolutionResults>
 				<duration>
 					<duration>8469</duration>
@@ -2932,9 +2932,9 @@
 					<type>com.linkedin.common.TimeSpan</type>
 				</duration>
 				<entityUrn>urn:li:learningApiCourse:44559985</entityUrn>
-				<star-lyndaCourseViewingStatus>ConsistentBasicCourseViewingStatus;urn:li:lyndaCourseViewingStatus:urn:li:lyndaCourse:2491193</star-lyndaCourseViewingStatus>
+				<star_lyndaCourseViewingStatus>ConsistentBasicCourseViewingStatus;urn:li:lyndaCourseViewingStatus:urn:li:lyndaCourse:2491193</star_lyndaCourseViewingStatus>
 				<providersResolutionResults>
-					<star-urn:li:learningApiProvider:urn:li:learningBrand:10>urn:li:learningApiProvider:urn:li:learningBrand:10</star-urn:li:learningApiProvider:urn:li:learningBrand:10>
+					<star_urn:li:learningApiProvider:urn:li:learningBrand:10>urn:li:learningApiProvider:urn:li:learningBrand:10</star_urn:li:learningApiProvider:urn:li:learningBrand:10>
 				</providersResolutionResults>
 				<primaryThumbnailV2>
 					<sourceUnion>
@@ -3051,7 +3051,7 @@
 					<url>https://www.linkedin.com/ambry/?x-li-ambry-ep=AQIqnhVaU-3n-wAAAYmQ-AD1rqTHZiNMM6d9uuHRwDVnxbCRlQDz9hCeK4TUuXA5X_JatkttZWMiUnf_i5puWXJLmHNMrB3rMl0PSrw0MX1WS8D7GFF_0kkLeFhZqluVNptTIBvtjwm_Y7cIEbcNU7XzQAC8lm121GQKGRO4o_fXP9cDVVb0FPuOOZtXRF6HYcUsHLukE0NvAEQ5rZH_IVqyK6lvFry0rqXeMG_Xs1itjlMA5LO4fNPzC8no_6WlEHbDXVxWdPolIdVbozysuYVXwBQR-2ewPV3WSM7ry9cZf5zh-EF6dqeBc2PwUYvPRZRfelxYp7BBcGVKAeVzZHhZWmjAlip0Bs4yRRxaD8ZjF1CAITdEFHf2P2G0fxvcwdrzXjwP6bSbgK2XWh7xAYbSbeC5iA1HNcJnCVRwdmhYZb5Y5W2TIEfjcr0WGOHoTRvFwrhrnxd8b0v0rhTTFixaadepTWREozR8emwjpMCuUxMO0H5WDDpEUGaQ_S6aq3L_ptVKW-bJW2j_8RQgGLvnSMl8z8i7UlyEsRhnRPH5nKueGDWpsOyiVfV9ZRO1B8L6i0P5nDbp70oMZWJm</url>
 					<type>com.linkedin.learning.api.deco.content.ExerciseFile</type>
 				</exerciseFiles>
-				<star-contentReaction>urn:li:collectionResponse:xStiSdAyrsCxbvMpJeJofcgqxF0+hoYNT8sCxKV3W0A=</star-contentReaction>
+				<star_contentReaction>urn:li:collectionResponse:xStiSdAyrsCxbvMpJeJofcgqxF0+hoYNT8sCxKV3W0A=</star_contentReaction>
 				<deprecatedAt></deprecatedAt>
 				<providerV2></providerV2>
 				<contextualUnlockExtensionEligible>false</contextualUnlockExtensionEligible>
@@ -3068,7 +3068,7 @@
 				<providers>urn:li:learningApiProvider:urn:li:learningBrand:10</providers>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095441)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095441)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095441)</trackingUrn>
 				<title>Challenge: Pre-rendering at build vs. runtime</title>
 				<progressStateThresholds>
@@ -3146,7 +3146,7 @@
 				</primaryThumbnailV2>
 				<trackingId>6eth7sM8RvezYaVKdL3Ohw==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887750</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887750</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -3201,7 +3201,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096397)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096397)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096397)</trackingUrn>
 				<title>Discovering the Next.js framework</title>
 				<progressStateThresholds>
@@ -3279,7 +3279,7 @@
 				</primaryThumbnailV2>
 				<trackingId>ZUAjsn2SQ1OEBK0Qh6HamA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887755</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887755</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -3334,7 +3334,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095439)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095439)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095439)</trackingUrn>
 				<title>Using dynamic routes and user's input to query content</title>
 				<progressStateThresholds>
@@ -3412,7 +3412,7 @@
 				</primaryThumbnailV2>
 				<trackingId>RZUkqnE/QD2e4bWl9TDN/w==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887753</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887753</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -3467,7 +3467,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092501)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092501)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092501)</trackingUrn>
 				<title>Discovering the rendering strategies with getStaticProps</title>
 				<progressStateThresholds>
@@ -3545,7 +3545,7 @@
 				</primaryThumbnailV2>
 				<trackingId>dz46BsQVQQayR2SntT4nRg==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887754</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887754</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -3600,7 +3600,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093388)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093388)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093388)</trackingUrn>
 				<title>Solution: Pre-rendering at build vs. runtime</title>
 				<progressStateThresholds>
@@ -3678,7 +3678,7 @@
 				</primaryThumbnailV2>
 				<trackingId>Mp7QW9hnSDOXIq6tb+B11w==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887751</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887751</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -3733,7 +3733,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098522)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098522)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098522)</trackingUrn>
 				<title>Pre-rendering super fast and super SEO-efficient content</title>
 				<progressStateThresholds>
@@ -3811,7 +3811,7 @@
 				</primaryThumbnailV2>
 				<trackingId>kvg//ncDQBiGxsQ5vA9m6w==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887752</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887752</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -3866,7 +3866,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098520)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098520)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098520)</trackingUrn>
 				<title>Building a file-based routing system</title>
 				<progressStateThresholds>
@@ -3944,7 +3944,7 @@
 				</primaryThumbnailV2>
 				<trackingId>wvMaZJF2Q3WeyIYixrqvKw==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38883833</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38883833</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -3999,7 +3999,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</trackingUrn>
 				<title>What is a web framework?</title>
 				<progressStateThresholds>
@@ -4077,7 +4077,7 @@
 				</primaryThumbnailV2>
 				<trackingId>i+Ddn0SiT+a2LzlQfyMlnw==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38883834</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38883834</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -4132,7 +4132,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3097448)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3097448)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3097448)</trackingUrn>
 				<title>What you should know</title>
 				<progressStateThresholds>
@@ -4210,7 +4210,7 @@
 				</primaryThumbnailV2>
 				<trackingId>uIOt+BAIQ/Okz7VJYkPVpg==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38883835</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38883835</star_bookmark>
 				<visibility>FREE</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -4265,7 +4265,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093389)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093389)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093389)</trackingUrn>
 				<title>Solution: Adding and maintain CSS globally</title>
 				<progressStateThresholds>
@@ -4343,7 +4343,7 @@
 				</primaryThumbnailV2>
 				<trackingId>AZ2C4+bsSb+duetg+jL5eg==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887749</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38887749</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -4398,7 +4398,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098524)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098524)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098524)</trackingUrn>
 				<title>Adding global styles</title>
 				<progressStateThresholds>
@@ -4476,7 +4476,7 @@
 				</primaryThumbnailV2>
 				<trackingId>HOOBoff5Qk25HKinFyRPww==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38890072</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38890072</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -4531,7 +4531,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098523)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098523)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098523)</trackingUrn>
 				<title>Handling errors with a fallback page (404 not found)</title>
 				<progressStateThresholds>
@@ -4609,7 +4609,7 @@
 				</primaryThumbnailV2>
 				<trackingId>h0mlqc2JQA2bE38HCFImLw==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38890073</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38890073</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -4664,7 +4664,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098519)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098519)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098519)</trackingUrn>
 				<title>Getting started with the Next.js tooling</title>
 				<progressStateThresholds>
@@ -4742,7 +4742,7 @@
 				</primaryThumbnailV2>
 				<trackingId>RURzzAd8Tuuks28urFBZng==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38890074</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38890074</star_bookmark>
 				<visibility>FREE</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -4797,7 +4797,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093387)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093387)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093387)</trackingUrn>
 				<title>Customizing an error page</title>
 				<progressStateThresholds>
@@ -4875,7 +4875,7 @@
 				</primaryThumbnailV2>
 				<trackingId>JUhFtA6pQEm04ktNaRZF1g==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38889617</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38889617</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -4930,7 +4930,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094438)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094438)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094438)</trackingUrn>
 				<title>Discovering the rendering strategies with getStaticPaths</title>
 				<progressStateThresholds>
@@ -5008,7 +5008,7 @@
 				</primaryThumbnailV2>
 				<trackingId>1zMtmFDhS0mkz3r77rTKqA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38889619</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38889619</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -5063,7 +5063,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099396)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099396)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099396)</trackingUrn>
 				<title>Creating links to navigate between pages</title>
 				<progressStateThresholds>
@@ -5141,7 +5141,7 @@
 				</primaryThumbnailV2>
 				<trackingId>fAT0PDXySZ+2nUaGFZB4Rw==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888783</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888783</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -5196,7 +5196,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092500)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092500)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092500)</trackingUrn>
 				<title>Creating new pages</title>
 				<progressStateThresholds>
@@ -5274,7 +5274,7 @@
 				</primaryThumbnailV2>
 				<trackingId>+cxINpu5S0KHHgDWmjzrUQ==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888784</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888784</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -5329,7 +5329,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3097450)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3097450)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3097450)</trackingUrn>
 				<title>Pre-rendering at build time with static generation</title>
 				<progressStateThresholds>
@@ -5407,7 +5407,7 @@
 				</primaryThumbnailV2>
 				<trackingId>KrqaiBwcSZKzE2KBkv280g==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888781</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888781</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -5462,7 +5462,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092502)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092502)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092502)</trackingUrn>
 				<title>Styling Next.js with styled JSX</title>
 				<progressStateThresholds>
@@ -5540,7 +5540,7 @@
 				</primaryThumbnailV2>
 				<trackingId>G2J7X+t6QGSwwdaJI0l2Uw==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38885792</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38885792</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -5595,7 +5595,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096400)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096400)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096400)</trackingUrn>
 				<title>Discovering the rendering strategies with getServerSideProps</title>
 				<progressStateThresholds>
@@ -5673,7 +5673,7 @@
 				</primaryThumbnailV2>
 				<trackingId>df9fCqCMRAGymTltQLGuGA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888782</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888782</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -5728,7 +5728,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099399)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099399)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099399)</trackingUrn>
 				<title>What to learn next?</title>
 				<progressStateThresholds>
@@ -5806,7 +5806,7 @@
 				</primaryThumbnailV2>
 				<trackingId>ZdcMFRS+Tduv9eoWfargeQ==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888780</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888780</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -5861,7 +5861,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093386)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093386)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3093386)</trackingUrn>
 				<title>Search, request, and pre-render content with SSR</title>
 				<progressStateThresholds>
@@ -5939,7 +5939,7 @@
 				</primaryThumbnailV2>
 				<trackingId>LJstY9hETkOZIbB6euXXMg==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38886766</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38886766</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -5994,7 +5994,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095442)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095442)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095442)</trackingUrn>
 				<title>Using scoped CSS with CSS modules</title>
 				<progressStateThresholds>
@@ -6072,7 +6072,7 @@
 				</primaryThumbnailV2>
 				<trackingId>02rP05mfQBSKmZDKddGjfg==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38886765</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38886765</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -6127,7 +6127,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095440)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095440)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3095440)</trackingUrn>
 				<title>Pre-rendering at build time with static paths</title>
 				<progressStateThresholds>
@@ -6205,7 +6205,7 @@
 				</primaryThumbnailV2>
 				<trackingId>l/dD+oyUR0WJPnm6bOVNuA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38886767</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38886767</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -6260,7 +6260,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3097449)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3097449)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3097449)</trackingUrn>
 				<title>The exercise files and what you need</title>
 				<progressStateThresholds>
@@ -6338,7 +6338,7 @@
 				</primaryThumbnailV2>
 				<trackingId>r+OjlQZfQUKBO+dyw+x8Gw==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888787</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888787</star_bookmark>
 				<visibility>FREE</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -6393,7 +6393,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096398)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096398)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096398)</trackingUrn>
 				<title>Solution: Set up a file-based system with zero config</title>
 				<progressStateThresholds>
@@ -6471,7 +6471,7 @@
 				</primaryThumbnailV2>
 				<trackingId>fr9F+i1vTIiF4Mdt/ZSoxA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38885794</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38885794</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -6526,7 +6526,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098521)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098521)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3098521)</trackingUrn>
 				<title>Setting up dynamic routing and URLs</title>
 				<progressStateThresholds>
@@ -6604,7 +6604,7 @@
 				</primaryThumbnailV2>
 				<trackingId>JaRQnDlbSVyVcCWyH93cwA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888785</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888785</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -6659,7 +6659,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094436)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094436)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094436)</trackingUrn>
 				<title>Speeding up your workflow with Next.js</title>
 				<progressStateThresholds>
@@ -6737,7 +6737,7 @@
 				</primaryThumbnailV2>
 				<trackingId>3wGJkj8KRcCO71Ps1QRTjA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888786</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888786</star_bookmark>
 				<visibility>FREE</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -6792,7 +6792,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096401)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096401)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096401)</trackingUrn>
 				<title>Challenge: Add global and scoped styling</title>
 				<progressStateThresholds>
@@ -6870,7 +6870,7 @@
 				</primaryThumbnailV2>
 				<trackingId>BYlMgTP3SnKeykCxwCwkng==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38884866</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38884866</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -6925,7 +6925,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096399)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096399)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3096399)</trackingUrn>
 				<title>Discovering the rendering strategies</title>
 				<progressStateThresholds>
@@ -7003,7 +7003,7 @@
 				</primaryThumbnailV2>
 				<trackingId>SCGM6BKMRcOTDm/l8DtpaA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38884867</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38884867</star_bookmark>
 				<visibility>FREE</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -7058,7 +7058,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092499)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092499)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3092499)</trackingUrn>
 				<title>Learning the benefits of Next.js</title>
 				<progressStateThresholds>
@@ -7136,7 +7136,7 @@
 				</primaryThumbnailV2>
 				<trackingId>6nS3Xi39TJqc82b2n2RAFA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38884868</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38884868</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -7191,7 +7191,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099397)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099397)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099397)</trackingUrn>
 				<title>Challenge: Set up a file-based system with zero config</title>
 				<progressStateThresholds>
@@ -7269,7 +7269,7 @@
 				</primaryThumbnailV2>
 				<trackingId>ljRXnEv9T46PGDJ+YAlYMw==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38889620</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38889620</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -7324,7 +7324,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099398)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099398)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099398)</trackingUrn>
 				<title>Loading static images</title>
 				<progressStateThresholds>
@@ -7402,7 +7402,7 @@
 				</primaryThumbnailV2>
 				<trackingId>Wg0gCzcyRcKWryuEHFPquA==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888779</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38888779</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -7457,7 +7457,7 @@
 				<thumbnails></thumbnails>
 			</included>
 			<included>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099395)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099395)</star_lyndaVideoViewingStatus>
 				<trackingUrn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099395)</trackingUrn>
 				<title>Learning the building blocks of an application</title>
 				<progressStateThresholds>
@@ -7535,7 +7535,7 @@
 				</primaryThumbnailV2>
 				<trackingId>iyKzU3MiSXGjX5c1smtEHQ==</trackingId>
 				<thumbnailsV2></thumbnailsV2>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38889621</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38889621</star_bookmark>
 				<visibility>FREE</visibility>
 				<entityType>VIDEO</entityType>
 				<primaryThumbnail>
@@ -7655,10 +7655,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38889619</star-video>
+					<star_video>urn:li:learningApiVideo:38889619</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38889619</star-video>
+					<star_video>urn:li:learningApiVideo:38889619</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38889619</video>
@@ -7672,10 +7672,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38889617</star-video>
+					<star_video>urn:li:learningApiVideo:38889617</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38889617</star-video>
+					<star_video>urn:li:learningApiVideo:38889617</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38889617</video>
@@ -7689,10 +7689,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38889621</star-video>
+					<star_video>urn:li:learningApiVideo:38889621</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38889621</star-video>
+					<star_video>urn:li:learningApiVideo:38889621</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38889621</video>
@@ -7706,10 +7706,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38889620</star-video>
+					<star_video>urn:li:learningApiVideo:38889620</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38889620</star-video>
+					<star_video>urn:li:learningApiVideo:38889620</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38889620</video>
@@ -7723,10 +7723,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38888779</star-video>
+					<star_video>urn:li:learningApiVideo:38888779</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38888779</star-video>
+					<star_video>urn:li:learningApiVideo:38888779</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38888779</video>
@@ -7740,10 +7740,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38888780</star-video>
+					<star_video>urn:li:learningApiVideo:38888780</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38888780</star-video>
+					<star_video>urn:li:learningApiVideo:38888780</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38888780</video>
@@ -7757,10 +7757,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38888781</star-video>
+					<star_video>urn:li:learningApiVideo:38888781</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38888781</star-video>
+					<star_video>urn:li:learningApiVideo:38888781</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38888781</video>
@@ -7774,10 +7774,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38888782</star-video>
+					<star_video>urn:li:learningApiVideo:38888782</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38888782</star-video>
+					<star_video>urn:li:learningApiVideo:38888782</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38888782</video>
@@ -7791,10 +7791,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38888783</star-video>
+					<star_video>urn:li:learningApiVideo:38888783</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38888783</star-video>
+					<star_video>urn:li:learningApiVideo:38888783</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38888783</video>
@@ -7808,10 +7808,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38888784</star-video>
+					<star_video>urn:li:learningApiVideo:38888784</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38888784</star-video>
+					<star_video>urn:li:learningApiVideo:38888784</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38888784</video>
@@ -7825,10 +7825,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38888785</star-video>
+					<star_video>urn:li:learningApiVideo:38888785</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38888785</star-video>
+					<star_video>urn:li:learningApiVideo:38888785</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38888785</video>
@@ -7842,10 +7842,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38885792</star-video>
+					<star_video>urn:li:learningApiVideo:38885792</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38885792</star-video>
+					<star_video>urn:li:learningApiVideo:38885792</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38885792</video>
@@ -7859,10 +7859,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38884866</star-video>
+					<star_video>urn:li:learningApiVideo:38884866</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38884866</star-video>
+					<star_video>urn:li:learningApiVideo:38884866</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38884866</video>
@@ -7876,10 +7876,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38886767</star-video>
+					<star_video>urn:li:learningApiVideo:38886767</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38886767</star-video>
+					<star_video>urn:li:learningApiVideo:38886767</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38886767</video>
@@ -7893,10 +7893,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38886766</star-video>
+					<star_video>urn:li:learningApiVideo:38886766</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38886766</star-video>
+					<star_video>urn:li:learningApiVideo:38886766</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38886766</video>
@@ -7910,10 +7910,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38886765</star-video>
+					<star_video>urn:li:learningApiVideo:38886765</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38886765</star-video>
+					<star_video>urn:li:learningApiVideo:38886765</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38886765</video>
@@ -7927,10 +7927,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-assessment>urn:li:learningApiAssessment:50098363</star-assessment>
+					<star_assessment>urn:li:learningApiAssessment:50098363</star_assessment>
 				</contentResolutionResult>
 				<contentV2>
-					<star-assessment>urn:li:learningApiAssessment:50098363</star-assessment>
+					<star_assessment>urn:li:learningApiAssessment:50098363</star_assessment>
 				</contentV2>
 				<contentV2Union>
 					<assessment>urn:li:learningApiAssessment:50098363</assessment>
@@ -7944,10 +7944,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38885794</star-video>
+					<star_video>urn:li:learningApiVideo:38885794</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38885794</star-video>
+					<star_video>urn:li:learningApiVideo:38885794</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38885794</video>
@@ -7961,10 +7961,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38888786</star-video>
+					<star_video>urn:li:learningApiVideo:38888786</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38888786</star-video>
+					<star_video>urn:li:learningApiVideo:38888786</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38888786</video>
@@ -7978,10 +7978,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38888787</star-video>
+					<star_video>urn:li:learningApiVideo:38888787</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38888787</star-video>
+					<star_video>urn:li:learningApiVideo:38888787</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38888787</video>
@@ -7995,10 +7995,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38884867</star-video>
+					<star_video>urn:li:learningApiVideo:38884867</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38884867</star-video>
+					<star_video>urn:li:learningApiVideo:38884867</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38884867</video>
@@ -8012,10 +8012,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38884868</star-video>
+					<star_video>urn:li:learningApiVideo:38884868</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38884868</star-video>
+					<star_video>urn:li:learningApiVideo:38884868</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38884868</video>
@@ -8029,10 +8029,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38890074</star-video>
+					<star_video>urn:li:learningApiVideo:38890074</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38890074</star-video>
+					<star_video>urn:li:learningApiVideo:38890074</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38890074</video>
@@ -8046,10 +8046,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38890073</star-video>
+					<star_video>urn:li:learningApiVideo:38890073</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38890073</star-video>
+					<star_video>urn:li:learningApiVideo:38890073</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38890073</video>
@@ -8063,10 +8063,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38887749</star-video>
+					<star_video>urn:li:learningApiVideo:38887749</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38887749</star-video>
+					<star_video>urn:li:learningApiVideo:38887749</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38887749</video>
@@ -8080,10 +8080,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38890072</star-video>
+					<star_video>urn:li:learningApiVideo:38890072</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38890072</star-video>
+					<star_video>urn:li:learningApiVideo:38890072</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38890072</video>
@@ -8097,10 +8097,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38887750</star-video>
+					<star_video>urn:li:learningApiVideo:38887750</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38887750</star-video>
+					<star_video>urn:li:learningApiVideo:38887750</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38887750</video>
@@ -8114,10 +8114,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38887751</star-video>
+					<star_video>urn:li:learningApiVideo:38887751</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38887751</star-video>
+					<star_video>urn:li:learningApiVideo:38887751</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38887751</video>
@@ -8131,10 +8131,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38887752</star-video>
+					<star_video>urn:li:learningApiVideo:38887752</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38887752</star-video>
+					<star_video>urn:li:learningApiVideo:38887752</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38887752</video>
@@ -8148,10 +8148,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38887753</star-video>
+					<star_video>urn:li:learningApiVideo:38887753</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38887753</star-video>
+					<star_video>urn:li:learningApiVideo:38887753</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38887753</video>
@@ -8165,10 +8165,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38887754</star-video>
+					<star_video>urn:li:learningApiVideo:38887754</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38887754</star-video>
+					<star_video>urn:li:learningApiVideo:38887754</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38887754</video>
@@ -8182,10 +8182,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38887755</star-video>
+					<star_video>urn:li:learningApiVideo:38887755</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38887755</star-video>
+					<star_video>urn:li:learningApiVideo:38887755</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38887755</video>
@@ -8199,10 +8199,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38883835</star-video>
+					<star_video>urn:li:learningApiVideo:38883835</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38883835</star-video>
+					<star_video>urn:li:learningApiVideo:38883835</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38883835</video>
@@ -8216,10 +8216,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38883833</star-video>
+					<star_video>urn:li:learningApiVideo:38883833</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38883833</star-video>
+					<star_video>urn:li:learningApiVideo:38883833</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38883833</video>
@@ -8233,10 +8233,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-video>urn:li:learningApiVideo:38883834</star-video>
+					<star_video>urn:li:learningApiVideo:38883834</star_video>
 				</contentResolutionResult>
 				<contentV2>
-					<star-video>urn:li:learningApiVideo:38883834</star-video>
+					<star_video>urn:li:learningApiVideo:38883834</star_video>
 				</contentV2>
 				<contentV2Union>
 					<video>urn:li:learningApiVideo:38883834</video>
@@ -8250,10 +8250,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-assessment>urn:li:learningApiAssessment:50095617</star-assessment>
+					<star_assessment>urn:li:learningApiAssessment:50095617</star_assessment>
 				</contentResolutionResult>
 				<contentV2>
-					<star-assessment>urn:li:learningApiAssessment:50095617</star-assessment>
+					<star_assessment>urn:li:learningApiAssessment:50095617</star_assessment>
 				</contentV2>
 				<contentV2Union>
 					<assessment>urn:li:learningApiAssessment:50095617</assessment>
@@ -8267,10 +8267,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-assessment>urn:li:learningApiAssessment:50097635</star-assessment>
+					<star_assessment>urn:li:learningApiAssessment:50097635</star_assessment>
 				</contentResolutionResult>
 				<contentV2>
-					<star-assessment>urn:li:learningApiAssessment:50097635</star-assessment>
+					<star_assessment>urn:li:learningApiAssessment:50097635</star_assessment>
 				</contentV2>
 				<contentV2Union>
 					<assessment>urn:li:learningApiAssessment:50097635</assessment>
@@ -8284,10 +8284,10 @@
 			</included>
 			<included>
 				<contentResolutionResult>
-					<star-assessment>urn:li:learningApiAssessment:50097634</star-assessment>
+					<star_assessment>urn:li:learningApiAssessment:50097634</star_assessment>
 				</contentResolutionResult>
 				<contentV2>
-					<star-assessment>urn:li:learningApiAssessment:50097634</star-assessment>
+					<star_assessment>urn:li:learningApiAssessment:50097634</star_assessment>
 				</contentV2>
 				<contentV2Union>
 					<assessment>urn:li:learningApiAssessment:50097634</assessment>
@@ -8304,74 +8304,74 @@
 				<title>Conclusion</title>
 				<recipeTypes>com.linkedin.learning.api.deco.content.TOCSection</recipeTypes>
 				<type>com.linkedin.learning.api.deco.content.toc.Section</type>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888780</star-items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888780</star_items>
 			</included>
 			<included>
 				<cachingKey>urn:li:learningApiTocSection:nIK9o2hFs3NA4uymVOoVF5uMQiIpK//B7VSj5lJ5biE=</cachingKey>
 				<title>Introduction</title>
 				<recipeTypes>com.linkedin.learning.api.deco.content.TOCSection</recipeTypes>
 				<type>com.linkedin.learning.api.deco.content.toc.Section</type>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888786</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38883835</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888787</star-items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888786</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38883835</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888787</star_items>
 			</included>
 			<included>
 				<cachingKey>urn:li:learningApiTocSection:fixc+z4z0tQX4blYe2dEkCFebPZ6s1KkoMQGqIVljkE=</cachingKey>
 				<title>3. Pre-rendering and Data Fetching</title>
 				<recipeTypes>com.linkedin.learning.api.deco.content.TOCSection</recipeTypes>
 				<type>com.linkedin.learning.api.deco.content.toc.Section</type>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38884867</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887754</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888781</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887752</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888782</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887753</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38886766</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38889619</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38886767</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38890073</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38889617</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887750</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887751</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiAssessment:50098363</star-items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38884867</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887754</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888781</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887752</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888782</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887753</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38886766</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38889619</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38886767</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38890073</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38889617</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887750</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887751</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiAssessment:50098363</star_items>
 			</included>
 			<included>
 				<cachingKey>urn:li:learningApiTocSection:iSb34RYw+VQNzyPs2gPwtCWLCURfEKHlTyKdu5jtk2E=</cachingKey>
 				<title>2. Getting Started and Learning the Basics</title>
 				<recipeTypes>com.linkedin.learning.api.deco.content.TOCSection</recipeTypes>
 				<type>com.linkedin.learning.api.deco.content.toc.Section</type>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38890074</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888784</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38883833</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888783</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888785</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38889620</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38885794</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiAssessment:50097634</star-items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38890074</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888784</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38883833</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888783</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888785</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38889620</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38885794</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiAssessment:50097634</star_items>
 			</included>
 			<included>
 				<cachingKey>urn:li:learningApiTocSection:Dqg92hWyTdBQIXy+uVMHZAD5h5BcKIS/FiDXgPXa9B4=</cachingKey>
 				<title>1. Why Choose Next.js</title>
 				<recipeTypes>com.linkedin.learning.api.deco.content.TOCSection</recipeTypes>
 				<type>com.linkedin.learning.api.deco.content.toc.Section</type>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38889621</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38883834</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887755</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38884868</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiAssessment:50095617</star-items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38889621</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38883834</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887755</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38884868</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiAssessment:50095617</star_items>
 			</included>
 			<included>
 				<cachingKey>urn:li:learningApiTocSection:DM/oAeC78DkCBSdwm/dz7Q6D43OgbgYKa8rGToHHXrE=</cachingKey>
 				<title>4. Styling Your Next.js Application</title>
 				<recipeTypes>com.linkedin.learning.api.deco.content.TOCSection</recipeTypes>
 				<type>com.linkedin.learning.api.deco.content.toc.Section</type>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38890072</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38886765</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38885792</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888779</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38884866</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887749</star-items>
-				<star-items>urn:li:learningApiTocItem:urn:li:learningApiAssessment:50097635</star-items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38890072</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38886765</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38885792</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38888779</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38884866</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiVideo:38887749</star_items>
+				<star_items>urn:li:learningApiTocItem:urn:li:learningApiAssessment:50097635</star_items>
 			</included>
 			<included>
 				<contentUnion>
@@ -8429,7 +8429,7 @@
 					<lastViewedContent>
 						<urn>urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</urn>
 						<accessible>true</accessible>
-						<star-bookmark>ConsistentBasicBookmark;urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</star-bookmark>
+						<star_bookmark>ConsistentBasicBookmark;urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</star_bookmark>
 						<inactive>false</inactive>
 						<public>false</public>
 						<durationInSeconds>129</durationInSeconds>
@@ -8451,7 +8451,7 @@
 						</progressStateThresholds>
 						<slug>what-is-a-web-framework</slug>
 						<type>com.linkedin.learning.api.BasicVideo</type>
-						<star-viewingStatus>ConsistentBasicVideoViewingStatus;urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</star-viewingStatus>
+						<star_viewingStatus>ConsistentBasicVideoViewingStatus;urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</star_viewingStatus>
 					</lastViewedContent>
 					<markedAsDone>false</markedAsDone>
 				</details>
@@ -8733,7 +8733,7 @@
 					<count>10</count>
 					<start>0</start>
 				</paging>
-				<star-elements>urn:li:learningApiVideo:38883834</star-elements>
+				<star_elements>urn:li:learningApiVideo:38883834</star_elements>
 				<cachingKey>urn:li:collectionResponse:CtigbxeoAf2SWDajo/o7qzDpU45k8G52LGZ6pEYn8WQ=</cachingKey>
 				<type>com.linkedin.restli.common.CollectionResponse</type>
 			</data>
@@ -9896,7 +9896,7 @@
 			</included>
 			<included>
 				<parent>urn:li:learningApiCourse:44559985</parent>
-				<star-lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</star-lyndaVideoViewingStatus>
+				<star_lyndaVideoViewingStatus>urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)</star_lyndaVideoViewingStatus>
 				<viewerCounts>
 					<total>4239</total>
 					<recipeTypes>com.linkedin.learning.api.deco.socialproof.TotalViewerCounts</recipeTypes>
@@ -10245,15 +10245,15 @@
 				<skills>urn:li:learningApiSkill:55507</skills>
 				<skills>urn:li:learningApiSkill:55007</skills>
 				<skills>urn:li:learningApiSkill:12383</skills>
-				<star-transcriptsResolutionResult>urn:li:learningApiTranscript:38885803</star-transcriptsResolutionResult>
+				<star_transcriptsResolutionResult>urn:li:learningApiTranscript:38885803</star_transcriptsResolutionResult>
 				<skillsResolutionResults>
-					<star-urn:li:learningApiSkill:12383>urn:li:learningApiSkill:12383</star-urn:li:learningApiSkill:12383>
-					<star-urn:li:learningApiSkill:55507>urn:li:learningApiSkill:55507</star-urn:li:learningApiSkill:55507>
-					<star-urn:li:learningApiSkill:55007>urn:li:learningApiSkill:55007</star-urn:li:learningApiSkill:55007>
+					<star_urn:li:learningApiSkill:12383>urn:li:learningApiSkill:12383</star_urn:li:learningApiSkill:12383>
+					<star_urn:li:learningApiSkill:55507>urn:li:learningApiSkill:55507</star_urn:li:learningApiSkill:55507>
+					<star_urn:li:learningApiSkill:55007>urn:li:learningApiSkill:55007</star_urn:li:learningApiSkill:55007>
 				</skillsResolutionResults>
 				<slug>what-is-a-web-framework</slug>
 				<trackingId>VgNuhDCyT0OlrZRLsiy+lA==</trackingId>
-				<star-bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38883834</star-bookmark>
+				<star_bookmark>urn:li:learningApiBookmark:urn:li:learningApiVideo:38883834</star_bookmark>
 				<visibility>SUBSCRIBED</visibility>
 				<transcripts>urn:li:learningApiTranscript:38885803</transcripts>
 				<entityType>VIDEO</entityType>
@@ -10387,7 +10387,7 @@
 				</primaryThumbnail>
 				<recipeTypes>com.linkedin.learning.api.deco.content.DecoratedVideo</recipeTypes>
 				<type>com.linkedin.learning.api.deco.content.Video</type>
-				<star-contentReaction>urn:li:collectionResponse:JwQLtuNcUezMDxgdzoYDxoAHb07kM9JFLuED6VuP4j0=</star-contentReaction>
+				<star_contentReaction>urn:li:collectionResponse:JwQLtuNcUezMDxgdzoYDxoAHb07kM9JFLuED6VuP4j0=</star_contentReaction>
 				<deprecatedAt></deprecatedAt>
 				<providerV2></providerV2>
 				<cachingKey>urn:li:learningApiVideo:38883834</cachingKey>
