@@ -4,6 +4,7 @@ import json
 import re
 import xmltodict
 from robots.fn import errors, log, lang, cleanQueryString, pq, writeFile,slugify
+from robots.config import linkedin_learning_url
 
 def parseJson(code_id,code_nd):
     code_content=""
@@ -57,84 +58,6 @@ def parseRestLiResponse(doc):
                     data["root"][id]['value'] = parseJson(code_id, code_nd)
     return data
 
-def getCourseInfo(doc):
-    rq_coure_nd=doc('request:contains("/learning-api/courses")')
-    match=None
-    if rq_coure_nd:
-        rq_coure_nd_p = rq_coure_nd.parent()
-        if rq_coure_nd_p:
-            tbody =rq_coure_nd_p('tbody')
-            if tbody:
-                tbody = tbody.text()
-                pattern = r'\d+$'
-                match = re.search(pattern, tbody)
-    if not match:
-        errors(lang('could_not_get_restli_request_body_content'))
-        return None
-    
-    item_key='item_%s' % match.group()
-    root_el = doc("%s > value > data" % item_key)
-
-    if root_el:
-        course_urn=root_el("star_elements")
-        if course_urn:
-            course_urn = course_urn.text()
-            entity_urn = doc('entityUrn:contains("%s")' % course_urn)
-            if len(entity_urn)>0:
-                for nd in entity_urn:
-                    nd = doc(nd)
-                    if nd.text() == course_urn:
-                        p = nd.parent()
-                        data={
-                            "title" : p('title').text(),
-                            "slug" : p('slug').text(),
-                            "descriptionv2" : p('descriptionv2 > text').text(),
-                            "descriptionV3" : p('descriptionV3 > text').text(),
-                            "exerciseFiles" : None,
-                            "sourceCodeRepository": None,
-                            "duration" : int(p('duration>duration').text()),
-                            "dificulty": p('difficultylevel').text(),
-                            "viewerCounts" : int(p('viewercounts > total').text()),
-                            "visibility" : p('visibility').text()
-                        }
-                        sourceCodeRepo=p('sourcecoderepository').text()
-                        
-                        if sourceCodeRepo:
-                            data["sourceCodeRepository"]=sourceCodeRepo
-
-                        tags = ["sizeInBytes","name","url"]
-                        for tag in tags:
-                            exercise_file_nd = p('exerciseFiles > %s' % tag) 
-                            if exercise_file_nd:
-                                exercise_file_nd = exercise_file_nd.text()
-                                if exercise_file_nd:
-                                    if not data["exerciseFiles"]:
-                                        data["exerciseFiles"]={}
-                                    if tag == "sizeInBytes":     
-                                        data["exerciseFiles"][tag]=int(exercise_file_nd)
-                                    else:
-                                        data["exerciseFiles"][tag]=exercise_file_nd
-                        # data["primaryThumbnailV2"]=xmltodict.parse(str(p("primaryThumbnailV2")))
-                        # data["authors"]=xmltodict.parse(str(p("authors")))
-                        # data["authorsV2"]=xmltodict.parse(str(p("authorsv2")))
-                        # primarythumbnailv2
-                        # features > contentrating
-                        # urn star
-                        #   authors
-                        #   contents
-                        
-
-                        #  authorsv2
-                        # print(p("contents")) 
-                        sections, tocs = getCourseSection(p,doc)   
-                        data["sections"]=sections
-                        data["tocs"]=tocs
-                        # print(data)
-                        return data
-    return None
-
-
-    # print(item_key)
 def getTranscripts(v_meta_data_nd, doc):
     pg_transcript_nds = v_meta_data_nd("transcripts")
     transcripts=None
@@ -194,7 +117,7 @@ def getVideoMeta(v_status_urn, doc):
             # print(presentation_el)
 
     return [stream_locations,transcripts]
-def getCourseToc(item_star, p,doc):
+def getCourseToc(item_star, p,doc,course_slug):
     toc_nd = doc('cachingKey:contains("%s")' % item_star).parent()
     if toc_nd:
         video_urn = toc_nd("content > video").text()
@@ -206,9 +129,11 @@ def getCourseToc(item_star, p,doc):
                     entity_nd = doc(entity)
                     if entity_nd.text() == video_urn:
                         entity_nd_p = entity_nd.parent()
+                        toc_slug = entity_nd_p("slug").text()
                         toc = {
+                            "url" : "%s/%s/%s" % (linkedin_learning_url,course_slug,toc_slug),
                             "title" : entity_nd_p("title").text(),
-                            "slug" : entity_nd_p("slug").text(),
+                            "slug" : toc_slug,
                             "visibility" : entity_nd_p("visibility").text(),
                             "duration" : int(entity_nd_p("duration > duration").text()),
                             "v_status_urn" : entity_nd_p("star_lyndaVideoViewingStatus").text(),
@@ -225,7 +150,7 @@ def getCourseToc(item_star, p,doc):
 
     return None
 
-def getCourseSection(p,doc):
+def getCourseSecsTocs(p,doc, course_slug):
     course_section_stars = p("contents")
     sections={}
     tocs={}
@@ -246,12 +171,88 @@ def getCourseSection(p,doc):
                     for item_star_el in item_star_nds:
                         item_star = p(item_star_el).text()
                         # item_stars.append(item_star)
-                        toc = getCourseToc(item_star,p,doc)
+                        toc = getCourseToc(item_star,p,doc,course_slug)
                         if toc:
                             tocs[section_slug].append(toc)
 
     return [sections, tocs]        
+def getCourseInfo(doc):
+    rq_coure_nd=doc('request:contains("/learning-api/courses")')
+    match=None
+    if rq_coure_nd:
+        rq_coure_nd_p = rq_coure_nd.parent()
+        if rq_coure_nd_p:
+            tbody =rq_coure_nd_p('tbody')
+            if tbody:
+                tbody = tbody.text()
+                pattern = r'\d+$'
+                match = re.search(pattern, tbody)
+    if not match:
+        errors(lang('could_not_get_restli_request_body_content'))
+        return None
+    
+    item_key='item_%s' % match.group()
+    root_el = doc("%s > value > data" % item_key)
 
+    if root_el:
+        course_urn=root_el("star_elements")
+        if course_urn:
+            course_urn = course_urn.text()
+            entity_urn = doc('entityUrn:contains("%s")' % course_urn)
+            if len(entity_urn)>0:
+                for nd in entity_urn:
+                    nd = doc(nd)
+                    if nd.text() == course_urn:
+                        p = nd.parent()
+                        course_slug = p('slug').text()
+                        data={
+                            "url" : "%s/%s" % (linkedin_learning_url, course_slug),
+                            "title" : p('title').text(),
+                            "slug" : course_slug,
+                            "descriptionv2" : p('descriptionv2 > text').text(),
+                            "descriptionV3" : p('descriptionV3 > text').text(),
+                            "exerciseFiles" : None,
+                            "sourceCodeRepository": None,
+                            "duration" : int(p('duration>duration').text()),
+                            "dificulty": p('difficultylevel').text(),
+                            "viewerCounts" : int(p('viewercounts > total').text()),
+                            "visibility" : p('visibility').text()
+                        }
+                        sourceCodeRepo=p('sourcecoderepository').text()
+                        
+                        if sourceCodeRepo:
+                            data["sourceCodeRepository"]=sourceCodeRepo
+
+                        tags = ["sizeInBytes","name","url"]
+                        for tag in tags:
+                            exercise_file_nd = p('exerciseFiles > %s' % tag) 
+                            if exercise_file_nd:
+                                exercise_file_nd = exercise_file_nd.text()
+                                if exercise_file_nd:
+                                    if not data["exerciseFiles"]:
+                                        data["exerciseFiles"]={}
+                                    if tag == "sizeInBytes":     
+                                        data["exerciseFiles"][tag]=int(exercise_file_nd)
+                                    else:
+                                        data["exerciseFiles"][tag]=exercise_file_nd
+                        # data["primaryThumbnailV2"]=xmltodict.parse(str(p("primaryThumbnailV2")))
+                        # data["authors"]=xmltodict.parse(str(p("authors")))
+                        # data["authorsV2"]=xmltodict.parse(str(p("authorsv2")))
+                        # primarythumbnailv2
+                        # features > contentrating
+                        # urn star
+                        #   authors
+                        #   contents
+                        
+
+                        #  authorsv2
+                        # print(p("contents")) 
+                        sections, tocs = getCourseSecsTocs(p,doc, course_slug)   
+                        data["sections"]=sections
+                        data["tocs"]=tocs
+                        # print(data)
+                        return data
+    return None
 def fetchCourseUrl(url):
     course_url=cleanQueryString(url)
     prx=Prx()

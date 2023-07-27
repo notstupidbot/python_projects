@@ -14,6 +14,16 @@ from urllib.parse import unquote, urlunparse
 from urllib.parse import urlparse, parse_qs
 import unicodedata
 
+BLACK = '\033[30m'
+RED = '\033[31m'
+GREEN = '\033[32m'
+YELLOW = '\033[33m'
+BLUE = '\033[34m'
+MAGENTA = '\033[35m'
+CYAN = '\033[36m'
+WHITE = '\033[37m'
+RESET = '\033[0m'
+
 def slugify(text):
     # Normalize the text to remove diacritics and special characters
     normalized_text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8')
@@ -59,15 +69,7 @@ def getCookiePath(cookie_name, cookie_jar):
 
     return None
 def log(str, t="log",verbose=False):
-    BLACK = '\033[30m'
-    RED = '\033[31m'
-    GREEN = '\033[32m'
-    YELLOW = '\033[33m'
-    BLUE = '\033[34m'
-    MAGENTA = '\033[35m'
-    CYAN = '\033[36m'
-    WHITE = '\033[37m'
-    RESET = '\033[0m'
+    
 
     log_type = t.lower()
     print_log=False
