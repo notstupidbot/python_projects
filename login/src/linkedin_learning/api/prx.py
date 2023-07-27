@@ -20,7 +20,7 @@ class Prx:
         return self.page_name
     
     def get(self, url, no_cache=False):
-        self.page_name=slugify(url).replace('httpswwwlinkedincomlearning','ll-')
+        self.page_name=slugify(url.replace('/','-')).replace('https--wwwlinkedincom','ll')
         self.cache_path = 'html_cache/%s-1.html' % self.page_name
         # print(cache_path)
         if not no_cache:
