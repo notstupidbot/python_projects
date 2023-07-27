@@ -126,34 +126,51 @@ def getVideoMeta(v_status_urn, doc, json_config):
 
     # urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099399)
     # urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)
-    v_status_lookup = doc.find('star_lyndaVideoViewingStatus',text=v_status_urn)
-    if not v_status_lookup:
+    v_status_lookups = doc.find_all('star_lyndaVideoViewingStatus',text=v_status_urn)
+    if not v_status_lookups:
         v_status_urn = v_status_urn.replace('urn:li:lyndaVideoViewingStatus:','')
-        v_status_lookup= doc.find('trackingUrn', text=v_status_urn)
+        v_status_lookups= doc.find_all('trackingUrn', text=v_status_urn)
     
-    if not v_status_lookup:
+    if not v_status_lookups:
         log(v_status_urn)
         errors(lang('could_not_find_v_status_lookup'))
     # print(v_status_lookup)
     stream_locations = None
     transcripts = None
-    if v_status_lookup:
-        el_nd = v_status_lookup.parent 
-        # parent_el = el_nd("parent")
-        v_meta_data_nd = el_nd.find("presentation")
-        if v_meta_data_nd:
-            v_meta_data_nd = v_meta_data_nd.find("videoPlay")
-            if v_meta_data_nd:
-                v_meta_data_nd = v_meta_data_nd.find("videoPlayMetadata")
-                if v_meta_data_nd:
-                    stream_locations = getStreamLocations(v_meta_data_nd, doc)
-                    transcripts = getTranscripts(v_meta_data_nd, doc)
+    # print(v_status_lookup)
 
-                    if stream_locations and transcripts:
-                        json_config.set(v_status_urn, [stream_locations,transcripts])
-        
-        if not v_meta_data_nd:
-            errors(lang('could_not_find_v_meta_data_nd'))
+    v_status_lookup=None
+    v_meta_data_nd=None
+    pos=-1
+    if v_status_lookups:
+        # print(v_status_lookup)
+
+        break_the_loop=False
+        for v_status_lookup in v_status_lookups:
+            el_nd = v_status_lookup.parent 
+            # parent_el = el_nd("parent")
+            v_meta_data_nd = el_nd.find("presentation")
+            pos=0
+            if v_meta_data_nd:
+                pos += 1
+                v_meta_data_nd = v_meta_data_nd.find("videoPlay")
+                if v_meta_data_nd:
+                    pos += 1
+                    v_meta_data_nd = v_meta_data_nd.find("videoPlayMetadata")
+                    break_the_loop=True
+
+                    if v_meta_data_nd:
+                        pos += 1
+                        stream_locations = getStreamLocations(v_meta_data_nd, doc)
+                        transcripts = getTranscripts(v_meta_data_nd, doc)
+
+                        if stream_locations and transcripts:
+                            json_config.set(v_status_urn, [stream_locations,transcripts])
+            if break_the_loop:
+                break
+    if not v_meta_data_nd:
+        print(v_status_lookup)
+        errors(lang('could_not_find_v_meta_data_nd:%s'%pos))
        
     return [stream_locations,transcripts]
 def getCourseToc(item_star,doc,course_slug):

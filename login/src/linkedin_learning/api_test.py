@@ -67,19 +67,20 @@ if __name__ == '__main__':
                         has_transcripts = False
                         course_slug = course_info["slug"]    
                         if toc["visibility"]!="LOCKED":
-                            log(lang('try_to_fetch_course_toc', toc['url']))
-                            xml_doc = fetchCourseTocUrl(toc['url'])
-                            json_config = JsonConfig(path=f"{course_slug}.json")
+                            if not toc["stream_locations"] or not toc["transcripts"]:
+                                log(lang('try_to_fetch_course_toc', toc['url']))
+                                xml_doc = fetchCourseTocUrl(toc['url'])
+                                json_config = JsonConfig(path=f"{course_slug}.json")
 
-                            stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], xml_doc,json_config)
-                            if stream_locations:
-                                toc["stream_locations"]=stream_locations
-                            else:
-                                errors(lang('could_not_fetch_stream_locs'))    
-                            if transcripts:
-                                toc["transcripts"]=transcripts
-                            else:
-                                errors(lang('could_not_fetch_transcripts'))    
+                                stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], xml_doc,json_config)
+                                if stream_locations:
+                                    toc["stream_locations"]=stream_locations
+                                else:
+                                    errors(lang('could_not_fetch_stream_locs'))    
+                                if transcripts:
+                                    toc["transcripts"]=transcripts
+                                else:
+                                    errors(lang('could_not_fetch_transcripts'))    
 
 
                 
