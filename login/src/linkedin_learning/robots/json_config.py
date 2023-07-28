@@ -33,5 +33,7 @@ class JsonConfig:
         if key in self.data:
             return self.data[key]
         return None
-    def getData(self):
+    def getData(self, props=None):
+        # if props:
+
         return self.data

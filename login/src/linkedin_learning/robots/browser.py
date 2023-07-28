@@ -3,14 +3,15 @@ import requests
 from robots import config
 
 class Browser:
-    def __init__(self):
+    def __init__(self, cookie_path):
         self.session = requests.Session()
         self.session.headers.update({
             "Accept-Language": "en-US,en;q=0.9",
             "Connection": "keep-alive"
         })
+        self.cookie_path= cookie_path
         self.setUserAgent(config.ua)
-        loadCookies(self.session)
+        loadCookies(self.session, self.cookie_path)
         self.url = ""
         self.last_resp=None
     
@@ -26,7 +27,7 @@ class Browser:
     def get(self,url):
         try:
             resp = self.session.get(url)
-            saveCookies(self.session)
+            saveCookies(self.session, self.cookie_path)
             self.last_resp=resp
 
             return resp
@@ -38,7 +39,7 @@ class Browser:
     def post(self,url, data=None, allow_redirects=True):
         try:
             resp = self.session.post(url, data=data, allow_redirects=allow_redirects)
-            saveCookies(self.session)
+            saveCookies(self.session, self.cookie_path)
 
             return resp
         except Exception as e:

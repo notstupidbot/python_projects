@@ -299,11 +299,13 @@ def writeFile(path,content,mode="w"):
         errors(lang("could_not_write_file",path),exception,verbose=True)
         return False    
 
-def writeResp(resp, page_name, index):
+def writeResp(resp, page_name, index,browser_cache_dir=None):
     global config
     if config.write_resp_text:
         path = "%s-%s.html" % (page_name, index)
-        path = "html_cache/%s" % (path)
+        if not browser_cache_dir:
+            browser_cache_dir = "html_cache"
+        path = "%s/%s" % (browser_cache_dir,path )
         writeFile(path,resp.text.replace('</head>','<title>%s</title></head>' % (resp.url)))
 
 def matchUrl(pattern, url):

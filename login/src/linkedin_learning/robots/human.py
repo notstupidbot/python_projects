@@ -2,11 +2,12 @@ from robots.browser import Browser
 from robots.fn import log,lang,writeResp, clearCookies
 import sys
 class Human:
-    def __init__(self):
-        self.browser = Browser()
+    def __init__(self, cookie_path, browser_cache_dir):
+        self.browser = Browser(cookie_path)
         self.pages = {} 
         self.forms = {} 
         self.browse_counts = {}
+        self.browser_cache_dir=browser_cache_dir
     
     def getBrowser(self):
         return self.browser
@@ -46,7 +47,7 @@ class Human:
         
         log(lang('human_browsing_resp_code',resp.status_code),verbose=True)
         if resp.status_code == 200:
-            writeResp(resp, page_name, self.getBrowseCount(page_name))
+            writeResp(resp, page_name, self.getBrowseCount(page_name), self.browser_cache_dir)
         return resp.text
         
         return None
@@ -59,7 +60,7 @@ class Human:
 
     def clearCookies(self):
         log(lang('human_clear_cookies'),verbose=True)
-        clearCookies()
+        clearCookies(self.browser.cookie_path)
 
     
     

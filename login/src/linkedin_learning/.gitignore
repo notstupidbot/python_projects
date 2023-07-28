@@ -1,2 +1,5 @@
-html_cache/*.html
-data-viewer
+
+storage/browser_cache/*
+storage/cookies/*.json
+storage/database/*.db
+unused
