@@ -7,7 +7,7 @@ class Login:
         self.human=human
         self.linkedin_learning_login_url =""
         self.already_loged_in=False
-        self.account_setting = json_config.getData()
+        self.account_setting = json_config.getData(["email","password","library_id","card_number","pin"])
         
     
     def alreadyLogedIn(self):

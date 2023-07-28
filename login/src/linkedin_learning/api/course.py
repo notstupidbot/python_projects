@@ -402,11 +402,11 @@ def getCourseInfo(doc,json_config):
                 # print(data)
                 return data
     return None
-def fetchCourseUrl(url,human=None):
+def fetchCourseUrl(url,human=None,no_cache=True):
     course_url=cleanQueryString(url)
     prx=Prx(human)
     # print(course_url)
-    content=prx.get(course_url, no_cache=False)
+    content=prx.get(course_url, no_cache=no_cache)
     # print(content)
     if content:
         page_name=prx.getPageName()
@@ -421,4 +421,4 @@ def fetchCourseUrl(url,human=None):
     return None
 
 def fetchCourseTocUrl(url,human=None):
-    return fetchCourseUrl(url, human)
+    return fetchCourseUrl(url, human,no_cache=False)

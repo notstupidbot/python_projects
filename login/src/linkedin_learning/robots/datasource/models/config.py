@@ -22,7 +22,12 @@ class MConfig:
 			if serialize:
 				return json.loads(row.value)
 		return row
-   
+	
+	def getData(self,keys=[]):
+		data={}
+		for key in keys:
+			data[key] = self.get(key)
+		return data
 	def set(self,key,value):
 		config = self.get(key,serialize=False)
 		value = json.dumps(value)
