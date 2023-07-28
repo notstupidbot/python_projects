@@ -7,14 +7,17 @@ import logging
 
 import logging
 import dicttoxml
+from robots.datasource import DataSource
 
-dicttoxml.LOG.setLevel(logging.ERROR)
-logger = logging.getLogger("dicttoxml")
-logger.setLevel(logging.ERROR)
+db_path="my.db"
+ds = DataSource(db_path)
+# dicttoxml.LOG.setLevel(logging.ERROR)
+# logger = logging.getLogger("dicttoxml")
+# logger.setLevel(logging.ERROR)
 if __name__ == '__main__':
+    
 
-
-    logger.disabled = True
+    # logger.disabled = True
     # logging.disable(1)
 
     # logging.basicConfig(
@@ -37,7 +40,7 @@ if __name__ == '__main__':
         errors('could_not_fetch_course_url',e)
         sys.exit(1)
     if xml_doc:    
-        course_info=getCourseInfo(xml_doc)
+        course_info=getCourseInfo(xml_doc,ds.mConfig)
     else:
         errors('could_not_parse_xml_doc')
         sys.exit(1)
@@ -70,9 +73,9 @@ if __name__ == '__main__':
                             if not toc["stream_locations"] or not toc["transcripts"]:
                                 log(lang('try_to_fetch_course_toc', toc['url']))
                                 xml_doc = fetchCourseTocUrl(toc['url'])
-                                json_config = JsonConfig(path=f"{course_slug}.json")
+                                # json_config = JsonConfig(path=f"{course_slug}.json")
 
-                                stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], xml_doc,json_config)
+                                stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], xml_doc,ds.mConfig)
                                 if stream_locations:
                                     toc["stream_locations"]=stream_locations
                                 else:
@@ -81,9 +84,6 @@ if __name__ == '__main__':
                                     toc["transcripts"]=transcripts
                                 else:
                                     errors(lang('could_not_fetch_transcripts'))    
-
-
-                
                             # break
                         # print("\t"+toc["url"])
                         if toc["stream_locations"]:

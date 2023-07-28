@@ -19,6 +19,7 @@ waitForCaptcha(json_config)
 ######################################################
 db_setting_key="db_path"
 db_path="my.db"
+
 if not json_config.get(db_setting_key):
     json_config.set(db_setting_key, db_path)
 
@@ -34,7 +35,7 @@ human.addPage(unauthenticated_page).addPage(login_email_page).addPage(login_pass
 already_loged_in=False
 # login_type="individual"
 # login_type="library"
-login_type = inputAction("library", human, json_config)
+login_type = inputAction("library", human, ds.mConfig)
 ######################################################
 # STEP 1 BROWSE THE LINKEDIN LEARNING WEBSITE
 ######################################################
@@ -46,9 +47,9 @@ if human.guessPage('unauthenticated_page',content):
     log(lang("you_are_not_login"),'info')
 
     if login_type == "individual":
-        already_loged_in = login_individual.login(human, json_config)
+        already_loged_in = login_individual.login(human, ds.mConfig)
     else:
-        already_loged_in = login_library.login(human, json_config)
+        already_loged_in = login_library.login(human, ds.mConfig)
 
 elif human.guessPage('authenticated_page',content):
     log(lang("you_are_loged_in"),'info')

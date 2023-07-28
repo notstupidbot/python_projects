@@ -1,4 +1,5 @@
 pyquery                   
-pywebview                 
 requests
 SQLAlchemy
+beautifulsoup4
+xmltodict

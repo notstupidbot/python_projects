@@ -172,8 +172,9 @@ def getVideoMeta(v_status_urn, doc, json_config):
         errors("%s %s" % (lang('could_not_find_v_meta_data_nd_pos'),pos))
        
     return [stream_locations,transcripts]
-def getCourseToc(item_star,doc,course_slug):
-    json_config = JsonConfig(path=f"{course_slug}.json")
+def getCourseToc(item_star,doc,course_slug,json_config):
+    
+
     toc_nd = doc.find('cachingKey',text=item_star)
     entity_urn=None
     if toc_nd:
@@ -236,7 +237,7 @@ def getCourseToc(item_star,doc,course_slug):
         errors(lang('could_not_find_toc_nd', item_star))
     return None
 
-def getCourseSecsTocs(p,doc, course_slug):
+def getCourseSecsTocs(p,doc, course_slug,json_config):
     course_section_stars = p.find_all("contents")
     sections={}
     tocs={}
@@ -265,18 +266,13 @@ def getCourseSecsTocs(p,doc, course_slug):
                         if len(match_skip_pattern)>0:
                             continue
                         # item_stars.append(item_star)
-                        toc = getCourseToc(item_star,doc,course_slug)
+                        toc = getCourseToc(item_star,doc,course_slug,json_config)
                         if toc:
                             tocs[section_slug].append(toc)
 
     return [sections, tocs]  
-def getAlternateCourseInfo(root_el,doc):
-    elem_nd=root_el("elements").parent()
-    if elem_nd:
-        pass
 
-
-def getCourseInfo(doc):
+def getCourseInfo(doc,json_config):
     rq_coure_nds=doc.find_all('request',text=lambda text: "/learning-api/courses" in text)
     for p in rq_coure_nds:
         rq_coure_nd = p
@@ -398,7 +394,7 @@ def getCourseInfo(doc):
 
                 #  authorsv2
                 # print(p("contents")) 
-                sections, tocs = getCourseSecsTocs(p,doc, course_slug)   
+                sections, tocs = getCourseSecsTocs(p,doc, course_slug,json_config)   
                 # data["sections"]=None
                 data["sections"]=sections
                 data["tocs"]=tocs
