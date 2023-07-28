@@ -120,7 +120,7 @@ def getVideoMeta(v_status_urn, doc, json_config):
 
     cache = json_config.get(v_status_urn)
     if cache:
-        print(lang('getVideoMeta_from_cache'))
+        log(lang('get_video_meta_from_cache',v_status_urn), verbose=True)
         return cache
     # print(v_status_urn)
 
@@ -132,8 +132,7 @@ def getVideoMeta(v_status_urn, doc, json_config):
         v_status_lookups= doc.find_all('trackingUrn', text=v_status_urn)
     
     if not v_status_lookups:
-        log(v_status_urn)
-        errors(lang('could_not_find_v_status_lookup'))
+        errors(lang('could_not_find_v_status_lookup', v_status_urn))
     # print(v_status_lookup)
     stream_locations = None
     transcripts = None
@@ -169,8 +168,8 @@ def getVideoMeta(v_status_urn, doc, json_config):
             if break_the_loop:
                 break
     if not v_meta_data_nd:
-        print(v_status_lookup)
-        errors(lang('could_not_find_v_meta_data_nd:%s'%pos))
+        # print(v_status_lookup)
+        errors("%s %s" % (lang('could_not_find_v_meta_data_nd_pos'),pos))
        
     return [stream_locations,transcripts]
 def getCourseToc(item_star,doc,course_slug):
@@ -261,6 +260,10 @@ def getCourseSecsTocs(p,doc, course_slug):
                 if item_star_nds:
                     for item_star_el in item_star_nds:
                         item_star = item_star_el.text
+                        skip_pattern=r"urn:li:learningApiTocItem:urn:li:learningApiAssessmen"
+                        match_skip_pattern=re.findall(skip_pattern,  item_star)
+                        if len(match_skip_pattern)>0:
+                            continue
                         # item_stars.append(item_star)
                         toc = getCourseToc(item_star,doc,course_slug)
                         if toc:
@@ -364,7 +367,7 @@ def getCourseInfo(doc):
                         data["descriptionv3"] = descriptionv3.text
 
 
-                sourceCodeRepo=p.find('sourcecoderepository')
+                sourceCodeRepo=p.find('sourceCodeRepository')
                 if sourceCodeRepo:
                     data["sourceCodeRepository"]=sourceCodeRepo.text
 
@@ -417,24 +420,9 @@ def fetchCourseUrl(url,human=None):
         xml_doc=convert2Xml(data, page_name)
         return xml_doc
     else:
-        errors(lang('could_not_fetch_course_url'))
+        errors(lang('could_not_fetch_course_url', course_url))
         errors(lang('are_you_connected_to_internet'))
     return None
 
 def fetchCourseTocUrl(url,human=None):
-    toc_url=cleanQueryString(url)
-    prx=Prx(human)
-    # print(toc_url)
-    content=prx.get(toc_url, no_cache=False)
-    # print(content)
-    if content:
-        page_name=prx.getPageName()
-        doc=pq(content)
-        data=parseRestLiResponse(doc)
-        # print(data)
-        xml_doc=convert2Xml(data, page_name)
-        return xml_doc
-    else:
-        errors(lang('could_not_fetch_toc_url'))
-        errors(lang('are_you_connected_to_internet'))
-    return None
+    return fetchCourseUrl(url, human)

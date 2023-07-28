@@ -43,7 +43,7 @@ if __name__ == '__main__':
         sys.exit(1)
     # course_info_tbl=dict2htmTable(course_info)
     # print(course_info_tbl)
-    print(course_info)
+    # print(course_info)
     if not course_info:
         errors('could_not_get_course_info')
         sys.exit(1)

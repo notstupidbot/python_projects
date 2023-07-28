@@ -45,7 +45,8 @@ class Human:
         resp= self.browser.get(url)
         
         log(lang('human_browsing_resp_code',resp.status_code),verbose=True)
-        writeResp(resp, page_name, self.getBrowseCount(page_name))
+        if resp.status_code == 200:
+            writeResp(resp, page_name, self.getBrowseCount(page_name))
         return resp.text
         
         return None
