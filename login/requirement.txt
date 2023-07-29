@@ -3,3 +3,4 @@ requests
 SQLAlchemy
 beautifulsoup4
 xmltodict
+validators

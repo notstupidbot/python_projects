@@ -26,7 +26,7 @@ class Prx:
         # print(cache_path)
         if not no_cache:
             if os.path.exists(self.cache_path):
-                log(lang('prx_loading_from_cache'))
+                log(lang('prx_loading_from_cache')+" "+self.page_name)
                 with open(self.cache_path, 'r') as file:
                     content = file.read()
                     return content

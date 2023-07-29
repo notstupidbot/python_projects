@@ -23,6 +23,34 @@ MAGENTA = '\033[35m'
 CYAN = '\033[36m'
 WHITE = '\033[37m'
 RESET = '\033[0m'
+last_line_len=0
+def print_single_line(text):
+    sys.stdout.write('\033[2K\033[1G')
+    print(text, end='\r', flush=True)
+def print_single_lineX(text, clear_previous=True):
+    global last_line_len
+    if clear_previous:
+        print('\r' + ' ' * last_line_len, end='')
+    last_line_len=len(text)    
+    print('\r' + text, end='')
+
+BENCHMARK_DATA = {}
+def benchmark(label,command):
+    global BENCHMARK_DATA
+    if not label in BENCHMARK_DATA:
+        BENCHMARK_DATA[label] = {}
+    if command == 'start':
+        BENCHMARK_DATA[label]["start_time"] = time.time()
+        return BENCHMARK_DATA[label]
+    elif command == 'end':
+        BENCHMARK_DATA[label]["end_time"] = time.time()
+        execution_time = BENCHMARK_DATA[label]["end_time"] - BENCHMARK_DATA[label]["start_time"]
+        BENCHMARK_DATA[label]["execution_time"] = execution_time
+        BENCHMARK_DATA[label]["elapsed_time"] = f"{execution_time:.6f} seconds"
+
+        return BENCHMARK_DATA[label]
+         
+    
 
 def slugify(text):
     # Normalize the text to remove diacritics and special characters
@@ -94,8 +122,12 @@ def log(str, t="log",verbose=False):
 
 
     if print_log: 
+        
         log_message= "[%s]%s" % (t.upper(),str)
+        # if log_type == "err":
         print(log_color + "[%s]%s" % (t.upper(),str) + RESET)
+        # else:
+        #     print_single_line(log_color + "[%s]%s" % (t.upper(),str) + RESET)
 
 def errors(msg, exception=None, exit_progs=False,verbose=False):
     if exception:

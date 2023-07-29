@@ -3,15 +3,17 @@ from api.prx import Prx
 import json
 import re
 import xmltodict
-from robots.fn import errors, log, lang, cleanQueryString, pq, writeFile,slugify
+from robots.fn import benchmark, errors, log, lang, cleanQueryString, writeFile,slugify
 from robots.config import linkedin_learning_url
 from bs4 import BeautifulSoup
 from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
+import validators
+import sys
 
 def parseJson(code_id,code_nd):
     code_content=""
     try:
-        code_content=json.loads(code_nd.text())
+        code_content=json.loads(code_nd.text)
     except Exception as e:
         errors('error parsing %s' % code_id,e)
     
@@ -33,13 +35,12 @@ def convert2Xml(data, page_name, cache_xml_to_file=False):
     return doc
 
 def parseRestLiResponse(doc):
-    codes=doc("code")
+    codes=doc.find_all("code")
     codes_dict = {}
     data={"root":{}}
 
-    for code in codes:
-        code_nd = pq(code)
-        code_id=code_nd.attr('id')
+    for code_nd in codes:
+        code_id=code_nd.get('id')
         # capture id as key values
         key = None
         pattern = r'\d+$'
@@ -175,8 +176,10 @@ def getVideoMeta(v_status_urn, doc, json_config):
         errors("%s %s" % (lang('could_not_find_v_meta_data_nd_pos'),pos))
        
     return [stream_locations,transcripts]
-def getCourseToc(item_star,doc,course_slug,json_config):
-    
+def getCourseToc(item_star,doc,m_toc,sectionId,course_slug):
+    toc = m_toc.getByItemStar(item_star)
+    if toc:
+        return toc
 
     toc_nd = doc.find('cachingKey',text=item_star)
     entity_urn=None
@@ -215,20 +218,23 @@ def getCourseToc(item_star,doc,course_slug,json_config):
 
                     duration = entity_nd_p.find("duration")
                     if duration:
-                        duration = duration.find("duration")
-                        if duration:
-                            duration = duration.text
-                            toc["duration"] = duration
-                    v_status_urn = entity_nd_p.find("star_lyndaVideoViewingStatus")
-                    if v_status_urn:
-                        v_status_urn = v_status_urn.text
-                        toc["v_status_urn"] = v_status_urn
+                        # duration = duration.find("duration")
+                        # if duration:
+                        duration = duration.text
+                        toc["duration"] = duration
+                    item_star = entity_nd_p.find("star_lyndaVideoViewingStatus")
+                    if item_star:
+                        item_star = item_star.text
+                        toc["item_star"] = item_star
 
-                    stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], doc, json_config)
-                    if stream_locations:
-                        toc["stream_locations"]=stream_locations
-                    if transcripts:
-                        toc["transcripts"]=transcripts
+                    # stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], doc, json_config)
+                    # if stream_locations:
+                    #     toc["stream_locations"]=stream_locations
+                    # if transcripts:
+                    #     toc["transcripts"]=transcripts
+                    
+                    m_toc.create(title=title, slug=toc_slug, url=toc["slug"], duration=duration , captionUrl="", captionFmt="", sectionId=sectionId,item_star=item_star)
+                    
                     return toc
                 
             if not entity_urn:
@@ -240,9 +246,22 @@ def getCourseToc(item_star,doc,course_slug,json_config):
         errors(lang('could_not_find_toc_nd', item_star))
     return None
 
-def getCourseSecsTocs(p,doc, course_slug,json_config):
+def getCourseTocs(p, xml_doc, sections, m_toc, course_slug):
+    tocs={}
+    for section in sections:
+        # print(section)
+        section_slug = section.slug
+        tocs[section_slug]=[]
+        for item_star in json.loads(section.item_stars):
+            toc = getCourseToc(item_star,xml_doc,m_toc,section.id, course_slug)
+            tocs[section_slug].append(toc)
+    return tocs
+def getCourseSections(p,doc, m_section, courseId):
+    sections = m_section.getListCourseId(courseId)
+    if sections:
+        return sections
     course_section_stars = p.find_all("contents")
-    sections={}
+    sections=[]
     tocs={}
     for section_star in course_section_stars:
         section_star = section_star.text.strip()
@@ -256,8 +275,10 @@ def getCourseSecsTocs(p,doc, course_slug,json_config):
                 # print(section_title)
                 section_slug=slugify(section_title)
                 tocs[section_slug] = []
-                sections[section_slug] = {
-                    "title" : section_title
+                section = {
+                    "title" : section_title,
+                    "item_stars" : [],
+                    "slug":section_slug
                 }
                 item_star_nds = section_nd_p.find_all("star_items")
                 # item_stars=[]
@@ -268,15 +289,46 @@ def getCourseSecsTocs(p,doc, course_slug,json_config):
                         match_skip_pattern=re.findall(skip_pattern,  item_star)
                         if len(match_skip_pattern)>0:
                             continue
+                        section["item_stars"].append(item_star)
                         # item_stars.append(item_star)
-                        toc = getCourseToc(item_star,doc,course_slug,json_config)
-                        if toc:
-                            tocs[section_slug].append(toc)
+                        # toc = getCourseToc(item_star,doc,course_slug,json_config)
+                        # if toc:
+                        #     tocs[section_slug].append(toc)
+            
+                s=m_section.create(courseId, section_slug, section_title, [], section["item_stars"])
+                sections.append(s)
 
-    return [sections, tocs]  
 
-def getCourseInfo(doc,json_config):
+    return sections  
+
+def isLinkedinLearningUrl(url):
+    pattern = r'^https://www\.linkedin\.com/learning/'
+    return re.match(pattern, url) is not None
+
+def courseUrl(course_slug):
+    return f'https://www.linkedin.com/learning/{course_slug}'
+def getCourseSlugFromUrl(url):
+    if not validators.url(url):
+        return None
+    if not isLinkedinLearningUrl(url):
+        return None
+    
+    url=cleanQueryString(url)
+    base_url = 'https://www.linkedin.com/learning/'
+    slugs = url.replace(base_url,'').split('/')
+    course_slug = slugs[0]
+    toc_slug = None
+    if len(slugs)>1:
+        toc_slug = slugs[1]
+
+    return [course_slug, toc_slug]
+
+
+def getCourseXmlParentElement(doc):
+    p=None
+    course_urn=None
     rq_coure_nds=doc.find_all('request',text=lambda text: "/learning-api/courses" in text)
+    rq_coure_nd = None
     for p in rq_coure_nds:
         rq_coure_nd = p
 
@@ -301,12 +353,11 @@ def getCourseInfo(doc,json_config):
     root_el = doc.find("%s" % item_key).find("value").find("data")
     # log(item_key)
     # print(root_el)
-
+    data=None
     if root_el:
         course_urn=root_el.find("star_elements")
         if not course_urn:
             course_urn=root_el.find("entityUrn")
-
 
         if course_urn:
             course_urn = course_urn.text
@@ -315,111 +366,131 @@ def getCourseInfo(doc,json_config):
             
             if entity_urn:
                 p = entity_urn.parent
-                course_slug = p.find('slug').text
-                data={
-                    "url" : "%s/%s" % (linkedin_learning_url, course_slug),
-                    "slug" : course_slug,
-                    "exerciseFiles" : None,
-                    "sourceCodeRepository": None,
-                    "description" : None
-                }
-                title = p.find('title')
-                if title:
-                    data["title"] = title.text
+            else:
+                errors(lang('could_not_get_entity_urn'))
+        else:
+            errors(lang('could_not_get_course_urn'))
+    else:
+        error(lang('could_not_get_root_el'))
+    return [p,course_urn]
+def getCourseInfo(doc):
+   
+    p,course_urn = getCourseXmlParentElement(doc)
+    if p:
+        course_slug = p.find('slug').text
+        data={
+            "url" : "%s/%s" % (linkedin_learning_url, course_slug),
+            "slug" : course_slug,
+            "exerciseFiles" : None,
+            "sourceCodeRepository": None,
+            "description" : None,
+            "urn" : course_urn
+        }
+        title = p.find('title')
+        if title:
+            data["title"] = title.text
 
-                visibility = p.find('visibility')
-                
-                if visibility:
-                    data["visibility"] = visibility.text
+        visibility = p.find('visibility')
+        
+        if visibility:
+            data["visibility"] = visibility.text
 
-                viewerCounts = p.find('viewerCounts')
-                if viewerCounts:
-                    viewerCounts = viewerCounts.find('total')
-                    if viewerCounts:
-                        data["viewerCounts"] = int(viewerCounts.text)
+        viewerCounts = p.find('viewerCounts')
+        if viewerCounts:
+            viewerCounts = viewerCounts.find('total')
+            if viewerCounts:
+                data["viewerCounts"] = int(viewerCounts.text)
 
-                description = p.find('description')
-                
-                if description:
-                    description = description.find('text')
-                    if description:
-                        data["description"] = description.text
+        description = p.find('description')
+        
+        if description:
+            description = description.find('text')
+            if description:
+                data["description"] = description.text
 
-                descriptionv2 = p.find('descriptionV2')
-                
-                if descriptionv2:
-                    descriptionv2 = descriptionv2.find('text')
-                    if descriptionv2:
-                        data["descriptionV2"] = descriptionv2.text
-                        data["description"] = data["descriptionV2"] 
+        descriptionv2 = p.find('descriptionV2')
+        
+        if descriptionv2:
+            descriptionv2 = descriptionv2.find('text')
+            if descriptionv2:
+                data["descriptionV2"] = descriptionv2.text
+                data["description"] = data["descriptionV2"] 
 
-                duration = p.find('duration')
-                if duration:
-                    duration = duration.find('duration')
-                    if duration:
-                        data["duration"] = int(duration.text)
-                
-                dificulty = p.find('dificulty')
+        duration = p.find('duration')
+        if duration:
+            duration = duration.find('duration')
+            if duration:
+                data["duration"] = int(duration.text)
+        
+        dificulty = p.find('dificulty')
 
-                if dificulty:
-                    dificulty = dificulty.find('difficultylevel')
-                    if dificulty:
-                        data["dificulty"] = dificulty.text
-
-
-                descriptionv3 = p.find('descriptionV3')
-
-                if descriptionv3:
-                    descriptionv3 = descriptionv3.find('text')
-                    if descriptionv3:
-                        data["descriptionV3"] = descriptionv3.text
-                        data["description"] = data["descriptionV3"] 
+        if dificulty:
+            dificulty = dificulty.find('difficultylevel')
+            if dificulty:
+                data["dificulty"] = dificulty.text
 
 
-                sourceCodeRepo=p.find('sourceCodeRepository')
-                if sourceCodeRepo:
-                    data["sourceCodeRepository"]=sourceCodeRepo.text
+        descriptionv3 = p.find('descriptionV3')
 
-                tags = ["sizeInBytes","name","url"]
-                exerciseFiles = p.find('exerciseFiles')
-                if exerciseFiles:
-                    for tag in tags:
-                        exercise_file_nd = exerciseFiles.find(tag) 
-                        if exercise_file_nd:
-                            exercise_file_nd = exercise_file_nd.text
-                            if exercise_file_nd:
-                                if not data["exerciseFiles"]:
-                                    data["exerciseFiles"]={}
-                                if tag == "sizeInBytes":     
-                                    data["exerciseFiles"][tag]=int(exercise_file_nd)
-                                else:
-                                    data["exerciseFiles"][tag]=exercise_file_nd
+        if descriptionv3:
+            descriptionv3 = descriptionv3.find('text')
+            if descriptionv3:
+                data["descriptionV3"] = descriptionv3.text
+                data["description"] = data["descriptionV3"] 
 
-                # data["primaryThumbnailV2"]=xmltodict.parse(str(p("primaryThumbnailV2")))
-                # data["authors"]=xmltodict.parse(str(p("authors")))
-                # data["authorsV2"]=xmltodict.parse(str(p("authorsv2")))
-                # primarythumbnailv2
-                # features > contentrating
-                # urn star
-                #   authors
-                #   contents
-                
 
-                #  authorsv2
-                # print(p("contents")) 
-                sections, tocs = getCourseSecsTocs(p,doc, course_slug,json_config)   
-                # data["sections"]=None
-                data["sections"]=sections
-                data["tocs"]=tocs
-                # data["tocs"]=None
-                # print(data)
-                return data
-    return None
-def fetchCourseUrl(url,human=None,no_cache=True):
+        sourceCodeRepo=p.find('sourceCodeRepository')
+        if sourceCodeRepo:
+            data["sourceCodeRepository"]=sourceCodeRepo.text
+
+        tags = ["sizeInBytes","name","url"]
+        exerciseFiles = p.find('exerciseFiles')
+        if exerciseFiles:
+            for tag in tags:
+                exercise_file_nd = exerciseFiles.find(tag) 
+                if exercise_file_nd:
+                    exercise_file_nd = exercise_file_nd.text
+                    if exercise_file_nd:
+                        if not data["exerciseFiles"]:
+                            data["exerciseFiles"]={}
+                        if tag == "sizeInBytes":     
+                            data["exerciseFiles"][tag]=int(exercise_file_nd)
+                        else:
+                            data["exerciseFiles"][tag]=exercise_file_nd
+
+    # data["primaryThumbnailV2"]=xmltodict.parse(str(p("primaryThumbnailV2")))
+    # data["authors"]=xmltodict.parse(str(p("authors")))
+    # data["authorsV2"]=xmltodict.parse(str(p("authorsv2")))
+    # primarythumbnailv2
+    # features > contentrating
+    # urn star
+    #   authors
+    #   contents
+    
+
+    #  authorsv2
+    # print(p("contents")) 
+    # print(data)
+
+            
+    return data
+    # return None
+
+def fetchCourseUrl(url,human=None,include_toc=False, no_cache=True):
+    benchmark('course','start')
     course_url=cleanQueryString(url)
+    course_slug, toc_slug=getCourseSlugFromUrl(url)
+    print(f"course_slug:{course_slug}, toc_slug:{toc_slug}\n")
+    # print(b)
+  
     prx=Prx(human)
     # print(course_url)
-    content=prx.get(course_url, no_cache=no_cache)
+    valid_course_url = courseUrl(course_slug)
+    if include_toc:
+        valid_course_url = f"{valid_course_url}/{toc_slug}"
+    content=prx.get(valid_course_url, no_cache=no_cache)
+    b=benchmark('course','end')
+    print(f"time elapsed:{b['elapsed_time']}\n")
     # print(content)
     if content:
         page_name=prx.getPageName()
@@ -427,11 +498,117 @@ def fetchCourseUrl(url,human=None,no_cache=True):
         data=parseRestLiResponse(doc)
         # print(data)
         xml_doc=convert2Xml(data, page_name)
+        
+
         return xml_doc
     else:
         errors(lang('could_not_fetch_course_url', course_url))
         errors(lang('are_you_connected_to_internet'))
+    
+
     return None
 
 def fetchCourseTocUrl(url,human=None):
-    return fetchCourseUrl(url, human,no_cache=False)
+    return fetchCourseUrl(url, human,include_toc=True, no_cache=False)
+
+class DictToObject:
+    def __init__(self, dictionary):
+        for key, value in dictionary.items():
+            setattr(self, key, value)
+
+class ApiCourse:
+    ds=None
+    human=None
+    m_course=None
+    m_config=None
+    m_exercise_file=None
+    m_section=None
+    course=None
+    
+    def __init__(self, ds):
+        self.ds = ds
+        self.m_config = ds.m_config
+        self.m_course = ds.m_course
+        self.m_section = ds.m_section
+        self.m_exercise_file=ds.m_exercise_file
+        self.course_xml_doc=None
+        self.m_toc = ds.m_toc
+    
+    def getCourseSlugFromUrl(self,url):
+        course_slug,toc_slug=getCourseSlugFromUrl(url)
+        return course_slug
+    
+    def getCourseInfo(self, course_slug):
+        benchmark('ApiCourse.getCourseInfo','start')
+
+        course = self.m_course.getBySlug(course_slug)
+        if not course:
+            course = self.fetchCourseInfo(course_slug)
+        b=benchmark('ApiCourse.getCourseInfo','end')
+        print(f"ApiCourse.getCourseInfo time elapsed:{b['elapsed_time']}\n")
+        self.course = course
+        return course
+    
+    def getCourseXmlDoc(self,course_url, no_cache=False):
+        if not self.course_xml_doc:
+            prx=Prx()
+            content=prx.get(course_url, no_cache)
+            if content:
+                page_name=prx.getPageName()
+                doc=BeautifulSoup(content,features='html.parser')
+                data=parseRestLiResponse(doc)
+                self.course_xml_doc=convert2Xml(data, page_name)
+        return self.course_xml_doc
+
+    def fetchCourseInfo(self, course_slug):
+
+        course=None
+        course_url = courseUrl(course_slug)
+        xml_doc=self.getCourseXmlDoc(course_url, no_cache=True)
+        if xml_doc:
+            course = getCourseInfo(xml_doc)
+            if course:
+                rec=self.m_course.create(course["title"], course["slug"], course["duration"], course["sourceCodeRepository"], course["description"], course["urn"])
+                if course["exerciseFiles"]:
+                    sizeInBytes,name,url,=course["exerciseFiles"].values()
+                    self.m_exercise_file.create(name=name,size=sizeInBytes,url=url,courseId=rec.id)
+                course=rec
+        return course
+
+    def getCourseSections(self, course_slug):
+        benchmark('ApiCourse.getCourseSections','start')
+
+        course=None
+        course_url = courseUrl(course_slug)
+        xml_doc=self.getCourseXmlDoc(course_url)
+        p,course_urn = getCourseXmlParentElement(xml_doc)
+        sections = getCourseSections(p, xml_doc, self.m_section, self.course.id)
+        self.sections = sections
+        b=benchmark('ApiCourse.getCourseSections','end')
+        print(f"ApiCourse.getCourseSections time elapsed:{b['elapsed_time']}\n")
+
+        return sections
+    
+    def getCourseTocs(self, course_slug):
+        benchmark('ApiCourse.getCourseTocs','start')
+
+        tocs=None
+        course_url = courseUrl(course_slug)
+        xml_doc=self.getCourseXmlDoc(course_url)
+        p,course_urn = getCourseXmlParentElement(xml_doc)
+        sections = self.sections
+        if not sections:
+            sections = getCourseSections(p, xml_doc, self.m_section, self.course.id)
+        if sections:    
+            tocs = getCourseTocs(p, xml_doc, sections, self.m_toc, self.course.slug)
+
+        b=benchmark('ApiCourse.getCourseTocs','end')
+        print(f"ApiCourse.getCourseTocs time elapsed:{b['elapsed_time']}\n")
+
+        return tocs
+    
+    def fetchCourseUrl(self, url):
+        pass
+    
+    def fetchTocUrl(self, url):
+        pass
