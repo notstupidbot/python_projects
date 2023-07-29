@@ -1,19 +1,39 @@
 #!/usr/bin/env python3
 import sys
-sys.path.append('..')
+import os
+
+sys.path.append(os.path.realpath('%s/..' % os.path.dirname(__file__)))
 
 from robots.fn import errors, log, lang,  pq, dict2htmTable, RED,GREEN,BLUE,RESET,BLACK,WHITE
 from robots.datasource import DataSource
 from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
 from api.course import fetchCourseUrl, getCourseInfo, fetchCourseTocUrl, getCourseToc,getVideoMeta
+import validators
+import re
 
+def is_linkedin_learning_url(url):
+    pattern = r'^https://www\.linkedin\.com/learning/'
+    return re.match(pattern, url) is not None
 
 
 ds = DataSource(db_path)
 db_config=ds.mConfig
 if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print("usage   : ./api_test.py <course_url>")
+        print("example : ./api_test.py https://www.linkedin.com/learning/learning-next-js")
+        sys.exit()
+    course_url = sys.argv[1]
+    if not validators.url(course_url):
+        errors(f"{course_url} is not a valid url")
+        sys.exit()
+    
+    if not is_linkedin_learning_url(course_url):
+        errors(f"{course_url} is not a valid linkedin learning url")
+        sys.exit()
 
-    course_url="https://www.linkedin.com/learning/learning-next-js?u=95231473"
+    log("Getting course info sections, tocs, stream locs and transcripts")
+    # course_url="https://www.linkedin.com/learning/learning-next-js?u=95231473"
     # course_url="https://www.linkedin.com/learning/creating-fun-and-engaging-video-training-the-how"
     try:
         xml_doc = fetchCourseUrl(course_url)
@@ -31,15 +51,17 @@ if __name__ == '__main__':
     if not course_info:
         errors('could_not_get_course_info')
         sys.exit(1)
-    print("\n")
-    print(course_info["title"]+"\n")
+    output_buffer = "\n"
+    output_buffer += course_info["title"]+"\n\n"
+    output_buffer += course_info["description"]+"\n\n"
+    # output_buffer=""
     # print(course_info["slug"])
     # course_url = "%s/%s" % (linkedin_learning_url, course_info["slug"])
     # print(course_info["url"])
     if course_info["sections"]:
         for section_slug in course_info["sections"]:
             section = course_info["sections"][section_slug]
-            print("  "+section["title"]+"\n")
+            output_buffer += "\n  "+section["title"]+"\n"
 
             if course_info["tocs"]:
                 if course_info["tocs"][section_slug]:
@@ -69,11 +91,13 @@ if __name__ == '__main__':
                         # print("\t"+toc["url"])
                         if toc["stream_locations"]:
                             has_stream_locations = True
-                            stream_location_keys = GREEN+" ["+','.join(list(toc["stream_locations"]))+"]"+RESET
+                            stream_loc_list = ','.join(list(toc["stream_locations"]))
+                            stream_location_keys = f"{GREEN}[{stream_loc_list}]{RESET}"
                         transcript_keys = ""
                         if toc["transcripts"]:
                             has_transcripts = True
-                            transcript_keys = BLUE+" ["+','.join(list(toc["transcripts"]))+"]"+RESET
+                            transcript_list = ','.join(list(toc["transcripts"]))
+                            transcript_keys = f"{BLUE}[{transcript_list}]{RESET}"
                         COLOR = BLACK    
                         if has_stream_locations and has_transcripts:
                             COLOR = GREEN  
@@ -83,7 +107,8 @@ if __name__ == '__main__':
                             COLOR = WHITE
                         else:
                             COLOR=BLACK  
-                        print(COLOR + ("\t%2d. "% index)+toc["title"] + RESET+ stream_location_keys + transcript_keys )
+                        toc_title = toc["title"]
+                        output_buffer += f"\t{COLOR}{index}.{toc_title}{RESET} {stream_location_keys} {transcript_keys}\n"
                         index+=1
-                        
-            print("\n")
+output_buffer += "\n" 
+print(output_buffer)

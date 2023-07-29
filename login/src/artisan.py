@@ -14,6 +14,7 @@ def get_current_script_directory():
 
     return script_directory
 
+# sys.path.append(os.path.realpath('%s/..' % os.path.dirname(__file__)))
 artisan_dir="%s/artisan" % get_current_script_directory()
 action_json_path="%s/actions.json" % artisan_dir
 

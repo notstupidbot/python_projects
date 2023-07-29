@@ -1,9 +1,8 @@
-from sqlalchemy import Column, Integer, String, create_engine
-from sqlalchemy.ext.declarative import declarative_base
-Base = declarative_base()
+from sqlalchemy import Column, Integer, String
+from robots.datasource.models import Base
 
 class Author(Base):
-	__tablename__ = 'app'
+	__tablename__ = 'author'
 
 	id=Column(Integer,primary_key=True)
 	name=Column(String)
@@ -13,4 +12,4 @@ class Author(Base):
 	courseIds=Column(String)
 
 	def __repr__(self):
-		return f"<App(name={self.name},slug={self.slug},biography={self.biography},shortBiography={self.shortBiography},courseIds={self.courseIds},)>"
+		return f"<Author(name={self.name},slug={self.slug},biography={self.biography},shortBiography={self.shortBiography},courseIds={self.courseIds},)>"

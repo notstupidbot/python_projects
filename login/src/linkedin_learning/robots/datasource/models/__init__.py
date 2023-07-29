@@ -1,3 +1,4 @@
+from robots.datasource.models.base import Base 
 from robots.datasource.models.user import User 
 from robots.datasource.models.app import App 
 from robots.datasource.models.author import Author

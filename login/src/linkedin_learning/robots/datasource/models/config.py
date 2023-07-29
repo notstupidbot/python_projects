@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, create_engine
-from sqlalchemy.ext.declarative import declarative_base
-Base = declarative_base()
+from sqlalchemy import Column, Integer, String
+from robots.datasource.models import Base
+
 import json
 class Config(Base):
 	__tablename__ = 'config'
@@ -10,7 +10,7 @@ class Config(Base):
 	value=Column(String)
 
 	def __repr__(self):
-		return f"<JSConfig(key={self.key},value={self.value})>"
+		return f"<Config(key={self.key},value={self.value})>"
 
 class MConfig:
 	def __init__(self, session):
@@ -34,9 +34,7 @@ class MConfig:
 		if config:
 			config.value = value
 		else:
-			config = Config()
-			config.key=key
-			config.value=value
+			config = Config(key=key,value=value)
 			self.session.add(config)
 		
 		self.session.commit()

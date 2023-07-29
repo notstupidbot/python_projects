@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, create_engine
-from sqlalchemy.ext.declarative import declarative_base
-Base = declarative_base()
+from sqlalchemy import Column, Integer, String
+from robots.datasource.models import Base
 
 class DMStatus(Base):
 	__tablename__ = 'dm_status'

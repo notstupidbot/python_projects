@@ -17,19 +17,19 @@ def parseJson(code_id,code_nd):
     
     return code_content
 
-def convert2Xml(data, page_name):
-    xml_data = xmltodict.unparse(data, pretty=True)
+def convert2Xml(data, page_name, cache_xml_to_file=False):
+    xml_data = xmltodict.unparse(data, pretty=False)
     xml_data = xml_data.replace('<body','<tbody').replace('</body','</tbody')
     xml_data = xml_data.replace('<$','<').replace('</$','</')
     xml_data = xml_data.replace('<*','<star_').replace('</*','</star_')
 
-    # page_name = 'course_data'
-    xml_path = '%s/%s.xml' % (browser_cache_dir,page_name)
-    writeFile(xml_path, xml_data)
-    data = open(xml_path, 'rb')
-
-    xml_content = data.read()
-    doc=BeautifulSoup(xml_content,features="xml")
+    if cache_xml_to_file:
+        xml_path = '%s/%s.xml' % (browser_cache_dir,page_name)
+        writeFile(xml_path, xml_data)
+        data = open(xml_path, 'rb')
+        xml_data = data.read()
+    
+    doc=BeautifulSoup(xml_data,features="xml")
     return doc
 
 def parseRestLiResponse(doc):
@@ -95,6 +95,8 @@ def getStreamLocations(v_meta_data_nd, doc):
             fmt = pg_stream_el.find("height")
             if fmt:
                 fmt = fmt.text
+                if fmt == "0":
+                    fmt="audio"
                 if not stream_locations:
                     stream_locations={}
                 stream_locations[fmt] = {}
@@ -104,6 +106,7 @@ def getStreamLocations(v_meta_data_nd, doc):
                     if url:
                         url = url.text
                         stream_locations[fmt]["url"]=url
+                        
                     expiresAt = stream_loc.find("expiresAt")
                     if expiresAt:
                         expiresAt = expiresAt.text
@@ -317,7 +320,8 @@ def getCourseInfo(doc,json_config):
                     "url" : "%s/%s" % (linkedin_learning_url, course_slug),
                     "slug" : course_slug,
                     "exerciseFiles" : None,
-                    "sourceCodeRepository": None
+                    "sourceCodeRepository": None,
+                    "description" : None
                 }
                 title = p.find('title')
                 if title:
@@ -334,12 +338,20 @@ def getCourseInfo(doc,json_config):
                     if viewerCounts:
                         data["viewerCounts"] = int(viewerCounts.text)
 
+                description = p.find('description')
+                
+                if description:
+                    description = description.find('text')
+                    if description:
+                        data["description"] = description.text
+
                 descriptionv2 = p.find('descriptionV2')
                 
                 if descriptionv2:
                     descriptionv2 = descriptionv2.find('text')
                     if descriptionv2:
-                        data["descriptionv2"] = descriptionv2.text
+                        data["descriptionV2"] = descriptionv2.text
+                        data["description"] = data["descriptionV2"] 
 
                 duration = p.find('duration')
                 if duration:
@@ -360,7 +372,8 @@ def getCourseInfo(doc,json_config):
                 if descriptionv3:
                     descriptionv3 = descriptionv3.find('text')
                     if descriptionv3:
-                        data["descriptionv3"] = descriptionv3.text
+                        data["descriptionV3"] = descriptionv3.text
+                        data["description"] = data["descriptionV3"] 
 
 
                 sourceCodeRepo=p.find('sourceCodeRepository')
