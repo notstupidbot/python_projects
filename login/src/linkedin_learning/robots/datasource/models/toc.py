@@ -14,9 +14,10 @@ class Toc(Base):
 	captionFmt=Column(String)
 	streamLocationIds=Column(String)
 	item_star=Column(String)
+	v_status_urn=Column(String)
 
 	def __repr__(self):
-		return f"<Toc(sectionId={self.sectionId},title={self.title},slug={self.slug},url={self.url},duration={self.duration},captionUrl={self.captionUrl},captionFmt={self.captionFmt},streamLocationIds={self.streamLocationIds},item_star={self.item_star})>"
+		return f"<Toc(sectionId={self.sectionId},title={self.title},slug={self.slug},url={self.url},duration={self.duration},captionUrl={self.captionUrl},captionFmt={self.captionFmt},streamLocationIds={self.streamLocationIds},item_star={self.item_star}, v_status_urn={self.v_status_urn})>"
 
 class MToc:
 	ds=None
@@ -28,7 +29,9 @@ class MToc:
 		return row
 
 	def getByItemStar(self, item_star):
-		row = self.ds.session.query(Toc).filter_by(item_star=item_star).first()
+		q = self.ds.session.query(Toc).filter_by(item_star=item_star)
+		# print(q.statement.compile(compile_kwargs={"literal_binds": True}))
+		row=q.first()
 		return row
 
 	def getBySlug(self, slug, sectionId):
@@ -42,12 +45,13 @@ class MToc:
 	def update(self, id, row):
 		pass
 	
-	def create(self, title, slug, url, duration, captionUrl, captionFmt, sectionId,item_star):
+	def create(self, title, slug, url, duration, captionUrl, captionFmt, sectionId,item_star,v_status_urn):
 		existing = self.getBySlug(slug,sectionId)
 		if existing:
 			return existing
 		streamLocationIds=json.dumps([])
 
-		rec = Toc(title=title, slug=slug, url=url, duration=duration, captionUrl=captionUrl, captionFmt=captionFmt, sectionId=sectionId, streamLocationIds=streamLocationIds,item_star=item_star)
+		rec = Toc(title=title, slug=slug, url=url, duration=duration, captionUrl=captionUrl, captionFmt=captionFmt, sectionId=sectionId, streamLocationIds=streamLocationIds,item_star=item_star,v_status_urn=v_status_urn)
 		self.ds.session.add(rec)
 		self.ds.session.commit()
+		return rec

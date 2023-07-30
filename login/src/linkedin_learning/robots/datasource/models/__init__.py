@@ -11,5 +11,6 @@ from robots.datasource.models.stream_location import StreamLocation
 from robots.datasource.models.dm_setup import DMSetup
 from robots.datasource.models.dm_status import DMStatus
 from robots.datasource.models.config import Config,MConfig
+from robots.datasource.models.prx import Prx,MPrx
 from robots.datasource.models.exercise_file import ExerciseFile,MExerciseFile
 

@@ -46,6 +46,15 @@ if __name__ == '__main__':
     tocs = api_course.getCourseTocs(course_slug)
 
     for section in sections:
-        toc = tocs[section.slug]
-        print(toc)
-    
+        toc_list = tocs[section.slug]
+        # setream_locations = api_course.getStreamLocs(toc.item_star)
+        for toc in toc_list:
+            # lst = "%s,%s,%s" % (toc.url, toc.item_star,toc.v_status_urn)
+            # if toc.slug == "solution-practice-working-with-data":
+            #     stream_locs=api_course.getStreamLocs(toc)
+            # print(stream_locs)
+            stream_locs,transcripts,status = api_course.getStreamLocsAndTranscripts(toc)
+            if status == 777 or status == 200:
+                print(list(stream_locs))
+            else:
+                print(status)

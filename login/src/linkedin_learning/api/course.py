@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
 import validators
 import sys
-
+import time
 def parseJson(code_id,code_nd):
     code_content=""
     try:
@@ -20,7 +20,7 @@ def parseJson(code_id,code_nd):
     return code_content
 
 def convert2Xml(data, page_name, cache_xml_to_file=False):
-    xml_data = xmltodict.unparse(data, pretty=False)
+    xml_data = xmltodict.unparse(data, pretty=True)
     xml_data = xml_data.replace('<body','<tbody').replace('</body','</tbody')
     xml_data = xml_data.replace('<$','<').replace('</$','</')
     xml_data = xml_data.replace('<*','<star_').replace('</*','</star_')
@@ -121,21 +121,37 @@ def getStreamLocations(v_meta_data_nd, doc):
     return stream_locations
     # return None
 def getVideoMeta(v_status_urn, doc, json_config):
+    benchmark('getVideoMeta','start')
 
     cache = json_config.get(v_status_urn)
     if cache:
         log(lang('get_video_meta_from_cache',v_status_urn), verbose=True)
-        return cache
+        b=benchmark('getVideoMeta','end')
+        print(f"getVideoMeta time elapsed:{b['elapsed_time']}\n")
+        return [cache[0],cache[1],777]
     # print(v_status_urn)
 
     # urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099399)
     # urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3094437)
     v_status_lookups = doc.find_all('star_lyndaVideoViewingStatus',text=v_status_urn)
+    # v_status_lookups = doc.find_all('included')
+    status_429 = doc.find_all('status',text="429")
+    if status_429:
+        if len(status_429) > 0:
+            
+            return [None,None,429]
+    print(len(status_429))
+    print(v_status_lookups)
+
     if not v_status_lookups:
+        errors('A')
+        errors(lang('could_not_find_v_status_lookup', v_status_urn))
+
         v_status_urn = v_status_urn.replace('urn:li:lyndaVideoViewingStatus:','')
         v_status_lookups= doc.find_all('trackingUrn', text=v_status_urn)
     
     if not v_status_lookups:
+        errors('B')
         errors(lang('could_not_find_v_status_lookup', v_status_urn))
     # print(v_status_lookup)
     stream_locations = None
@@ -174,77 +190,56 @@ def getVideoMeta(v_status_urn, doc, json_config):
     if not v_meta_data_nd:
         # print(v_status_lookup)
         errors("%s %s" % (lang('could_not_find_v_meta_data_nd_pos'),pos))
-       
-    return [stream_locations,transcripts]
+    b=benchmark('getVideoMeta','end')
+    print(f"getVideoMeta time elapsed:{b['elapsed_time']}\n")  
+    return [stream_locations,transcripts,200]
 def getCourseToc(item_star,doc,m_toc,sectionId,course_slug):
     toc = m_toc.getByItemStar(item_star)
     if toc:
         return toc
+    entity_nd_p = getTocXmlParentElement(item_star,doc)
+    
+    toc={
+        "stream_locations" : None,
+        "transcripts" : None
+    }
+    toc_slug = entity_nd_p.find("slug")
+    if toc_slug:
+        toc_slug = toc_slug.text
+        toc["slug"] = toc_slug
+        toc["url"] = "%s/%s/%s" % (linkedin_learning_url,course_slug,toc_slug)
 
-    toc_nd = doc.find('cachingKey',text=item_star)
-    entity_urn=None
-    if toc_nd:
-        toc_nd_p = toc_nd.parent
-        video_urn = toc_nd_p.find("content")
-        if video_urn:
-            video_urn = video_urn.find("video")
-            if video_urn:
-                video_urn = video_urn.text
-                # print(video_urn)
-                # break_the_loop=False
-                entity_urn = doc.find('entityUrn',text=video_urn)
-                if entity_urn:
-                    toc={
-                        "stream_locations" : None,
-                        "transcripts" : None
-                    }
-                    entity_nd_p = entity_urn.parent
-                    toc_slug = entity_nd_p.find("slug")
-                    if toc_slug:
-                        toc_slug = toc_slug.text
-                        toc["slug"] = toc_slug
-                        toc["url"] = "%s/%s/%s" % (linkedin_learning_url,course_slug,toc_slug)
 
-                    
-                    title = entity_nd_p.find("title")
-                    if title:
-                        title = title.text
-                        toc["title"] = title
+    title = entity_nd_p.find("title")
+    if title:
+        title = title.text
+        toc["title"] = title
 
-                    visibility = entity_nd_p.find("visibility") 
-                    if visibility:
-                        visibility = visibility.text
-                        toc["visibility"] = visibility
+    visibility = entity_nd_p.find("visibility") 
+    if visibility:
+        visibility = visibility.text
+        toc["visibility"] = visibility
 
-                    duration = entity_nd_p.find("duration")
-                    if duration:
-                        # duration = duration.find("duration")
-                        # if duration:
-                        duration = duration.text
-                        toc["duration"] = duration
-                    item_star = entity_nd_p.find("star_lyndaVideoViewingStatus")
-                    if item_star:
-                        item_star = item_star.text
-                        toc["item_star"] = item_star
+    duration = entity_nd_p.find("duration")
+    if duration:
+        # duration = duration.find("duration")
+        # if duration:
+        duration = duration.text
+        toc["duration"] = duration
+    v_status_urn = entity_nd_p.find("star_lyndaVideoViewingStatus")
+    if v_status_urn:
+        v_status_urn = v_status_urn.text.strip()
+        toc["v_status_urn"] = v_status_urn
 
-                    # stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], doc, json_config)
-                    # if stream_locations:
-                    #     toc["stream_locations"]=stream_locations
-                    # if transcripts:
-                    #     toc["transcripts"]=transcripts
-                    
-                    m_toc.create(title=title, slug=toc_slug, url=toc["slug"], duration=duration , captionUrl="", captionFmt="", sectionId=sectionId,item_star=item_star)
-                    
-                    return toc
-                
-            if not entity_urn:
-                errors(lang('could_not_find_video_entity_urn', item_star))
-        if not video_urn:
-            errors(lang('could_not_find_video_urn', item_star))
+    # stream_locations, transcripts = getVideoMeta(toc["v_status_urn"], doc, json_config)
+    # if stream_locations:
+    #     toc["stream_locations"]=stream_locations
+    # if transcripts:
+    #     toc["transcripts"]=transcripts
 
-    else:
-        errors(lang('could_not_find_toc_nd', item_star))
-    return None
+    toc=m_toc.create(title=title, slug=toc_slug, url=toc["url"], duration=duration , captionUrl="", captionFmt="", sectionId=sectionId,item_star=item_star, v_status_urn=v_status_urn)
+
+    return toc
 
 def getCourseTocs(p, xml_doc, sections, m_toc, course_slug):
     tocs={}
@@ -271,7 +266,7 @@ def getCourseSections(p,doc, m_section, courseId):
             section_nd_p = section_nd.parent
             section_title=section_nd_p.find("title")
             if section_title:
-                section_title = section_title.text
+                section_title = section_title.text.strip()
                 # print(section_title)
                 section_slug=slugify(section_title)
                 tocs[section_slug] = []
@@ -284,7 +279,7 @@ def getCourseSections(p,doc, m_section, courseId):
                 # item_stars=[]
                 if item_star_nds:
                     for item_star_el in item_star_nds:
-                        item_star = item_star_el.text
+                        item_star = item_star_el.text.strip()
                         skip_pattern=r"urn:li:learningApiTocItem:urn:li:learningApiAssessmen"
                         match_skip_pattern=re.findall(skip_pattern,  item_star)
                         if len(match_skip_pattern)>0:
@@ -323,7 +318,32 @@ def getCourseSlugFromUrl(url):
 
     return [course_slug, toc_slug]
 
+def getTocXmlParentElement(item_star,doc):
+    toc_nd = doc.find('cachingKey',text=item_star)
+    entity_urn=None
+    entity_nd_p=None
+    if toc_nd:
+        toc_nd_p = toc_nd.parent
+        video_urn = toc_nd_p.find("content")
+        if video_urn:
+            video_urn = video_urn.find("video")
+            if video_urn:
+                video_urn = video_urn.text.strip()
+                # print(video_urn)
+                # break_the_loop=False
+                entity_urn = doc.find('entityUrn',text=video_urn)
+                if entity_urn:
+                    entity_nd_p = entity_urn.parent
+        
+        if not entity_urn:
+                errors(lang('could_not_find_video_entity_urn', item_star))
+        
+        if not video_urn:
+            errors(lang('could_not_find_video_urn', item_star))
 
+    else:
+        errors(lang('could_not_find_toc_nd', item_star))
+    return entity_nd_p
 def getCourseXmlParentElement(doc):
     p=None
     course_urn=None
@@ -532,7 +552,9 @@ class ApiCourse:
         self.m_section = ds.m_section
         self.m_exercise_file=ds.m_exercise_file
         self.course_xml_doc=None
+        self.toc_xml_doc={}
         self.m_toc = ds.m_toc
+        self.m_prx = ds.m_prx
     
     def getCourseSlugFromUrl(self,url):
         course_slug,toc_slug=getCourseSlugFromUrl(url)
@@ -551,7 +573,7 @@ class ApiCourse:
     
     def getCourseXmlDoc(self,course_url, no_cache=False):
         if not self.course_xml_doc:
-            prx=Prx()
+            prx=Prx(m_prx=self.m_prx)
             content=prx.get(course_url, no_cache)
             if content:
                 page_name=prx.getPageName()
@@ -607,6 +629,56 @@ class ApiCourse:
 
         return tocs
     
+    def getStreamLocsAndTranscripts(self, toc):
+        benchmark('ApiCourse.getStreamLocsAndTranscripts','start')
+
+        #toc.url, toc.item_star,toc.v_status_urn
+        # lst = "%s,%s,%s" % (toc.url, toc.item_star,toc.v_status_urn)
+        stream_locations=None
+        transcripts=None
+        status = 400
+        ok=False
+        no_cache=False
+        retry_count = 0
+        wait_time=0
+        while not ok:
+                
+            if retry_count > 0:
+                print(f"retry {retry_count}")
+            if wait_time>0:
+                print(f"wait for {wait_time} second")
+                time.sleep(wait_time)
+            toc_xml_doc = self.getTocXmlDoc(toc.slug, toc.url,no_cache=no_cache)
+            stream_locations, transcripts, status=getVideoMeta(toc.v_status_urn, toc_xml_doc, self.m_config)
+            if status == 429:
+                retry_count += 1
+                no_cache=True
+                wait_time+=5
+
+            else:
+                ok=True
+                wait_time=0
+            if retry_count > 3:
+                print(f"retry counts reached max : {retry_count}")
+                wait_time=0
+
+                break    
+            # print(status)
+        b=benchmark('ApiCourse.getStreamLocsAndTranscripts','end')
+        print(f"ApiCourse.getStreamLocsAndTranscripts time elapsed:{b['elapsed_time']}\n")
+        return [stream_locations, transcripts, status]
+    
+    def getTocXmlDoc(self,toc_slug, toc_url, no_cache=False):
+        if not toc_slug in self.toc_xml_doc or no_cache:
+            prx=Prx(m_prx=self.m_prx)
+            content=prx.get(toc_url, no_cache=no_cache)
+            if content:
+                page_name=prx.getPageName()
+                doc=BeautifulSoup(content,features='html.parser')
+                data=parseRestLiResponse(doc)
+                self.toc_xml_doc[toc_slug]=convert2Xml(data, page_name)
+        return self.toc_xml_doc[toc_slug]
+
     def fetchCourseUrl(self, url):
         pass
     
