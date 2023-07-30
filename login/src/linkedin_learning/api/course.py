@@ -123,12 +123,12 @@ def getStreamLocations(v_meta_data_nd, doc):
 def getVideoMeta(v_status_urn, doc, json_config):
     benchmark('getVideoMeta','start')
 
-    cache = json_config.get(v_status_urn)
-    if cache:
-        log(lang('get_video_meta_from_cache',v_status_urn), verbose=True)
-        b=benchmark('getVideoMeta','end')
-        print(f"getVideoMeta time elapsed:{b['elapsed_time']}\n")
-        return [cache[0],cache[1],777]
+    # cache = json_config.get(v_status_urn)
+    # if cache:
+    #     log(lang('get_video_meta_from_cache',v_status_urn), verbose=True)
+    #     b=benchmark('getVideoMeta','end')
+    #     print(f"getVideoMeta time elapsed:{b['elapsed_time']}\n")
+    #     return [cache[0],cache[1],777]
     # print(v_status_urn)
 
     # urn:li:lyndaVideoViewingStatus:urn:li:lyndaVideo:(urn:li:lyndaCourse:2491193,3099399)
@@ -140,8 +140,8 @@ def getVideoMeta(v_status_urn, doc, json_config):
         if len(status_429) > 0:
             
             return [None,None,429]
-    print(len(status_429))
-    print(v_status_lookups)
+    # print(len(status_429))
+    # print(v_status_lookups)
 
     if not v_status_lookups:
         errors('A')
