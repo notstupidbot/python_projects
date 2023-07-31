@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String
-from robots.datasource.models import Base
+from robots.datasource.models import Base, author_course_association
+from sqlalchemy.orm import relationship
 
 class Course(Base):
 	__tablename__ = 'course'
@@ -10,11 +11,12 @@ class Course(Base):
 	duration=Column(String)
 	sourceCodeRepository=Column(String)
 	description=Column(String)
-	authorIds=Column(String)
 	urn=Column(String)
+	authors = relationship('Author', secondary=author_course_association, back_populates='courses')
+
 
 	def __repr__(self):
-		return f"<Course(title={self.title},slug={self.slug},duration={self.duration},sourceCodeRepository={self.sourceCodeRepository},description={self.description},authorIds={self.authorIds},urn={self.urn},)>"
+		return f"<Course(title={self.title},slug={self.slug},duration={self.duration},sourceCodeRepository={self.sourceCodeRepository},description={self.description},urn={self.urn})>"
 
 class MCourse:
 	ds=None
@@ -28,7 +30,9 @@ class MCourse:
 	def getBySlug(self,slug):
 		row = self.ds.session.query(Course).filter_by(slug=slug).first()
 		return row
-	
+	def addAuthor(self,course, author):
+		course.authors.append(author)
+		self.ds.session.commit()
 	def getLastSlug(self,keys=[]):
 		pass
 	

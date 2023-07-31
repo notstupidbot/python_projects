@@ -10,6 +10,55 @@ import validators
 import sys
 import time
 
+def slugToTitle(slug):
+    words = slug.split('-')
+    title_case_words = [word.capitalize() for word in words]
+    return ' '.join(title_case_words)
+
+def getNText(**kwargs):
+    args=kwargs
+    nd=args["p"]
+    c=args["c"]
+    text=""
+    if type(c) == list:
+        max_len=len(c)-1
+        idx=0
+        c_el=nd
+        break_the_loop=False
+        for ic in c:
+            ic_el = c_el.find(ic)
+            if not ic_el or break_the_loop:
+                break
+            if idx >= max_len:
+                if ic_el:
+                    text=ic_el.text.strip()
+            else:
+                c_el = ic_el
+            idx+=1
+    else:
+        c_nd = nd.find(c)
+        if c_nd:
+            text=c_nd.text.strip()
+    return text
+
+def getAuthors(doc,m_author,course):
+    p,course_urn = getCourseXmlParentElement(doc)
+    author_els=p.find_all("authors")
+    authors=[]
+    for author_el in author_els:
+        author_urn = author_el.text.strip()
+        author_entity_el=doc.find("entityUrn",text=author_urn)
+        if author_entity_el:
+            author_entity_el_p = author_entity_el.parent
+            slug = getNText(p=author_entity_el_p,c='slug')
+            name=slugToTitle(slug)
+            biography=getNText(p=author_entity_el_p,c=['biographyV2','text'])
+            shortBiography=getNText(p=author_entity_el_p,c=['shortBiographyV2','text'])
+            author=m_author.create(slug=slug, name=name, biography=biography, shortBiography=shortBiography)
+            authors.append(author)
+            m_author.addCourse(author,course)
+    return authors
+
 def getCourseInfo(doc):
    
     p,course_urn = getCourseXmlParentElement(doc)
@@ -97,6 +146,9 @@ def getCourseInfo(doc):
 
     # data["primaryThumbnailV2"]=xmltodict.parse(str(p("primaryThumbnailV2")))
     # data["authors"]=xmltodict.parse(str(p("authors")))
+    
+    # authorsV2=p.find("authorsV2")
+    # print(authorsV2)
     # data["authorsV2"]=xmltodict.parse(str(p("authorsv2")))
     # primarythumbnailv2
     # features > contentrating
@@ -219,7 +271,7 @@ def parseJson(code_id,code_nd):
     
     return code_content
 
-def convert2Xml(data, page_name, cache_xml_to_file=False):
+def convert2Xml(data, page_name, cache_xml_to_file=True):
     xml_data = xmltodict.unparse(data, pretty=True)
     xml_data = xml_data.replace('<body','<tbody').replace('</body','</tbody')
     xml_data = xml_data.replace('<$','<').replace('</$','</')

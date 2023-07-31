@@ -36,12 +36,15 @@ if __name__ == '__main__':
     course = api_course.getCourseInfo(course_slug)
 
     if course:
-        # course_dict=course.__dict__
-        # course_dict.pop('_sa_instance_state')
         print(course)
         # sys.exit()
     else:
         sys.exit()
+    authors = api_course.getAuthors(course_slug)
+    if authors:
+        print(authors)
+    # sys.exit()
+
     sections = api_course.getCourseSections(course_slug)
     if sections:
         print(sections)
@@ -53,11 +56,7 @@ if __name__ == '__main__':
         toc_list = tocs[section.slug]
         # setream_locations = api_course.getStreamLocs(toc.item_star)
         for toc in toc_list:
-            # lst = "%s,%s,%s" % (toc.url, toc.item_star,toc.v_status_urn)
-            # if toc.slug == "data-types-in-sql":
-                #     stream_locs=api_course.getStreamLocs(toc)
-                # print(stream_locs)
-                stream_locations = api_course.getStreamLocs(toc)
-                print(stream_locations)
-                transcripts = api_course.getTranscripts(toc)
-                print(transcripts)
+            stream_locations = api_course.getStreamLocs(toc)
+            print(stream_locations)
+            transcripts = api_course.getTranscripts(toc)
+            print(transcripts)

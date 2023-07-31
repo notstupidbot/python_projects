@@ -1,6 +1,6 @@
 from api.course_fn import parseJson,convert2Xml,parseRestLiResponse,isLinkedinLearningUrl,courseUrl,getCourseSlugFromUrl
 from api.course_fn import getCourseSections,getCourseInfo,getCourseXmlParentElement,getVideoMeta
-from api.course_fn import getStreamLocations,getCourseToc,getTranscripts
+from api.course_fn import getStreamLocations,getCourseToc,getTranscripts,getAuthors
 from robots.fn import benchmark, errors, log, lang
 from api.prx import Prx
 from bs4 import BeautifulSoup
@@ -110,6 +110,7 @@ class CourseApi:
         self.m_prx = ds.m_prx
         self.m_stream_location = ds.m_stream_location
         self.m_transcript = ds.m_transcript
+        self.m_author= ds.m_author
 
         self.course=None
     
@@ -120,9 +121,10 @@ class CourseApi:
     def getCourseInfo(self, course_slug):
         benchmark('ApiCourse.getCourseInfo','start')
 
-        course = self.m_course.getBySlug(course_slug)
+        course = None #self.m_course.getBySlug(course_slug)
         if not course:
             course = self.fetchCourseInfo(course_slug)
+        
         b=benchmark('ApiCourse.getCourseInfo','end')
         print(f"ApiCourse.getCourseInfo time elapsed:{b['elapsed_time']}\n")
         self.course = course
@@ -138,20 +140,37 @@ class CourseApi:
                 data=parseRestLiResponse(doc)
                 self.course_xml_doc=convert2Xml(data, page_name)
         return self.course_xml_doc
+    def getAuthors(self, course_slug):
+        benchmark('ApiCourse.getAuthors','start')
+        sections=None
+        if self.course:
+            authors = self.course.authors
+            if authors:
+                log('authors_get_from_m_author')
+                self.authors = authors
+
+                return authors
+        course_url = courseUrl(course_slug)
+        xml_doc=self.getCourseXmlDoc(course_url)
+        authors = getAuthors(xml_doc, self.m_author, self.course)
+        self.authors = authors
+        b=benchmark('ApiCourse.getAuthors','end')
+        print(f"ApiCourse.getAuthors time elapsed:{b['elapsed_time']}\n")
+
+        return authors
 
     def fetchCourseInfo(self, course_slug):
 
         course=None
         course_url = courseUrl(course_slug)
-        xml_doc=self.getCourseXmlDoc(course_url, no_cache=True)
-        if xml_doc:
-            course = getCourseInfo(xml_doc)
-            if course:
-                rec=self.m_course.create(course["title"], course["slug"], course["duration"], course["sourceCodeRepository"], course["description"], course["urn"])
-                if course["exerciseFiles"]:
-                    sizeInBytes,name,url,=course["exerciseFiles"].values()
-                    self.m_exercise_file.create(name=name,size=sizeInBytes,url=url,courseId=rec.id)
-                course=rec
+        xml_doc=self.getCourseXmlDoc(course_url, no_cache=False)
+        course = getCourseInfo(xml_doc)
+        if course:
+            rec=self.m_course.create(course["title"], course["slug"], course["duration"], course["sourceCodeRepository"], course["description"], course["urn"])
+            if course["exerciseFiles"]:
+                sizeInBytes,name,url,=course["exerciseFiles"].values()
+                self.m_exercise_file.create(name=name,size=sizeInBytes,url=url,courseId=rec.id)
+            course=rec
         return course
 
     def getCourseSections(self, course_slug):
