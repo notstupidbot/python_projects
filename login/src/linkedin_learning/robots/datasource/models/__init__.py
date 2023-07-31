@@ -5,7 +5,7 @@ from robots.datasource.models.author import Author
 from robots.datasource.models.course import Course,MCourse 
 from robots.datasource.models.section import Section,MSection
 from robots.datasource.models.toc import Toc,MToc 
-from robots.datasource.models.transcript import Transcript
+from robots.datasource.models.transcript import Transcript,MTranscript
 from robots.datasource.models.account_setting import AccountSetting
 from robots.datasource.models.stream_location import StreamLocation, MStreamLocation
 from robots.datasource.models.dm_setup import DMSetup

@@ -1,6 +1,6 @@
 from api.course_fn import parseJson,convert2Xml,parseRestLiResponse,isLinkedinLearningUrl,courseUrl,getCourseSlugFromUrl
 from api.course_fn import getCourseSections,getCourseInfo,getCourseXmlParentElement,getVideoMeta
-from api.course_fn import getStreamLocations,getCourseToc
+from api.course_fn import getStreamLocations,getCourseToc,getTranscripts
 from robots.fn import benchmark, errors, log, lang
 from api.prx import Prx
 from bs4 import BeautifulSoup
@@ -109,6 +109,8 @@ class CourseApi:
         self.m_toc = ds.m_toc
         self.m_prx = ds.m_prx
         self.m_stream_location = ds.m_stream_location
+        self.m_transcript = ds.m_transcript
+
         self.course=None
     
     def getCourseSlugFromUrl(self,url):
@@ -207,11 +209,7 @@ class CourseApi:
         
     def getStreamLocs(self, toc):
         benchmark('ApiCourse.getStreamLocs','start')
-
-        #toc.url, toc.item_star,toc.v_status_urn
-        # lst = "%s,%s,%s" % (toc.url, toc.item_star,toc.v_status_urn)
         stream_locations=None
-        status = 400
         ok=False
         no_cache=False
         retry_count = 0
@@ -234,9 +232,7 @@ class CourseApi:
                 
                 v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
                 stream_locations=getStreamLocations(v_meta_data_nd, toc_xml_doc,toc,self.m_stream_location)
-                print(stream_locations)
-                
-                print(f"status={statuses}")
+ 
                 
                 if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
                     retry_count += 1
@@ -245,21 +241,59 @@ class CourseApi:
                 else:
                     ok=True
                     wait_time=0
-                    if stream_locations:
-                        pass
-                        # for fmt in stream_locations:
-                        #     stream_loc=stream_locations[fmt]
-                        #     stream_location = self.m_stream_location.create(toc.id, fmt, stream_loc["url"], stream_loc["expiresAt"])
-                        #     print(stream_location)
+                    
                 if retry_count > 3:
                     print(f"retry counts reached max : {retry_count}")
                     wait_time=0
-
                     break    
             # print(status)
         b=benchmark('ApiCourse.getStreamLocs','end')
         print(f"ApiCourse.getStreamLocs time elapsed:{b['elapsed_time']}\n")
         return stream_locations
+
+    def getTranscripts(self, toc):
+        benchmark('ApiCourse.getTranscripts','start')
+        transcripts=None
+        ok=False
+        no_cache=False
+        retry_count = 0
+        wait_time=0
+
+        while not ok:
+                
+            if retry_count > 0:
+                print(f"retry {retry_count}")
+            if wait_time>0:
+                print(f"wait for {wait_time} second")
+                time.sleep(wait_time)
+
+            transcripts=self.m_transcript.getByTocId(toc.id)
+            if transcripts:
+                log('transcripts_get_from_m_transcripts')
+                break
+            else:
+                toc_xml_doc = self.getTocXmlDoc(toc.slug, toc.url,no_cache=no_cache)
+                
+                v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
+                transcripts=getTranscripts(v_meta_data_nd, toc_xml_doc,toc,self.m_transcript)
+ 
+                
+                if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
+                    retry_count += 1
+                    no_cache=True
+                    wait_time+=5
+                else:
+                    ok=True
+                    wait_time=0
+                    
+                if retry_count > 3:
+                    print(f"retry counts reached max : {retry_count}")
+                    wait_time=0
+                    break    
+            # print(status)
+        b=benchmark('ApiCourse.getTranscripts','end')
+        print(f"ApiCourse.getTranscripts time elapsed:{b['elapsed_time']}\n")
+        return transcripts
 
     def getStreamLocsAndTranscripts(self, toc):
         benchmark('ApiCourse.getStreamLocsAndTranscripts','start')

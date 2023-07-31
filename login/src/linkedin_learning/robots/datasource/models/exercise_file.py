@@ -5,10 +5,10 @@ class ExerciseFile(Base):
 	__tablename__ = 'exercise_file'
 
 	id=Column(Integer,primary_key=True)
-	courseId=Column(String)
+	courseId=Column(Integer)
 	name=Column(String)
 	url=Column(String)
-	size=Column(String)
+	size=Column(Integer)
 
 	def __repr__(self):
 		return f"<ExerciseFile(courseId={self.courseId},name={self.name},url={self.url},size={self.size},)>"

@@ -5,9 +5,9 @@ class DMSetup(Base):
 	__tablename__ = 'dm_setup'
 
 	id=Column(Integer,primary_key=True)
-	courseId=Column(String)
-	status=Column(String)
-	finished=Column(String)
+	courseId=Column(Integer)
+	status=Column(Integer)
+	finished=Column(Integer)
 	availableFmt=Column(String)
 	selectedFmt=Column(String)
 	exerciseFile=Column(String)

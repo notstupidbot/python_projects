@@ -1,7 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from robots.datasource.models import Base,Config,User,App,Course,Section,Toc,StreamLocation,Transcript,DMSetup,DMStatus,AccountSetting 
-from robots.datasource.models import MConfig, MCourse,MExerciseFile,MSection,MToc,MPrx,MStreamLocation
+from robots.datasource.models import MConfig, MCourse,MExerciseFile,MSection,MToc,MPrx,MStreamLocation,MTranscript
 
 class DataSource:
     mConfig=None
@@ -19,3 +19,4 @@ class DataSource:
         self.m_toc = MToc(self)
         self.m_prx = MPrx(self)
         self.m_stream_location = MStreamLocation(self)
+        self.m_transcript = MTranscript(self)

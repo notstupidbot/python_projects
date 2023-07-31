@@ -5,7 +5,7 @@ class Section(Base):
 	__tablename__ = 'section'
 
 	id=Column(Integer,primary_key=True)
-	courseId=Column(String)
+	courseId=Column(Integer)
 	slug=Column(String)
 	title=Column(String)
 	tocIds=Column(String)

@@ -5,7 +5,7 @@ class Toc(Base):
 	__tablename__ = 'toc'
 
 	id=Column(Integer,primary_key=True)
-	sectionId=Column(String)
+	sectionId=Column(Integer)
 	title=Column(String)
 	slug=Column(String)
 	url=Column(String)

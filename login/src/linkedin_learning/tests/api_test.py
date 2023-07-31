@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import os
-import time
+
 
 sys.path.append(os.path.realpath('%s/..' % os.path.dirname(__file__)))
 
@@ -11,7 +11,8 @@ from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
 from api.course import CourseApi, isLinkedinLearningUrl
 import validators
 import re
-
+import time
+# from tabulate import tabulate
 
 
 if __name__ == '__main__':
@@ -35,7 +36,10 @@ if __name__ == '__main__':
     course = api_course.getCourseInfo(course_slug)
 
     if course:
+        # course_dict=course.__dict__
+        # course_dict.pop('_sa_instance_state')
         print(course)
+        # sys.exit()
     else:
         sys.exit()
     sections = api_course.getCourseSections(course_slug)
@@ -55,9 +59,5 @@ if __name__ == '__main__':
                 # print(stream_locs)
                 stream_locations = api_course.getStreamLocs(toc)
                 print(stream_locations)
-
-                # if status == 777 or status == 200:
-                #     # print(list(stream_locs))
-                #     pass
-                # else:
-                #     print(status)
+                transcripts = api_course.getTranscripts(toc)
+                print(transcripts)
