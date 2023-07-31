@@ -2,13 +2,12 @@
 import sys
 import os
 
-
 sys.path.append(os.path.realpath('%s/..' % os.path.dirname(__file__)))
 
 from robots.fn import errors, log, lang,  pq, dict2htmTable, RED,GREEN,BLUE,RESET,BLACK,WHITE
 from robots.datasource import DataSource
 from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
-from api.course import CourseApi, isLinkedinLearningUrl
+from api.course import CourseApi, isLinkedinLearningUrl,isTimeExpired
 import validators
 import re
 import time
@@ -57,6 +56,13 @@ if __name__ == '__main__':
         # setream_locations = api_course.getStreamLocs(toc.item_star)
         for toc in toc_list:
             stream_locations = api_course.getStreamLocs(toc)
-            print(stream_locations)
-            transcripts = api_course.getTranscripts(toc)
-            print(transcripts)
+            # print(stream_locations)
+            #1627776000
+            #1690895598000
+            for fmt in stream_locations:
+                expiresAt=stream_locations[fmt].expiresAt
+                expired = isTimeExpired(expiresAt)
+                print(expired)
+
+            # transcripts = api_course.getTranscripts(toc)
+            # print(transcripts)

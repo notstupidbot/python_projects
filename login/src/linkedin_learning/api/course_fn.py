@@ -9,6 +9,14 @@ from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
 import validators
 import sys
 import time
+from datetime import datetime
+
+def isTimeExpired(tm_stamp):
+    exp_dt = datetime.fromtimestamp(tm_stamp)
+    curr_stamp = datetime.now().timestamp()
+    curr_dt = datetime.fromtimestamp(curr_stamp)
+
+    return exp_dt <= curr_dt
 
 def slugToTitle(slug):
     words = slug.split('-')
@@ -352,7 +360,7 @@ def getStreamLocations(v_meta_data_nd, doc,toc,m_stream_location):
                     expiresAt = stream_loc.find("expiresAt")
                     if expiresAt:
                         expiresAt = expiresAt.text
-                        stream_locations[fmt]["expiresAt"]=int(expiresAt)
+                        stream_locations[fmt]["expiresAt"]=int(expiresAt)/1000
 
                     for tag in tags:
                         tag_nd = stream_loc.find(tag)
