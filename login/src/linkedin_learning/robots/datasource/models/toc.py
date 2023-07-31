@@ -24,9 +24,9 @@ class MToc:
 	def __init__(self, ds):
 		self.ds = ds
 	
-	def getListBySectionId(self):
-		row = self.ds.session.query(Toc).filter_by(slug=slug,courseId=courseId).first()
-		return row
+	def getListBySectionId(self,sectionId):
+		rows = self.ds.session.query(Toc).filter_by(sectionId=sectionId).all()
+		return rows
 
 	def getByItemStar(self, item_star):
 		q = self.ds.session.query(Toc).filter_by(item_star=item_star)

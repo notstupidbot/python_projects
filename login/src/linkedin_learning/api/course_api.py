@@ -1,10 +1,11 @@
 from api.course_fn import parseJson,convert2Xml,parseRestLiResponse,isLinkedinLearningUrl,courseUrl,getCourseSlugFromUrl
-from api.course_fn import getCourseTocs,getCourseSections,getCourseInfo,getCourseXmlParentElement,getVideoMeta
-from api.course_fn import getStreamLocations
+from api.course_fn import getCourseSections,getCourseInfo,getCourseXmlParentElement,getVideoMeta
+from api.course_fn import getStreamLocations,getCourseToc
 from robots.fn import benchmark, errors, log, lang
 from api.prx import Prx
 from bs4 import BeautifulSoup
 import time
+import json
 class DictToObject:
     def __init__(self, dictionary):
         for key, value in dictionary.items():
@@ -108,6 +109,7 @@ class CourseApi:
         self.m_toc = ds.m_toc
         self.m_prx = ds.m_prx
         self.m_stream_location = ds.m_stream_location
+        self.course=None
     
     def getCourseSlugFromUrl(self,url):
         course_slug,toc_slug=getCourseSlugFromUrl(url)
@@ -152,8 +154,14 @@ class CourseApi:
 
     def getCourseSections(self, course_slug):
         benchmark('ApiCourse.getCourseSections','start')
+        sections=None
+        if self.course:
+            sections = self.m_section.getListCourseId(self.course.id)
+            if sections:
+                log('course_sections_get_from_m_sections')
+                self.sections = sections
 
-        course=None
+                return sections
         course_url = courseUrl(course_slug)
         xml_doc=self.getCourseXmlDoc(course_url)
         p,course_urn = getCourseXmlParentElement(xml_doc)
@@ -168,20 +176,35 @@ class CourseApi:
         benchmark('ApiCourse.getCourseTocs','start')
 
         tocs=None
-        course_url = courseUrl(course_slug)
-        xml_doc=self.getCourseXmlDoc(course_url)
-        p,course_urn = getCourseXmlParentElement(xml_doc)
+        course_slug=self.course.slug
         sections = self.sections
         if not sections:
-            sections = getCourseSections(p, xml_doc, self.m_section, self.course.id)
-        if sections:    
-            tocs = getCourseTocs(p, xml_doc, sections, self.m_toc, self.course.slug)
+            sections = self.getCourseSections(course_slug)
+        if sections:
+            tocs={}
+            for section in sections:
+                section_slug = section.slug
+                tocs[section_slug]=self.m_toc.getListBySectionId(section.id)
+                if not tocs[section_slug] or len(tocs[section_slug])==0:
+                    course_url = courseUrl(course_slug)
+                    course_xml_doc=self.getCourseXmlDoc(course_url)
+                    
+                    p,course_urn = getCourseXmlParentElement(course_xml_doc)
+                    tocs[section_slug]=[]
+                    for item_star in json.loads(section.item_stars):
+                        toc = getCourseToc(item_star,course_xml_doc,self.m_toc,section.id, course_slug)
+                        tocs[section_slug].append(toc)
+                else:
+                    log('toc[section_slug]s_get_from_m_toc') 
+            return tocs 
+            
 
         b=benchmark('ApiCourse.getCourseTocs','end')
         print(f"ApiCourse.getCourseTocs time elapsed:{b['elapsed_time']}\n")
 
         return tocs
-    
+
+        
     def getStreamLocs(self, toc):
         benchmark('ApiCourse.getStreamLocs','start')
 

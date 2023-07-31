@@ -113,16 +113,7 @@ def getCourseInfo(doc):
     return data
     # return None
 
-def getCourseTocs(p, xml_doc, sections, m_toc, course_slug):
-    tocs={}
-    for section in sections:
-        # print(section)
-        section_slug = section.slug
-        tocs[section_slug]=[]
-        for item_star in json.loads(section.item_stars):
-            toc = getCourseToc(item_star,xml_doc,m_toc,section.id, course_slug)
-            tocs[section_slug].append(toc)
-    return tocs
+
 
 def getCourseSections(p,doc, m_section, courseId):
     sections = m_section.getListCourseId(courseId)
