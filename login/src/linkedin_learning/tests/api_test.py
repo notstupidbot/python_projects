@@ -6,8 +6,8 @@ sys.path.append(os.path.realpath('%s/..' % os.path.dirname(__file__)))
 
 from robots.fn import errors, log, lang,  pq, dict2htmTable, RED,GREEN,BLUE,RESET,BLACK,WHITE
 from robots.datasource import DataSource
-from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
-from api.course import CourseApi, isLinkedinLearningUrl,isTimeExpired
+from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir,download_dir
+from api.course import CourseApi, isLinkedinLearningUrl,isTimeExpired,downloadFile,getDownloadDir
 import validators
 import re
 import time
@@ -60,9 +60,18 @@ if __name__ == '__main__':
             #1627776000
             #1690895598000
             for fmt in stream_locations:
-                expiresAt=stream_locations[fmt].expiresAt
-                expired = isTimeExpired(expiresAt)
-                print(expired)
+                if fmt=="640":
+                    sloc=stream_locations[fmt]
+                    expiresAt=sloc.expiresAt
+                    expired = isTimeExpired(expiresAt)
+                    if not expired:
+                        download_dir = getDownloadDir(course.slug)
+                        output_filename = f"{download_dir}/{toc.slug}-{fmt}.mp4"
+                        url=sloc.url
+                        # print(output_filename)
+                        downloadFile(url,output_filename)
+                        # sys.exit()
+
 
             # transcripts = api_course.getTranscripts(toc)
             # print(transcripts)

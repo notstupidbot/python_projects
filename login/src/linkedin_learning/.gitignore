@@ -2,4 +2,5 @@
 storage/browser_cache/*
 storage/cookies/*.json
 storage/database/*.db
+storage/downloads/*
 unused

@@ -15,6 +15,9 @@ class Browser:
         self.url = ""
         self.last_resp=None
     
+    def getSession(self):
+        return self.session
+    
     def setReferer(self, referer):
         self.session.headers.update({"referer": referer})
 

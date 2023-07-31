@@ -2,14 +2,53 @@ from robots import Human
 import json
 import re
 import xmltodict
-from robots.fn import benchmark, errors, log, lang, cleanQueryString, writeFile,slugify
+from robots.fn import benchmark, errors, log, lang, cleanQueryString, writeFile,slugify,print_single_line
 from robots.config import linkedin_learning_url
 from bs4 import BeautifulSoup
-from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
+from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir,download_dir
 import validators
 import sys
 import time
 from datetime import datetime
+from robots.human import Human
+import os
+
+def downloadFile(url,output_filename,human=None):
+    print(f"Downloading:{output_filename}")
+    print(f"url:{url}")
+
+    if not human:
+        human = Human(cookie_path, browser_cache_dir)
+    browser=human.getBrowser()
+    requests=browser.getSession()
+    block_size = int(1024*(1024/5)) #1 Kibibyte
+    byte_written = 0
+    resp = requests.get(url, stream=True, allow_redirects=True)
+    total_size_in_bytes= int(resp.headers.get('content-length', 0))
+
+    with open(output_filename, 'wb') as file:
+        for data in resp.iter_content(block_size):
+            byte_written += len(data)
+            print_single_line(f"downloading {byte_written} KB")
+            file.write(data)
+
+        if resp.headers['Transfer-Encoding'] == 'chunked' and byte_written > 0:
+            # toc.dlVideoSize = byte_written
+            # toc.dlVideoComplete = 1
+            # db.session.commit()
+            file.write(data)
+    
+
+def getDownloadDir(course_slug):
+    path = download_dir
+    if not os.path.exists(path):
+        os.makedirs(path)
+        print("MKDIR : %s " %(path))
+    path = path + "/" + course_slug 
+    if not os.path.exists(path):
+        os.makedirs(path)
+        print("MKDIR : %s " %(path))
+    return path
 
 def isTimeExpired(tm_stamp):
     exp_dt = datetime.fromtimestamp(tm_stamp)
