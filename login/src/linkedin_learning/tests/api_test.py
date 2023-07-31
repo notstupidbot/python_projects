@@ -8,7 +8,7 @@ sys.path.append(os.path.realpath('%s/..' % os.path.dirname(__file__)))
 from robots.fn import errors, log, lang,  pq, dict2htmTable, RED,GREEN,BLUE,RESET,BLACK,WHITE
 from robots.datasource import DataSource
 from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
-from api.course import ApiCourse, fetchCourseUrl, getCourseInfo, fetchCourseTocUrl, getCourseToc,getVideoMeta, isLinkedinLearningUrl
+from api.course import CourseApi, isLinkedinLearningUrl
 import validators
 import re
 
@@ -29,7 +29,7 @@ if __name__ == '__main__':
         sys.exit()
     
     ds = DataSource(db_path)
-    api_course=ApiCourse(ds)
+    api_course=CourseApi(ds)
 
     course_slug = api_course.getCourseSlugFromUrl(course_url)
     course = api_course.getCourseInfo(course_slug)
@@ -50,11 +50,14 @@ if __name__ == '__main__':
         # setream_locations = api_course.getStreamLocs(toc.item_star)
         for toc in toc_list:
             # lst = "%s,%s,%s" % (toc.url, toc.item_star,toc.v_status_urn)
-            # if toc.slug == "solution-practice-working-with-data":
-            #     stream_locs=api_course.getStreamLocs(toc)
-            # print(stream_locs)
-            stream_locs,transcripts,status = api_course.getStreamLocsAndTranscripts(toc)
-            if status == 777 or status == 200:
-                print(list(stream_locs))
-            else:
-                print(status)
+            # if toc.slug == "data-types-in-sql":
+                #     stream_locs=api_course.getStreamLocs(toc)
+                # print(stream_locs)
+                stream_locations = api_course.getStreamLocs(toc)
+                print(stream_locations)
+
+                # if status == 777 or status == 200:
+                #     # print(list(stream_locs))
+                #     pass
+                # else:
+                #     print(status)

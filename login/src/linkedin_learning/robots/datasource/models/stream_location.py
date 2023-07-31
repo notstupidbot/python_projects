@@ -5,19 +5,27 @@ class StreamLocation(Base):
 	__tablename__ = 'stream_location'
 
 	id=Column(Integer,primary_key=True)
-	tocId=Column(String)
+	tocId=Column(Integer)
 	fmt=Column(String)
 	url=Column(String)
-	expiresAt=Column(String)
+	expiresAt=Column(Integer)
 
 	def __repr__(self):
 		return f"<StreamLocation(tocId={self.tocId},fmt={self.fmt},url={self.url},expiresAt={self.expiresAt})>"
 
-class MToc:
+class MStreamLocation:
 	ds=None
 	def __init__(self, ds):
 		self.ds = ds
 	
+	def getByTocId(self, tocId):
+		stream_locations=None
+		ls = self.ds.session.query(StreamLocation).filter_by(tocId=tocId).all()
+		if ls:
+			stream_locations={}
+			for sloc in ls:
+				stream_locations[sloc.fmt]=sloc
+		return stream_locations	
 	def getByFmt(self, fmt, tocId):
 		q = self.ds.session.query(StreamLocation).filter_by(fmt=fmt, tocId=tocId)
 
