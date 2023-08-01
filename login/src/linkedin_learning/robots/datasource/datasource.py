@@ -7,10 +7,11 @@ class DataSource:
     mConfig=None
     def __init__(self, path):
         # Replace 'sqlite:///your_database_name.db' with the actual path to your database file
-        engine = create_engine('sqlite:///%s' % (path))
-        Base.metadata.create_all(engine)
-        Session = sessionmaker(bind=engine)
+        self.engine = create_engine('sqlite:///%s' % (path))
+        Base.metadata.create_all(self.engine)
+        Session = sessionmaker(bind=self.engine)
         self.session = Session()
+        self.conn=self.session.connection()
         
         self.m_config = MConfig(self.session)
         self.m_course = MCourse(self)

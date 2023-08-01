@@ -5,6 +5,7 @@ sys.path.append(os.path.realpath('%s/..' % os.path.dirname(__file__)))
 from login import login
 from course import course
 from fetch import fetch
+from download import download
 import argparse
 
 
@@ -22,12 +23,13 @@ def main():
 
      # Watch subcommand
     download_parser = subparsers.add_parser("download", help="Download course items")
-    # download_parser.add_argument("course", help="Download Course")
+    download_parser.add_argument("-i","--id", help="Course id")
+
     
     course_parser = subparsers.add_parser("course", help="List saved course")
     course_parser.add_argument("-i","--id", help="Course id")
 
-    account_parser = subparsers.add_parser("account", help="Check for a valid tickets")
+    # account_parser = subparsers.add_parser("account", help="Check for a valid tickets")
     # Serve subcommand
     args = parser.parse_args()
 
@@ -37,8 +39,8 @@ def main():
         fetch(args)
     elif args.subcommand == "course":
         course(args)
-    elif args.subcommand == "clean":
-        clean(args)
+    elif args.subcommand == "download":
+        download(args)
     else:
         print("Error: Invalid subcommand. Use --help for usage.")
 

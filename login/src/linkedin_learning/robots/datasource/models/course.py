@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, text
 from robots.datasource.models import Base, author_course_association
 from sqlalchemy.orm import relationship
 
@@ -23,6 +23,43 @@ class MCourse:
 	def __init__(self, ds):
 		self.ds = ds
     
+	def getAvailableStreamFmt(self,courseId):
+		t = text(f"""SELECT
+					stream_location.fmt fmt
+					FROM
+					course
+					JOIN section
+					ON course.id = section.courseId 
+					JOIN toc
+					ON section.id = toc.sectionId 
+					JOIN stream_location
+					ON toc.id = stream_location.tocId
+					WHERE
+					course.id={courseId}
+					GROUP BY
+					fmt""")
+		result = self.ds.conn.execute(t).fetchall()
+		return [item[0] for item in result]
+	
+	def getAvailableTransLang(self,courseId):
+		t = text(f"""SELECT
+					
+					LOWER(transcript.country) AS lang
+					FROM
+					course
+					JOIN section
+					ON course.id = section.courseId 
+					JOIN toc
+					ON section.id = toc.sectionId 
+					JOIN transcript
+					ON toc.id = transcript.tocId
+					WHERE
+					course.id={courseId}
+					GROUP BY
+					lang""")
+		result = self.ds.conn.execute(t).fetchall()
+		return [item[0] for item in result]
+	
 	def get(self,id):
 		row = self.ds.session.query(Course).filter_by(id=id).first()
 		return row
