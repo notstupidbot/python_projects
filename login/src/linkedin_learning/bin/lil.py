@@ -3,19 +3,11 @@ import sys
 import os
 sys.path.append(os.path.realpath('%s/..' % os.path.dirname(__file__)))
 from login import login
+from course import course
+from fetch import fetch
 import argparse
 
-def build(args):
-    print(f"Build: {args.input}")
 
-def watch(args):
-    print(f"Watch: {args.input}")
-
-def serve(args):
-    print("Serve")
-
-def clean(args):
-    print("Clean")
 
 def main():
     parser = argparse.ArgumentParser(description="lil linkedin learning fetcher cli")
@@ -30,9 +22,10 @@ def main():
 
      # Watch subcommand
     download_parser = subparsers.add_parser("download", help="Download course items")
-    download_parser.add_argument("course", help="Download Course")
-
+    # download_parser.add_argument("course", help="Download Course")
+    
     course_parser = subparsers.add_parser("course", help="List saved course")
+    course_parser.add_argument("-i","--id", help="Course id")
 
     account_parser = subparsers.add_parser("account", help="Check for a valid tickets")
     # Serve subcommand
@@ -41,9 +34,9 @@ def main():
     if args.subcommand == "login":
         login()
     elif args.subcommand == "fetch":
-        print(args)
+        fetch(args)
     elif args.subcommand == "course":
-        print(args)
+        course(args)
     elif args.subcommand == "clean":
         clean(args)
     else:

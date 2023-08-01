@@ -21,6 +21,7 @@ class MStreamLocation:
 	def getByTocId(self, tocId):
 		stream_locations=None
 		ls = self.ds.session.query(StreamLocation).filter_by(tocId=tocId).all()
+		
 		if ls:
 			stream_locations={}
 			for sloc in ls:

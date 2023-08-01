@@ -30,6 +30,9 @@ class MCourse:
 	def getBySlug(self,slug):
 		row = self.ds.session.query(Course).filter_by(slug=slug).first()
 		return row
+	def getList(self):
+		rows = self.ds.session.query(Course).all()
+		return rows
 	def addAuthor(self,course, author):
 		course.authors.append(author)
 		self.ds.session.commit()
