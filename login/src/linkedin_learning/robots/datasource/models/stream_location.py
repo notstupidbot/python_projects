@@ -17,7 +17,14 @@ class MStreamLocation:
 	ds=None
 	def __init__(self, ds):
 		self.ds = ds
-	
+		
+	def deleteByTocId(self,tocId):
+		ls = self.ds.session.query(StreamLocation).filter_by(tocId=tocId).all()
+		for rec in ls:
+			self.ds.session.delete(rec)
+		
+		self.ds.session.commit()
+
 	def getByTocId(self, tocId):
 		stream_locations=None
 		ls = self.ds.session.query(StreamLocation).filter_by(tocId=tocId).all()

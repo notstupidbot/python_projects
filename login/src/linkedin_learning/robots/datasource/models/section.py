@@ -18,7 +18,12 @@ class MSection:
 	ds=None
 	def __init__(self, ds):
 		self.ds = ds
-	
+	def get(self, id):
+		row = self.ds.session.query(Section).filter_by(id=id).first()
+		# if row:
+		# 	row.tocIds=json.loads(row.tocIds)
+		# 	row.item_stars=json.loads(row.item_stars)
+		return row
 	def getBySlug(self, slug, courseId):
 		row = self.ds.session.query(Section).filter_by(slug=slug,courseId=courseId).first()
 		# if row:

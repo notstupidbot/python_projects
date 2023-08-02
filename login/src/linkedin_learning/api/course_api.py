@@ -133,7 +133,7 @@ class CourseApi:
     def getCourseXmlDoc(self,course_url, no_cache=False):
         if not self.course_xml_doc:
             prx=Prx(m_prx=self.m_prx)
-            content=prx.get(course_url, no_cache)
+            content=prx.get(course_url, no_cache=no_cache)
             if content:
                 page_name=prx.getPageName()
                 doc=BeautifulSoup(content,features='html.parser')
@@ -226,13 +226,17 @@ class CourseApi:
         return tocs
 
         
-    def getStreamLocs(self, toc):
+    def getStreamLocs(self, toc, refresh=False):
         benchmark('ApiCourse.getStreamLocs','start')
         stream_locations=None
         ok=False
         no_cache=False
         retry_count = 0
         wait_time=0
+        if refresh:
+            print(f"refresh:{refresh}")
+            self.m_stream_location.deleteByTocId(toc.id)
+            no_cache=True
 
         while not ok:
                 
@@ -360,6 +364,7 @@ class CourseApi:
     
     def getTocXmlDoc(self,toc_slug, toc_url, no_cache=False):
         if not toc_slug in self.toc_xml_doc or no_cache:
+            print(f"no_cache={no_cache}")
             prx=Prx(m_prx=self.m_prx)
             content=prx.get(toc_url, no_cache=no_cache)
             if content:

@@ -12,7 +12,7 @@
 # import time
 
 from api.course_api import CourseApi
-from api.course_fn import isLinkedinLearningUrl,isTimeExpired,downloadFile,getDownloadDir
+from api.course_fn import downloadPipe,isLinkedinLearningUrl,isTimeExpired,downloadFile,getDownloadDir
 
 
 

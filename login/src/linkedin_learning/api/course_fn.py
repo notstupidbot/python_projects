@@ -13,6 +13,34 @@ from datetime import datetime
 from robots.human import Human
 import os
 
+def downloadPipe(url,human=None):
+    # print(f"Downloading:{output_filename}")
+    print(f"url:{url}")
+
+    if not human:
+        human = Human(cookie_path, browser_cache_dir)
+    browser=human.getBrowser()
+    requests=browser.getSession()
+    block_size = int(1024*(1024/5)) #1 Kibibyte
+    byte_written = 0
+    resp = requests.get(url, stream=True, allow_redirects=True)
+    total_size_in_bytes= int(resp.headers.get('content-length', 0))
+    if resp.status_code != 200:
+        print(resp.status_code)
+        sys.exit()
+    # with open(output_filename, 'wb') as file:
+    for data in resp.iter_content(block_size):
+        byte_written += len(data)
+        # print_single_line(f"downloading {byte_written} KB")
+        print(byte_written)
+# .write(data)
+    if 'Transfer-Encoding' in resp.headers:
+        if resp.headers['Transfer-Encoding'] == 'chunked' and byte_written > 0:
+            # toc.dlVideoSize = byte_written
+            # toc.dlVideoComplete = 1
+            # db.session.commit()
+            print(data)
+
 def downloadFile(url,output_filename,human=None):
     print(f"Downloading:{output_filename}")
     print(f"url:{url}")
@@ -24,20 +52,23 @@ def downloadFile(url,output_filename,human=None):
     block_size = int(1024*(1024/5)) #1 Kibibyte
     byte_written = 0
     resp = requests.get(url, stream=True, allow_redirects=True)
-    total_size_in_bytes= int(resp.headers.get('content-length', 0))
+    if resp.status_code == 401:
+        errors(f"server send status code 401")
+    else:
+        total_size_in_bytes= int(resp.headers.get('content-length', 0))
 
-    with open(output_filename, 'wb') as file:
-        for data in resp.iter_content(block_size):
-            byte_written += len(data)
-            print_single_line(f"downloading {byte_written} KB")
-            file.write(data)
-
-        if resp.headers['Transfer-Encoding'] == 'chunked' and byte_written > 0:
-            # toc.dlVideoSize = byte_written
-            # toc.dlVideoComplete = 1
-            # db.session.commit()
-            file.write(data)
-    
+        with open(output_filename, 'wb') as file:
+            for data in resp.iter_content(block_size):
+                byte_written += len(data)
+                print_single_line(f"downloading {byte_written} KB")
+                file.write(data)
+            if 'Transfer-Encoding' in resp.headers:
+                if resp.headers['Transfer-Encoding'] == 'chunked' and byte_written > 0:
+                    # toc.dlVideoSize = byte_written
+                    # toc.dlVideoComplete = 1
+                    # db.session.commit()
+                    file.write(data)
+    return resp.status_code
 
 def getDownloadDir(course_slug):
     path = download_dir

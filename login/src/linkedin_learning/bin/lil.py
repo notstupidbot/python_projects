@@ -24,6 +24,12 @@ def main():
      # Watch subcommand
     download_parser = subparsers.add_parser("download", help="Download course items")
     download_parser.add_argument("-i","--id", help="Course id")
+    download_parser.add_argument("-si","--section-id", help="Section id , download only in section id")
+    download_parser.add_argument("-ti","--toc-id", help="Toc id , download only toc id")
+    download_parser.add_argument("-tl","--transcript-lang", help="Transcript lang , specify transcript lang")
+    download_parser.add_argument("-f","--fmt", help="Media output size/format , specify output video size/media format")
+    download_parser.add_argument("-to","--transcript-only",action='store_true', help="Only download transcript")
+    download_parser.add_argument("-run","--run", action='store_true',help="Run download manager")
 
     
     course_parser = subparsers.add_parser("course", help="List saved course")
