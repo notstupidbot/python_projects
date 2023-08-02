@@ -29,6 +29,7 @@ def main():
     download_parser.add_argument("-tl","--transcript-lang", help="Transcript lang , specify transcript lang")
     download_parser.add_argument("-f","--fmt", help="Media output size/format , specify output video size/media format")
     download_parser.add_argument("-to","--transcript-only",action='store_true', help="Only download transcript")
+    download_parser.add_argument("-stp","--stream-to-pipe",action='store_true', help="Stream the video output to pipe")
     download_parser.add_argument("-run","--run", action='store_true',help="Run download manager")
 
     

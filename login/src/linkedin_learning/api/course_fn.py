@@ -2,7 +2,7 @@ from robots import Human
 import json
 import re
 import xmltodict
-from robots.fn import benchmark, errors, log, lang, cleanQueryString, writeFile,slugify,print_single_line
+from robots.fn import benchmark, errors, log, lang, cleanQueryString, writeFile,slugify,print_single_line,formatBytes
 from robots.config import linkedin_learning_url
 from bs4 import BeautifulSoup
 from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir,download_dir
@@ -15,7 +15,7 @@ import os
 
 def downloadPipe(url,human=None):
     # print(f"Downloading:{output_filename}")
-    print(f"url:{url}")
+    # print(f"url:{url}")
 
     if not human:
         human = Human(cookie_path, browser_cache_dir)
@@ -32,17 +32,20 @@ def downloadPipe(url,human=None):
     for data in resp.iter_content(block_size):
         byte_written += len(data)
         # print_single_line(f"downloading {byte_written} KB")
-        print(byte_written)
+        # print(byte_written)
+        sys.stdout.buffer.write(data)
 # .write(data)
     if 'Transfer-Encoding' in resp.headers:
         if resp.headers['Transfer-Encoding'] == 'chunked' and byte_written > 0:
             # toc.dlVideoSize = byte_written
             # toc.dlVideoComplete = 1
             # db.session.commit()
-            print(data)
+            sys.stdout.buffer.write(data)
 
 def downloadFile(url,output_filename,human=None):
-    print(f"Downloading:{output_filename}")
+    mo_rel_path = os.path.relpath(output_filename, f"{os.path.dirname(__file__)}/../../")
+
+    print(f"Downloading:{mo_rel_path}")
     print(f"url:{url}")
 
     if not human:
@@ -60,7 +63,7 @@ def downloadFile(url,output_filename,human=None):
         with open(output_filename, 'wb') as file:
             for data in resp.iter_content(block_size):
                 byte_written += len(data)
-                print_single_line(f"downloading {byte_written} KB")
+                print_single_line(f"downloading {formatBytes(byte_written)}")
                 file.write(data)
             if 'Transfer-Encoding' in resp.headers:
                 if resp.headers['Transfer-Encoding'] == 'chunked' and byte_written > 0:
