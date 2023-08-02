@@ -11,7 +11,7 @@ def download_section(ds, api_course, section_id, fmt, transcript_lang, transcrip
     log('Download in section mode')
     section = ds.m_section.get(section_id)
     if not section:
-        errors(f"Section with id: {section_id} not found")
+        errors(f"Section with id: {section_id} not found", exit_progs=True)
     course = ds.m_course.get(section.courseId)
     print(f"Section title: {section.title} , Course : {course.title}")
     print(f"Selected fmt: {fmt}")

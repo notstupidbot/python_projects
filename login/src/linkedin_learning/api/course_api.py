@@ -234,7 +234,7 @@ class CourseApi:
         retry_count = 0
         wait_time=0
         if refresh:
-            print(f"refresh:{refresh}")
+            # print(f"refresh:{refresh}")
             self.m_stream_location.deleteByTocId(toc.id)
             no_cache=True
 
@@ -364,7 +364,7 @@ class CourseApi:
     
     def getTocXmlDoc(self,toc_slug, toc_url, no_cache=False):
         if not toc_slug in self.toc_xml_doc or no_cache:
-            print(f"no_cache={no_cache}")
+            # print(f"no_cache={no_cache}")
             prx=Prx(m_prx=self.m_prx)
             content=prx.get(toc_url, no_cache=no_cache)
             if content:

@@ -26,9 +26,10 @@ def downloadPipe(url,human=None):
     resp = requests.get(url, stream=True, allow_redirects=True)
     total_size_in_bytes= int(resp.headers.get('content-length', 0))
     if resp.status_code != 200:
-        print(resp.status_code)
+        # print(resp.status_code)
         sys.exit()
     # with open(output_filename, 'wb') as file:
+    sys.stdout.flush()
     for data in resp.iter_content(block_size):
         byte_written += len(data)
         # print_single_line(f"downloading {byte_written} KB")
