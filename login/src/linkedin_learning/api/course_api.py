@@ -176,6 +176,8 @@ class CourseApi:
                 sizeInBytes,name,url,=course["exerciseFiles"].values()
                 self.m_exercise_file.create(name=name,size=sizeInBytes,url=url,courseId=rec.id, update=refresh)
             course=rec
+        else:
+            self.m_prx.deleteByPageName(self.prx.getPageName())
         return course
 
     def getCourseSections(self, course_slug):
@@ -385,6 +387,7 @@ class CourseApi:
                 doc=BeautifulSoup(content,features='html.parser')
                 data=parseRestLiResponse(doc)
                 self.toc_xml_doc[toc_slug]=convert2Xml(data, page_name)
+        
         return self.toc_xml_doc[toc_slug]
 
     def fetchCourseUrl(self, url):

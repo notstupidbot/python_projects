@@ -1,6 +1,7 @@
 from robots.browser import Browser
 from robots.fn import log,lang,writeResp, clearCookies
 import sys
+import time
 class Human:
     def __init__(self, cookie_path, browser_cache_dir):
         self.browser = Browser(cookie_path)
@@ -42,8 +43,35 @@ class Human:
         return self.getPage(page_name).guess(content)
     
     def browse(self, url, page_name):
-        log(lang('human_start_browsing',url),verbose=True)
-        resp= self.browser.get(url)
+        # time.sleep(1)
+        ok=False
+        wait_time=0
+        retry_count=0
+        max_retry_count=3
+        resp=None
+        while not ok:
+            if wait_time > 0:
+                log(f"wait for {wait_time} seconds")
+                time.sleep(wait_time)
+            if retry_count > 0:
+                log(f"retry count : {retry_count}")
+            
+            log(lang('human_start_browsing',url),verbose=True)
+            resp= self.browser.get(url)
+
+            if resp.status_code != 200:
+                retry_count += 1
+                wait_time += 1
+                
+                # if status_code == 401:
+                #     refresh_stream_locs=True
+
+                if retry_count > max_retry_count:
+                    errors(f"Max retry count exceed max : {max_retry_count}")
+                    ok=True
+            else:
+                ok=True
+        
         
         log(lang('human_browsing_resp_code',resp.status_code),verbose=True)
         if resp.status_code == 200:
