@@ -19,7 +19,12 @@ class MTranscript:
 	ds=None
 	def __init__(self, ds):
 		self.ds = ds
-	
+	def deleteByTocId(self,tocId):
+		ls = self.ds.session.query(Transcript).filter_by(tocId=tocId).all()
+		for rec in ls:
+			self.ds.session.delete(rec)
+		
+		self.ds.session.commit()
 	def getByTocId(self, tocId):
 		recs=None
 		ls = self.ds.session.query(Transcript).filter_by(tocId=tocId).all()

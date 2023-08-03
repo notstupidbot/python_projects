@@ -24,15 +24,21 @@ def main():
      # Watch subcommand
     download_parser = subparsers.add_parser("download", help="Download course items")
     download_parser.add_argument("-i","--id", help="Course id")
+    download_parser.add_argument("-w","--what", help="What to download [m:media,t:transcript,ex:exercise_file,pl:playlist,a:all]")
+
     download_parser.add_argument("-si","--section-id", help="Section id , download only in section id")
     download_parser.add_argument("-ti","--toc-id", help="Toc id , download only toc id")
     download_parser.add_argument("-tl","--transcript-lang", help="Transcript lang , specify transcript lang")
     download_parser.add_argument("-f","--fmt", help="Media output size/format , specify output video size/media format")
+    download_parser.add_argument("-pl","--play-list",action='store_true', help="Download playlist")
     download_parser.add_argument("-to","--transcript-only",action='store_true', help="Only download transcript")
     download_parser.add_argument("-rsl","--refresh-stream-location",action='store_true', help="Refresh stream location")
     download_parser.add_argument("-stp","--stream-to-pipe",action='store_true', help="Stream the video output to pipe")
     download_parser.add_argument("-run","--run", action='store_true',help="Run download manager")
 
+    
+    media_server_parser = subparsers.add_parser("media-server", help="Start local media server")
+    media_server_parser.add_argument("-p","--port", help="Specify port")
     
     course_parser = subparsers.add_parser("course", help="List saved course")
     course_parser.add_argument("-i","--id", help="Course id")

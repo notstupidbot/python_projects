@@ -113,17 +113,18 @@ class CourseApi:
         self.m_author= ds.m_author
 
         self.course=None
+        self.prx=None
     
     def getCourseSlugFromUrl(self,url):
         course_slug,toc_slug=getCourseSlugFromUrl(url)
         return course_slug
     
-    def getCourseInfo(self, course_slug):
+    def getCourseInfo(self, course_slug,refresh=False):
         benchmark('ApiCourse.getCourseInfo','start')
 
         course = None #self.m_course.getBySlug(course_slug)
         if not course:
-            course = self.fetchCourseInfo(course_slug)
+            course = self.fetchCourseInfo(course_slug,refresh=refresh)
         
         b=benchmark('ApiCourse.getCourseInfo','end')
         print(f"ApiCourse.getCourseInfo time elapsed:{b['elapsed_time']}\n")
@@ -132,10 +133,11 @@ class CourseApi:
     
     def getCourseXmlDoc(self,course_url, no_cache=False):
         if not self.course_xml_doc:
-            prx=Prx(m_prx=self.m_prx)
-            content=prx.get(course_url, no_cache=no_cache)
+            if not self.prx:
+                self.prx=Prx(m_prx=self.m_prx)
+            content=self.prx.get(course_url, no_cache=no_cache)
             if content:
-                page_name=prx.getPageName()
+                page_name=self.prx.getPageName()
                 doc=BeautifulSoup(content,features='html.parser')
                 data=parseRestLiResponse(doc)
                 self.course_xml_doc=convert2Xml(data, page_name)
@@ -159,17 +161,20 @@ class CourseApi:
 
         return authors
 
-    def fetchCourseInfo(self, course_slug):
-
+    def fetchCourseInfo(self, course_slug,refresh=False):
+        no_cache=False
+        # print(f"refresh{refresh}")
+        if refresh:
+            no_cache=True
         course=None
         course_url = courseUrl(course_slug)
-        xml_doc=self.getCourseXmlDoc(course_url, no_cache=False)
+        xml_doc=self.getCourseXmlDoc(course_url, no_cache=no_cache)
         course = getCourseInfo(xml_doc)
         if course:
-            rec=self.m_course.create(course["title"], course["slug"], course["duration"], course["sourceCodeRepository"], course["description"], course["urn"])
+            rec=self.m_course.create(course["title"], course["slug"], course["duration"], course["sourceCodeRepository"], course["description"], course["urn"],update=refresh)
             if course["exerciseFiles"]:
                 sizeInBytes,name,url,=course["exerciseFiles"].values()
-                self.m_exercise_file.create(name=name,size=sizeInBytes,url=url,courseId=rec.id)
+                self.m_exercise_file.create(name=name,size=sizeInBytes,url=url,courseId=rec.id, update=refresh)
             course=rec
         return course
 
@@ -255,7 +260,8 @@ class CourseApi:
                 
                 v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
                 stream_locations=getStreamLocations(v_meta_data_nd, toc_xml_doc,toc,self.m_stream_location)
- 
+                if not stream_locations:
+                    self.m_prx.deleteByPageName(self.prx.getPageName())
                 
                 if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
                     retry_count += 1
@@ -272,16 +278,20 @@ class CourseApi:
             # print(status)
         b=benchmark('ApiCourse.getStreamLocs','end')
         print(f"ApiCourse.getStreamLocs time elapsed:{b['elapsed_time']}\n")
+        
         return stream_locations
 
-    def getTranscripts(self, toc):
+    def getTranscripts(self, toc, refresh=False):
         benchmark('ApiCourse.getTranscripts','start')
         transcripts=None
         ok=False
         no_cache=False
         retry_count = 0
         wait_time=0
-
+        if refresh:
+            # print(f"refresh:{refresh}")
+            self.m_transcript.deleteByTocId(toc.id)
+            no_cache=True
         while not ok:
                 
             if retry_count > 0:
@@ -299,7 +309,8 @@ class CourseApi:
                 
                 v_meta_data_nd,statuses=getVideoMetaNd(toc.v_status_urn, toc_xml_doc)
                 transcripts=getTranscripts(v_meta_data_nd, toc_xml_doc,toc,self.m_transcript)
- 
+                if not transcripts:
+                    self.m_prx.deleteByPageName(self.prx.getPageName())
                 
                 if inArray(429,statuses)>0 or inArray(427,statuses)>0 or len(statuses) == 0:
                     retry_count += 1
@@ -316,6 +327,7 @@ class CourseApi:
             # print(status)
         b=benchmark('ApiCourse.getTranscripts','end')
         print(f"ApiCourse.getTranscripts time elapsed:{b['elapsed_time']}\n")
+        
         return transcripts
 
     def getStreamLocsAndTranscripts(self, toc):
@@ -365,10 +377,11 @@ class CourseApi:
     def getTocXmlDoc(self,toc_slug, toc_url, no_cache=False):
         if not toc_slug in self.toc_xml_doc or no_cache:
             # print(f"no_cache={no_cache}")
-            prx=Prx(m_prx=self.m_prx)
-            content=prx.get(toc_url, no_cache=no_cache)
+            if not self.prx:
+                self.prx=Prx(m_prx=self.m_prx)
+            content=self.prx.get(toc_url, no_cache=no_cache)
             if content:
-                page_name=prx.getPageName()
+                page_name=self.prx.getPageName()
                 doc=BeautifulSoup(content,features='html.parser')
                 data=parseRestLiResponse(doc)
                 self.toc_xml_doc[toc_slug]=convert2Xml(data, page_name)

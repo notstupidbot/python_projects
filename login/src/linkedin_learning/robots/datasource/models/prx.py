@@ -19,7 +19,11 @@ class MPrx:
 	def getByPageName(self, page_name):
 		row = self.ds.session.query(Prx).filter_by(page_name=page_name).first()
 		return row
-	
+	def deleteByPageName(self, page_name):
+		row = self.ds.session.query(Prx).filter_by(page_name=page_name).first()
+		if row:
+			self.ds.session.delete(row)
+			self.ds.session.commit()
 	def create(self, page_name, content):
 		existing = self.getByPageName(page_name)
 		if existing:

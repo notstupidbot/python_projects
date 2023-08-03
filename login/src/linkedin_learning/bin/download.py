@@ -12,8 +12,10 @@ import validators
 import re
 import time
 
+
 from download_section import download_section
 from download_toc import download_toc
+from download_what import download_what
 
 def getAttr(obj,key):
     try:
@@ -33,6 +35,7 @@ def download(args):
     fmt=getAttr(args,'fmt')
     stream_to_pipe=getAttr(args,'stream_to_pipe')
     refresh_stream_location=getAttr(args,'refresh_stream_location')
+    what=getAttr(args,'what')
 
     ds = DataSource(db_path)
     api_course=CourseApi(ds)
@@ -66,15 +69,25 @@ def download(args):
                 print("Download transcripts only.")
         if not fmt:
             errors("You must specify -f|--fmt, example -f 720", exit_progs=True)
+        if not what:
+            if download_mode == "course_mode":
+                pass
+            if download_mode == "section_mode":
+                download_section(ds, api_course, section_id, fmt, transcript_lang, transcript_only)
+            if download_mode == "toc_mode":
+                download_toc(ds, api_course, toc_id, fmt, transcript_lang, transcript_only,stream_to_pipe)
+            if download_mode == "course_mode":
+                pass
+        else:
+            print(f"{what}")
+            if not course_id:
+                errors(f"you must specify course id -i|--id",exit_progs=True)
+            if not fmt:
+                errors("You must specify -f|--fmt, example -f 720", exit_progs=True)
+            # if what == "pl" or what == 'playlist':
 
-        if download_mode == "course_mode":
-            pass
-        if download_mode == "section_mode":
-            download_section(ds, api_course, section_id, fmt, transcript_lang, transcript_only)
-        if download_mode == "toc_mode":
-            download_toc(ds, api_course, toc_id, fmt, transcript_lang, transcript_only,stream_to_pipe)
-        if download_mode == "course_mode":
-            pass
+            download_what(ds, api_course, course_id, fmt, transcript_lang, what)
+            # pass
         # if download_mode == "transcript_mode":
         #     log('Download in transcript mode')
         #     pass

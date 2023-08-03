@@ -49,18 +49,21 @@ def download_section(ds, api_course, section_id, fmt, transcript_lang, transcrip
                 wait_time=0
                 retry_count=0
                 max_retry_count=3
+                refresh_transcripts=False
                 while not ok:
                     if wait_time > 0:
                         log(f"wait for {wait_time} seconds")
                         time.sleep(wait_time)
                     if retry_count > 0:
                         log(f"retry count : {retry_count}")
-                    
+                    if refresh_transcripts:
+                            log(f"refershing transcripts")
+                            transcripts = api_course.getTranscripts(toc,refresh=True)
                     skip=False
                     download_dir = getDownloadDir(course.slug)
                     media_output_filename = f"{download_dir}/{toc.slug}-{fmt}.vtt"
                     mo_rel_path = os.path.relpath(media_output_filename, os.path.dirname(__file__))
-                    if os.path.exists(media_output_filename):
+                    if os.path.exists(media_output_filename) and retry_count == 0:
                         print(f"{mo_rel_path} already exists")
                         choice = input("overwrite ? (y,n)[n]:")
                         choice = choice.lower()
@@ -73,7 +76,7 @@ def download_section(ds, api_course, section_id, fmt, transcript_lang, transcrip
                         if status_code != 200:
                             retry_count += 1
                             wait_time += 5
-
+                            refresh_transcripts=True
                             if retry_count > max_retry_count:
                                 errors(f"Max retry count exceed max : {max_retry_count}")
                                 ok=True
@@ -110,7 +113,7 @@ def download_section(ds, api_course, section_id, fmt, transcript_lang, transcrip
                     download_dir = getDownloadDir(course.slug)
                     media_output_filename = f"{download_dir}/{toc.slug}-{fmt}.mp4"
                     mo_rel_path = os.path.relpath(media_output_filename, os.path.dirname(__file__))
-                    if os.path.exists(media_output_filename):
+                    if os.path.exists(media_output_filename) and retry_count == 0:
                         print(f"{mo_rel_path} already exists")
                         choice = input("overwrite ? (y,n)[n]:")
                         choice = choice.lower()

@@ -88,10 +88,19 @@ class MCourse:
 	def getCourseSecsTocs(self):
 		pass
 	
-	def create(self, title, slug, duration, sourceCodeRepository, description, urn):
-		existing = self.getBySlug(slug)
-		if existing:
-			return existing
+	def create(self, title, slug, duration, sourceCodeRepository, description, urn,update=False):
+		course = self.getBySlug(slug)
+		if course:
+			if update:
+				course.title = title
+				course.slug = slug
+				course.duration = duration
+				course.sourceCodeRepository = sourceCodeRepository
+				course.description = description
+				course.urn = urn
+				self.ds.session.commit()
+
+			return course
 		course = Course(title=title, slug=slug, duration=duration, sourceCodeRepository=sourceCodeRepository, description=description, urn=urn)
 		self.ds.session.add(course)
 		self.ds.session.commit()
