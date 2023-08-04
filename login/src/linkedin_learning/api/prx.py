@@ -1,4 +1,4 @@
-from robots.fn import slugify,log,lang
+from robots.fn import slugify,log,lang,deleteFile
 from robots.human import Human
 from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
 
@@ -22,6 +22,7 @@ class Prx:
         return self.page_name
     
     def get(self, url, no_cache=False):
+        self.human.setSaveResp(False)
         self.page_name=slugify(url.replace('/','-')).replace('https--wwwlinkedincom','ll')
         content=""
         self.cache_path = '%s/%s-1.html' % (browser_cache_dir,self.page_name)
@@ -41,6 +42,12 @@ class Prx:
         if not content:
             content = self.human.browse(url, self.page_name)
             self.m_prx.create(self.page_name, content)
+        
+        self.human.setSaveResp(True)
+
+        if os.path.exists(self.cache_path):
+            deleteFile(self.cache_path)
+
 
         
         return content

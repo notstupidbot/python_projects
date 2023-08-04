@@ -60,6 +60,16 @@ def benchmark(label,command):
         return BENCHMARK_DATA[label]
          
     
+def deleteFile(file_path):
+    rel_path = os.path.relpath(file_path, os.getcwd())
+
+    try:
+        os.remove(file_path)
+        log(f"File '{rel_path}' has been deleted successfully.", verbose=True)
+    except FileNotFoundError:
+        errors(f"File '{rel_path}' not found.")
+    except Exception as e:
+        errors(f"An error occurred: {e}")
 
 def slugify(text):
     # Normalize the text to remove diacritics and special characters

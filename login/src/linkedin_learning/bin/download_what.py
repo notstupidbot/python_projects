@@ -92,7 +92,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
                     status_code =downloadFile(exercise_file.url, exercise_file_output_filename)
                     if status_code != 200:
                         retry_count += 1
-                        wait_time += 5
+                        wait_time += 1
                         
                         if status_code == 401:
                             refresh_course=True
@@ -172,7 +172,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
                             status_code = downloadFile(url,media_output_filename)
                             if status_code != 200:
                                 retry_count += 1
-                                wait_time += 5
+                                wait_time += 1
                                 refresh_transcripts=True
                                 if retry_count > max_retry_count:
                                     errors(f"Max retry count exceed max : {max_retry_count}")
@@ -222,7 +222,7 @@ def download_what(ds, api_course, course_id, fmt, transcript_lang, what):
                             status_code = downloadFile(url,media_output_filename)
                             if status_code != 200:
                                 retry_count += 1
-                                wait_time += 5
+                                wait_time += 1
                                 
                                 if status_code == 401:
                                     refresh_stream_locs=True

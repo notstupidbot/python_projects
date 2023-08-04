@@ -9,10 +9,12 @@ class Human:
         self.forms = {} 
         self.browse_counts = {}
         self.browser_cache_dir=browser_cache_dir
+        self.save_resp = True
     
     def getBrowser(self):
         return self.browser
-    
+    def setSaveResp(self, flag):
+        self.save_resp = flag    
     def addPage(self, page):
         self.pages[page.getName()] = page
         page.setHuman(self)
@@ -74,7 +76,7 @@ class Human:
         
         
         log(lang('human_browsing_resp_code',resp.status_code),verbose=True)
-        if resp.status_code == 200:
+        if resp.status_code == 200 and self.save_resp:
             writeResp(resp, page_name, self.getBrowseCount(page_name), self.browser_cache_dir)
         return resp.text
         

@@ -94,7 +94,7 @@ def download_toc(ds, api_course, toc_id, fmt, transcript_lang, transcript_only, 
                     status_code = downloadFile(url,media_output_filename)
                     if status_code != 200:
                         retry_count += 1
-                        wait_time += 5
+                        wait_time += 1
                         refresh_transcripts=True
                         if retry_count > max_retry_count:
                             errors(f"Max retry count exceed max : {max_retry_count}")
@@ -144,7 +144,7 @@ def download_toc(ds, api_course, toc_id, fmt, transcript_lang, transcript_only, 
                         status_code = downloadFile(url,media_output_filename)
                         if status_code != 200:
                             retry_count += 1
-                            wait_time += 5
+                            wait_time += 1
                             
                             if status_code == 401:
                                 refresh_stream_locs=True
@@ -166,7 +166,7 @@ def download_toc(ds, api_course, toc_id, fmt, transcript_lang, transcript_only, 
                         pass
                     if status_code != 200:
                         retry_count += 1
-                        wait_time += 5
+                        wait_time += 1
                         
                         if status_code == 401:
                             refresh_stream_locs=True
