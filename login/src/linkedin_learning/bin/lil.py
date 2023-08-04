@@ -6,6 +6,7 @@ from login import login
 from course import course
 from fetch import fetch
 from download import download
+from cache import cache
 import argparse
 
 
@@ -43,6 +44,9 @@ def main():
     course_parser = subparsers.add_parser("course", help="List saved course")
     course_parser.add_argument("-i","--id", help="Course id")
 
+    cache_parser = subparsers.add_parser("cache", help="Cache")
+    cache_parser.add_argument("-c","--clear", action='store_true', help="Clear cache")
+
     # account_parser = subparsers.add_parser("account", help="Check for a valid tickets")
     # Serve subcommand
     args = parser.parse_args()
@@ -55,6 +59,8 @@ def main():
         course(args)
     elif args.subcommand == "download":
         download(args)
+    elif args.subcommand == "cache":
+        cache(args)
     else:
         print("Error: Invalid subcommand. Use --help for usage.")
 

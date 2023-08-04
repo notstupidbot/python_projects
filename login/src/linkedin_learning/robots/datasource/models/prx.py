@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String
-from robots.datasource.models import Base
+from sqlalchemy import Column, Integer, String,MetaData, Table
 
+from robots.datasource.models import Base
+from sqlalchemy import text
 class Prx(Base):
 	__tablename__ = 'prx_cache'
 
@@ -24,6 +25,28 @@ class MPrx:
 		if row:
 			self.ds.session.delete(row)
 			self.ds.session.commit()
+	def clear(self):
+		rows = self.ds.session.query(Prx).all()
+		for row in rows:
+			self.ds.session.delete(row)
+		# self.ds.conn.execute(text("COMMIT"))
+		self.ds.conn.execute(text("VACUUM"))
+		self.ds.session.commit()
+
+
+	def getSize(self):
+		table_name="prx_cache"
+		t = text(f"pragma page_count('{table_name}')")
+		result = self.ds.conn.execute(t).fetchall()
+		page_count= [item[0] for item in result][0]
+		# print(page_count)
+		t = text(f"pragma page_size")
+		result = self.ds.conn.execute(t).fetchall()
+		page_size= [item[0] for item in result][0]
+		# print(page_size)
+		table_size_bytes = page_count * page_size
+		return table_size_bytes
+
 	def create(self, page_name, content):
 		existing = self.getByPageName(page_name)
 		if existing:
