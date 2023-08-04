@@ -15,6 +15,10 @@ class Browser:
         self.url = ""
         self.last_resp=None
     
+    def reloadCookies(self):
+        log('Reload cookies')
+        loadCookies(self.session, self.cookie_path)
+
     def getSession(self):
         return self.session
     

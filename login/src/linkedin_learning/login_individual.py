@@ -106,7 +106,6 @@ class LoginIndividual(Login):
             
 
         
-
 def login(human, json_config):
     li = LoginIndividual(human, json_config)
     li.start()

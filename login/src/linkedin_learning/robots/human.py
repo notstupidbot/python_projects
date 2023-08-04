@@ -89,6 +89,7 @@ class Human:
     def clearCookies(self):
         log(lang('human_clear_cookies'),verbose=True)
         clearCookies(self.browser.cookie_path)
+        self.getBrowser().reloadCookies()
 
     
     

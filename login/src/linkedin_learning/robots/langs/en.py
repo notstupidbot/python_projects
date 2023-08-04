@@ -112,3 +112,14 @@ could_not_fetch_course_url="Could not fetch course url %s"
 are_you_connected_to_internet="Are you connected to the internet"
 could_not_find_v_meta_data_nd_pos="Could not find presentasion or stream location elements at position"
 prx_loading_from_cache="Prx load response from cache"
+
+import_browser_cookies="Import Browser Cookies"
+continue_using_browser_cookies="Continue Using Browser Cookies"
+browser_name="Browser name"
+change_browser_name="Change browser name"
+please_select_browser="Please select browser"
+
+browser_get_error="Browser cannot do HTTP GET operation"
+
+enter_your_chioce="Enter your choice"
+already_loged_in="ALREADY LOGED IN"

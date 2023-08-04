@@ -4,6 +4,7 @@ import sys
 
 class Login:
     def __init__(self, human, json_config):
+        self.m_config=json_config
         self.human=human
         self.linkedin_learning_login_url =""
         self.already_loged_in=False

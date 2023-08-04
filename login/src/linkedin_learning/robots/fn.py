@@ -13,7 +13,7 @@ import html
 from urllib.parse import unquote, urlunparse
 from urllib.parse import urlparse, parse_qs
 import unicodedata
-
+import os
 BLACK = '\033[30m'
 RED = '\033[31m'
 GREEN = '\033[32m'
@@ -194,6 +194,62 @@ def inputAccountSettingIndividual(json_config):
         
         inputAccountSettingIndividual(json_config)
 
+def inputAccountSettingBrowserCookie(json_config):
+    if not json_config.get("browser_cookie_browser"):
+        json_config.set("browser_cookie_browser","chrome")
+    print(lang("please_select_action"))
+
+    print("1: %s" % (lang('change_browser_name')))
+    print("p: %s" % (lang('prnt')))
+    print("0: %s" % (lang('back')))
+
+    user_choice = input("%s (1,2,3,0)[0]:" % (lang('enter_your_choice')))
+    choice= user_choice.lower()
+    if choice == 'p':
+        print("%s : %s" % (lang('browser_name'),json_config.get("browser_cookie_browser")))
+        inputAccountSettingBrowserCookie(json_config)
+    elif choice=='1':
+        ok=False
+        while not ok:
+            print(lang("please_select_browser"))
+            browser_list=['chrome','firefox','edge','safari','chromium','opera','opera_gx','brave','vivaldi','librewolf']
+            browser_index=1
+            for browser_name in browser_list:
+                print(f"{browser_index}:{browser_name}")
+                browser_index += 1
+            print("00: %s" % (lang('back')))
+            user_choice = input("%s (1-10):" % (lang('enter_your_choice')))
+            user_choice = user_choice.lower()
+            if user_choice == '00':
+                ok=True
+            else:
+                b_choice= 0
+                try:
+                    b_choice=int(user_choice)
+                except:
+                    pass
+                
+                if not b_choice:
+                    b_choice=0
+                
+                if b_choice <1 or b_choice >10:
+                    errors(f"you not choosing 0-10")
+                else:
+                    b_index = b_choice-1
+                    try:
+                        browser_name=browser_list[b_index]
+                        print(browser_name)
+                        json_config.set("browser_cookie_browser",browser_name)
+
+                        ok=True
+                    except:
+                        pass
+        
+        inputAccountSettingBrowserCookie(json_config)
+
+        
+
+
 def inputAccountSettingLibrary(json_config):
     if not json_config.get("library_id"):
         json_config.set("library_id","***")
@@ -218,6 +274,7 @@ def inputAccountSettingLibrary(json_config):
         print("%s : %s" % (lang('card_number'),json_config.get("card_number")))
         print("%s : %s" % (lang('pin'),json_config.get("pin")))
         inputAccountSettingLibrary(json_config)
+    
     
     if choice == '1':
         library_id = input("%s:" % (lang('enter_library_id_min_2_chars')))
@@ -253,6 +310,7 @@ def inputAccountSetting(json_config):
 
     print("1: %s" % lang('individual_account'))
     print("2: %s" % lang('library_account'))
+    print("3: %s" % lang('import_browser_cookies'))
     print("0: %s" % lang('back') )
     user_choice = input("%s (1,2,0)[0]:" % (lang('enter_your_choice')))
     choice = user_choice.lower()
@@ -262,6 +320,9 @@ def inputAccountSetting(json_config):
     
     elif choice == '2':
         inputAccountSettingLibrary(json_config)
+    
+    elif choice == '3':
+        inputAccountSettingBrowserCookie(json_config)
     
     elif choice == '0':
         pass
@@ -275,14 +336,15 @@ def inputAction(default_login_type,human,json_config):
 
     print("1: %s" % lang('continue_using_individual_account'))
     print("2: %s" % lang('continue_using_library_account'))
-    print("3: %s" % lang('clear_cookies_logout'))
-    print("4: %s" % lang('account_settings'))
+    print("3: %s" % lang('continue_using_browser_cookies'))
+    print("4: %s" % lang('clear_cookies_logout'))
+    print("5: %s" % lang('account_settings'))
     print("0: %s" % lang('exit'))
 
     login_type = default_login_type
     default_code=2
     
-    user_choice = input("%s (1,2,3,4,0)[%i]:" % (lang('enter_your_chioce'),default_code))
+    user_choice = input("%s (1,2,3,4,5,0)[%i]:" % (lang('enter_your_chioce'),default_code))
     choice = user_choice.lower()
     # Process the user's choice
     if choice == '1':
@@ -292,10 +354,13 @@ def inputAction(default_login_type,human,json_config):
         login_type="library"
 
     elif choice == '3':
+        login_type="browser_cookie"
+
+    elif choice == '4':
         human.clearCookies()
         login_type=inputAction(login_type,human,json_config)
 
-    elif choice== '4':
+    elif choice== '5':
         inputAccountSetting(json_config)
         login_type=inputAction(login_type,human,json_config)
 
@@ -330,14 +395,17 @@ def lang(key, data=None):
             return str % (data)
     return key
 def writeFile(path,content,mode="w"):
+    rel_path = os.path.relpath(path, os.getcwd())
     try:
         with open(path, mode) as file:
             file.write(content)
-            log(lang("write_file_success",path),verbose=True)
+            
+            
+            log(lang("write_file_success",rel_path),verbose=True)
 
         return True
     except Exception as exception:
-        errors(lang("could_not_write_file",path),exception,verbose=True)
+        errors(lang("could_not_write_file",rel_path),exception,verbose=True)
         return False    
 
 def writeResp(resp, page_name, index,browser_cache_dir=None):

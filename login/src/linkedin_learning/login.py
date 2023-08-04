@@ -2,12 +2,13 @@
 
 from robots import Human
 from robots.pages import unauthenticated_page,authenticated_page,login_email_page, login_passwd_page, login_pin_page, login_library_page, login_library_card_page
-from robots.fn import log, lang, waitForCaptcha, inputAction
+from robots.fn import errors,log, lang, waitForCaptcha, inputAction
 from robots.config import linkedin_learning_url
 from robots.datasource import DataSource
 from config.cli_config import cli_config, db_path, cookie_path,browser_cache_dir
 import login_individual
 import login_library
+import login_browser_cookie
 import sys
 
 # print(cookie_path)
@@ -44,8 +45,12 @@ def login():
 
         if login_type == "individual":
             already_loged_in = login_individual.login(human, db_config)
-        else:
+        elif login_type == "library":
             already_loged_in = login_library.login(human, db_config)
+        elif login_type == "browser_cookie":
+            already_loged_in = login_browser_cookie.login(human, db_config)
+        else:
+            errors(f"Invalid login type", exit_progs=True)
 
     elif human.guessPage('authenticated_page',content):
         log(lang("you_are_loged_in"),'info')
@@ -55,6 +60,7 @@ def login():
     if already_loged_in:
         log(lang('already_loged_in'))
     else:
+        errors("CANT LOGIN WITH THAT ACCOUNT OPTION")
         human.clearCookies()
         # continue_next_step=True
 
